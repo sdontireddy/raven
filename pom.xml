@@ -102,6 +102,9 @@ http://maven.apache.org/maven-v4_0_0.xsd">
 				<directory>src/main/resources</directory>
 			</resource>
 			<resource>
+				<directory>data</directory>
+			</resource>
+			<resource>
 				<directory>data/DO</directory>
 			</resource>
 		</resources>
