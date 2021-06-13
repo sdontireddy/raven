@@ -1,6 +1,6 @@
 ### Performance Scipts for UCBOS
 
-Jmeter based scripts to generate bulk of the test file to perform load testing on the UCBOS system.
+Jmeter based scripts to generate bulk of the test files to perform load testing on the UCBOS system.
 
 Currently configured to generate bulk  Distribution Orders with random number of line items and random number of order quantity.
 
@@ -21,8 +21,8 @@ Idea is to use the same script for generating different types XML's and perform 
 
 ##### Where should i keep sample files?
 
-Sample files used for generating bulk of files should be placed under **data** folder
-You can place a new sample XML file and pass the file name with **SAMPLE_FILE = newfilename.xml**
+Sample files used for generating bulk of files should be placed under **data** folder.
+You can place a new sample XML file in the **data** folder and pass the file name with **SAMPLE_FILE = newfilename.xml** as an argument to the scripts.
 
 
 ##### Where are files generated?
@@ -47,22 +47,21 @@ Maven --> pom.xml ---> LoadOrders.jmx ---> LoadOrders.java ---OrderXMLGenerator.
 
 #### Project Structures
 
-This project uses another dependency project 
+
 **performance-tests** : Maven - JMeter plugin based project , which is a glue between Jmeter scrtips and the actual code which generates the XML files.
  
  ##### Important files 
 
-**pom.xml** : Maven depenecy and default configurations
-**LoadOrders.jmx** : Jmeter configuration
-**LoadOrders.java** : Glue between Jmeter and the actual scripts that generates XML files
- **OrderXMLGenerator.java** : Script that reads the configurations and generates bulk of XML files
-**config.properties** : Lists all our preconfigured default values/ list information 
-Ex: List of items to be used while generating XML files
-
-**fieldmapping.properties** : List the fields that we wanted to be generate in each of the XML's and their corresponding XPATH
-
+1. **pom.xml** : Maven depenecy and default configurations
+2. **LoadOrders.jmx** : Jmeter configuration
+3. **LoadOrders.java** : Glue between Jmeter and the actual scripts that generates XML files
+4.  **OrderXMLGenerator.java** : Script that reads the configurations and generates bulk of XML files
+5.  **config.properties** : Lists all our preconfigured default values/ list information 
+    1. Ex: List of items to be used while generating XML files
+6. **fieldmapping.properties** : List the fields that we wanted to be generate in each of the XML's and their corresponding XPATH
 
 
-**common-utils** : Another dependent project and more of a library with common utils parse XML's , JSON etc..
+
+**[common-utils](https://github.com/sdontireddy/common-utils)** : A dependent project and more of a library with common utils parse XML's , JSON etc..
 
 
