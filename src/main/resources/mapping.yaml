@@ -1,0 +1,14 @@
+---
+xmlnodes:
+  -
+    name: DistributionOrderId
+    path: //DistributionOrderId
+    value:
+      generatedvalue: randomnumber
+      prefix: AIML1125202SET
+      suffix: MMDDYY
+  -
+    name: OrderedDttm
+    path: /tXML/Message/DistributionOrder/OrderedDttm
+    value:
+      generatedvalue: MMDDYY

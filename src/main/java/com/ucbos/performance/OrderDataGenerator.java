@@ -52,6 +52,11 @@ public class OrderDataGenerator extends OrderConstants {
 		return randomNum;
 
 	}
+	public static String getRandomNumberStr() {
+		String randomNum =ThreadLocalRandom.current().nextLong(startQtyRange, endQtyRange + 1)
+				+ ThreadLocalRandom.current().nextLong(startQtyRange, endQtyRange + 1)+"";
+		return randomNum;
+	}
 
 	public static String getNextOrderID() {
 		String randomNum =ThreadLocalRandom.current().nextLong(startQtyRange, endQtyRange + 1) + "-" + getSiteID() + "-"
@@ -72,6 +77,14 @@ public class OrderDataGenerator extends OrderConstants {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMddyy");
 
 		return "AIML1125202SET" + currentDate.format(formatter) + randomNum;
+	}
+
+	public static String getDateFormat(String dateFormat) {
+
+		LocalDate currentDate = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
+
+		return  currentDate.format(formatter) ;
 	}
 	
 	public static String getFutureDate(int numberOfDaysAhead) {

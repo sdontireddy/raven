@@ -2,17 +2,24 @@ package com.ucbos.performance;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.IntStream;
 
+import com.ucbos.performance.models.NodeValue;
+import com.ucbos.performance.models.YmlConfigModel;
+import com.ucbos.performance.models.YmlConfigReader;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.ucbos.utils.XMLUtil;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * Generates Order XML with given set of Product
@@ -26,6 +33,7 @@ public class OrderXMLGenerator extends OrderConstants {
 
 	private static Logger LOGGER = Logger.getLogger("OrderXMLGenerator.class.getName()");
 	private Properties properties;
+	private static List<YmlConfigModel> fieldsToUpdate ;
 
 	public OrderXMLGenerator() throws Exception {
 		try {
@@ -36,6 +44,13 @@ public class OrderXMLGenerator extends OrderConstants {
 		}
 	}
 
+	static {
+		try {
+			fieldsToUpdate = YmlConfigReader.readYamlConfigurationAssumingListinSameDocument();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	public void loadProperties(String path) throws IOException {
 		InputStream in = this.getClass().getResourceAsStream(path);
 		properties = new Properties();
@@ -58,8 +73,10 @@ public class OrderXMLGenerator extends OrderConstants {
 				//XMLUtil xmlUtil = XMLUtil.init(sampleFilePath);
 				InputStream stream = this.getClass().getClassLoader().getResourceAsStream(sampleFilePath);
 				XMLUtil xmlUtil = new XMLUtil(stream);
+				//TODO
+				//Document updatedDocument = fillTheMappedValues(xmlUtil.getDocument(), xmlUtil, nummberOfLineItems);
+				Document updatedDocument = fillTheMappedValuesYml(xmlUtil.getDocument(), xmlUtil, nummberOfLineItems);
 
-				Document updatedDocument = fillTheMappedValues(xmlUtil.getDocument(), xmlUtil, nummberOfLineItems);
 				System.out.println("New File Path" + newFilePath);
 				xmlUtil.createXMLFile(newFilePath, updatedDocument);
 
@@ -77,6 +94,58 @@ public class OrderXMLGenerator extends OrderConstants {
 
 		return returnFlag;
 
+	}
+	/***
+	 * YAML configuration
+	 */
+	private Document fillTheMappedValuesYml(Document document, XMLUtil xmlUtil, int numberOfChildLineItems)
+			throws Exception {
+		System.out.println("Fill the Mapped Values");
+
+		String expression = "";
+		document = updateXMLDocwithLineItemItems(document, numberOfChildLineItems);
+		Document updatedDocument = document;
+		for (int i = 1; i <= numberOfChildLineItems; i++) {
+			System.out.println("i ************" + i);
+
+			for (YmlConfigModel xmlConfigNode : fieldsToUpdate) {
+				System.out.println(xmlConfigNode);
+				//For each of the node , we will have Name , Path , Value obj
+				//First generate/calculate the with given values
+				NodeValue nodeValueToGenerate = xmlConfigNode.getValue();
+				System.out.println("Geneating value " + nodeValueToGenerate.getPrefix() +nodeValueToGenerate.getGeneratedvalue() + nodeValueToGenerate.getSuffix());
+				String value = nodeValueToGenerate.getPrefix() + generateValue(nodeValueToGenerate.getGeneratedvalue())+nodeValueToGenerate.getSuffix();
+
+				//we got the value we wanted to be updated with
+				//just update the
+				System.out.println("**********************Update" + xmlConfigNode.getPath() + "Value " + value);
+				updatedDocument = xmlUtil.updateDocument(updatedDocument, xmlConfigNode.getPath(), value);
+			}
+
+
+		}
+
+		return updatedDocument;
+
+	}
+
+	private String generateValue(String generateValuesBasedonString) {
+		String value ="0";
+		switch (generateValuesBasedonString){
+			case "randomnumber": {
+				value = OrderDataGenerator.getRandomNumberStr();
+				break;
+			}
+			case "MMDDYY": {
+				value = OrderDataGenerator.getDateFormat("MMddyy");
+				break;
+			}
+			case "MMddyy:hh:mm:ss": {
+				value = OrderDataGenerator.getDateFormat("MMddyy:hh:mm:ss");
+				break;
+			}
+		}
+		return  value;
 	}
 
 	/**
