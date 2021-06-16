@@ -1,8 +1,8 @@
 package com.ucbos.performance.generators;
 
 import com.ucbos.performance.models.NodeValue;
-import com.ucbos.performance.models.YmlConfigModel;
-import com.ucbos.performance.models.YmlConfigReader;
+import com.ucbos.performance.models.YmlNode;
+import com.ucbos.performance.config.YmlConfigReader;
 import com.ucbos.utils.DataGeneratorUtil;
 import com.ucbos.utils.XMLUtil;
 import org.w3c.dom.Document;
@@ -28,7 +28,7 @@ public class XMLDataGenerator {
 
     private static Logger LOGGER = Logger.getLogger("XMLDataGenerator.class.getName()");
 
-    private static List<YmlConfigModel> fieldsToUpdate;
+    private static List<YmlNode> fieldsToUpdate;
 
 
     static {
@@ -91,7 +91,7 @@ public class XMLDataGenerator {
         for (int i = 1; i <= numberOfChildLineItems; i++) {
             System.out.println("i ************" + i);
 
-            for (YmlConfigModel xmlConfigNode : fieldsToUpdate) {
+            for (YmlNode xmlConfigNode : fieldsToUpdate) {
                 System.out.println(xmlConfigNode);
                 //For each of the node , we will have Name , Path , Value obj
                 //First generate/calculate the with given values

@@ -1,6 +1,6 @@
 package com.ucbos.performance.models;
 
-public class YmlConfigModel{
+public class YmlNode {
 
 
 

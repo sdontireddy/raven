@@ -1,8 +1,10 @@
-package com.ucbos.performance.models;
+package com.ucbos.performance.config;
 
 import java.io.InputStream;
 import java.util.List;
 
+import com.ucbos.performance.models.YamlDocumentModel;
+import com.ucbos.performance.models.YmlNode;
 import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
@@ -18,22 +20,22 @@ public class YmlConfigReader {
         readYamlConfigurationAssumingListinSameDocument();
     }
 
-    public static List<YmlConfigModel> readYamlConfigurationAssumingListinSameDocument() throws Exception{
-        Constructor constructor = new Constructor(YamlModel.class);
-        TypeDescription configDesc = new TypeDescription(YamlModel.class);
-        configDesc.putListPropertyType("xmlnodes", YmlConfigModel.class);
+    public static List<YmlNode> readYamlConfigurationAssumingListinSameDocument() throws Exception{
+        Constructor constructor = new Constructor(YamlDocumentModel.class);
+        TypeDescription configDesc = new TypeDescription(YamlDocumentModel.class);
+        configDesc.putListPropertyType("xmlnodes", YmlNode.class);
         constructor.addTypeDescription(configDesc);
         Yaml yaml = new Yaml(constructor);
         InputStream inputStream = YmlConfigReader.class
                 .getClassLoader()
                 .getResourceAsStream("mapping.yaml");
-        YamlModel xmlNodeconfig = (YamlModel) yaml.load(inputStream);
+        YamlDocumentModel xmlNodeconfig = (YamlDocumentModel) yaml.load(inputStream);
 
         int count = 0;
-        for (YmlConfigModel object : xmlNodeconfig.getXmlnodes()) {
+        for (YmlNode object : xmlNodeconfig.getXmlnodes()) {
             count++;
             System.out.println(object);
-            assertTrue(object instanceof YmlConfigModel);
+            assertTrue(object instanceof YmlNode);
         }
 
         return xmlNodeconfig.getXmlnodes();
@@ -41,7 +43,7 @@ public class YmlConfigReader {
     }
 
     public static void readYamlConfigurationAssumingMultipleDocuments() throws Exception{
-            Yaml yaml = new Yaml(new Constructor(YmlConfigModel.class));
+            Yaml yaml = new Yaml(new Constructor(YmlNode.class));
             InputStream inputStream = YmlConfigReader.class
                     .getClassLoader()
                     .getResourceAsStream("mapping-multi-documents.yaml");
@@ -49,7 +51,7 @@ public class YmlConfigReader {
             for (Object object : yaml.loadAll(inputStream)) {
                 count++;
                 System.out.println(object);
-                assertTrue(object instanceof YmlConfigModel);
+                assertTrue(object instanceof YmlNode);
             }
 
         }
