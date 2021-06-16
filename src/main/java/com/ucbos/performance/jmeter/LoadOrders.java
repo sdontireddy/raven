@@ -1,6 +1,7 @@
-package com.ucbos.performance;
+package com.ucbos.performance.jmeter;
 
 
+import com.ucbos.performance.generators.XMLDataGenerator;
 import org.apache.jmeter.config.Arguments;
 import org.apache.jmeter.protocol.java.sampler.AbstractJavaSamplerClient;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
@@ -11,10 +12,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
@@ -96,7 +94,7 @@ public class LoadOrders extends AbstractJavaSamplerClient implements Serializabl
 		blockAllThreads();
 		LOG.info("Start Executing ?" + haveToWait);
 		try {
-			OrderXMLGenerator doXMLGenerator = new OrderXMLGenerator();
+			XMLDataGenerator doXMLGenerator = new XMLDataGenerator();
 			System.out.println("**************************************************************************************" );
 
 			LOG.warn("**************************************************************************************" );

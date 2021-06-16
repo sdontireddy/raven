@@ -41,7 +41,7 @@ to trigger the Jmeter and corresponding configured scripts automtically.
 So flow will be
 
 ```
-Maven --> pom.xml ---> LoadOrders.jmx ---> LoadOrders.java ---OrderXMLGenerator.java
+Maven --> pom.xml ---> LoadOrders.jmx ---> LoadOrders.java ---XMLDataGenerator.java
 
 ```
 
@@ -55,11 +55,65 @@ Maven --> pom.xml ---> LoadOrders.jmx ---> LoadOrders.java ---OrderXMLGenerator.
 1. **pom.xml** : Maven depenecy and default configurations
 2. **LoadOrders.jmx** : Jmeter configuration
 3. **LoadOrders.java** : Glue between Jmeter and the actual scripts that generates XML files
-4.  **OrderXMLGenerator.java** : Script that reads the configurations and generates bulk of XML files
-5.  **config.properties** : Lists all our preconfigured default values/ list information 
-    1. Ex: List of items to be used while generating XML files
-6. **fieldmapping.properties** : List the fields that we wanted to be generate in each of the XML's and their corresponding XPATH
+4.  **XMLDataGenerator.java** : Script that reads the configurations and generates bulk of XML files
+5.  **mapping.yaml** : Lists all our configurations , including the fields to be updated , corresponding XPATH and what should be the value
+    
+    Ex  : Below configuration updates  **DistributionOrderId** field at the given xpath "/DistributionOrderId" with a random string appended with given suffix and prefix
+    ```   
+    name: DistributionOrderId
+    path: //DistributionOrderId
+    value:
+      generatedvalue: randomstring
+      prefix: AIML1125202SET
+      suffix: 0615
+    ```
+##### How to Configure Mapping.yaml
 
+###### Required fields :
+name : Name of the field from XML that needs to be updated
+path : Xpath of the node to be updated
+value : Value configuration
+generatedvalue : Various preconfigured ENUMS which generates different values
+
+####### Available generatedvalue ENUMS
+
+1. randomstring 
+   
+   Random String will be generated.
+   
+    Optional "prefix" and "suffix" can be provided.
+```
+    value:
+      generatedvalue: randomstring
+      prefix: AIML1125202SET
+      suffix: 0615
+  ``` 
+2.number
+
+   Generates a radom number betwen 0 to 999 by default.
+    However optional **startrange** and **endRange** can also be provided
+```   
+    value:
+      generatedvalue: number
+      startrange: 2
+      endrange: 5
+```
+3.randomfromlist
+
+Need to provide subnode "list" with comma separated list of values
+```    
+   value:
+    generatedvalue: randomfromlist
+    list: 1234,42323,94545,57834,4534
+```
+4. date
+    Generate date in the given format
+```
+    value:
+      generatedvalue: date
+      adddays : 10 #optional  - Generates a future date with additional 10 days to the current
+      format: yyyy-MM-dd'T'HH:mm:ss.SSSZ
+```
 
 
 **[common-utils](https://github.com/sdontireddy/common-utils)** : A dependent project and more of a library with common utils parse XML's , JSON etc..

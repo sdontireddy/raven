@@ -12,6 +12,7 @@ xmlnodes:
     path: /tXML/Message/DistributionOrder/OrderedDttm
     value:
       generatedvalue: date
+      adddays : 10
       format: yyyy-MM-dd'T'HH:mm:ss.SSSZ
   -
     name: ItemName

@@ -4,35 +4,23 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.logging.Logger;
 
-import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.ucbos.performance.OrderConfigManager;
-import com.ucbos.performance.OrderXMLGenerator;
+import com.ucbos.performance.generators.XMLDataGenerator;
 
 public class BulkDOXMLGeneratorTest {
 
 	private static Logger LOGGER = Logger.getLogger("BulkDOXMLGeneratorTest.class.getName()");
-	static OrderConfigManager configProperties;
 
-	@BeforeClass
-	public static void setUp() throws Exception {
-		try {
-			//Initialize Config Properties
-		//	configProperties = new OrderConfigManager();
 
-		} catch (Exception e) {
-			LOGGER.severe("Exception reading property file " + e);
-			System.exit(0);
-		}
-	}
+
 
 	@Test
 	@Ignore
 	public void testAutoGeneratePODataFilesUsingFieldMapper() {
 		try {
-			OrderXMLGenerator doXMLGenerator = new OrderXMLGenerator();
+			XMLDataGenerator doXMLGenerator = new XMLDataGenerator();
 			System.out.println("**************************************************************************************" );
 			System.out.println("Auto generating 2 DO Files with 4 line items using Sample_DO.xml under data/DO folder" );
 			//Hey Here is my Sample XML file , Path 

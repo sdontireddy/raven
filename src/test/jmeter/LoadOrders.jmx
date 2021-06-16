@@ -99,7 +99,7 @@
 
             </collectionProp>
           </elementProp>
-          <stringProp name="classname">com.ucbos.performance.LoadOrders</stringProp>
+          <stringProp name="classname">com.ucbos.performance.jmeter.LoadOrders</stringProp>
 
           <!--  <stringProp name="classname">com.ucbos.utils.XMLUtil</stringProp> -->
         </JavaSampler>
