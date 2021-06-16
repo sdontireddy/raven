@@ -2,6 +2,7 @@ package com.ucbos.performance;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.ThreadLocalRandom;
@@ -114,12 +115,17 @@ public class OrderXMLGenerator extends OrderConstants {
 				//First generate/calculate the with given values
 				NodeValue nodeValueToGenerate = xmlConfigNode.getValue();
 				System.out.println("Geneating value " + nodeValueToGenerate.getPrefix() +nodeValueToGenerate.getGeneratedvalue() + nodeValueToGenerate.getSuffix());
-				String value = nodeValueToGenerate.getPrefix() + generateValue(nodeValueToGenerate.getGeneratedvalue())+nodeValueToGenerate.getSuffix();
+
+				String value = nodeValueToGenerate.getPrefix() + generateValue(nodeValueToGenerate) +nodeValueToGenerate.getSuffix();
 
 				//we got the value we wanted to be updated with
 				//just update the
 				System.out.println("**********************Update" + xmlConfigNode.getPath() + "Value " + value);
-				updatedDocument = xmlUtil.updateDocument(updatedDocument, xmlConfigNode.getPath(), value);
+				String xPath =  xmlConfigNode.getPath();
+				if(xPath.indexOf("$$") >-1){
+					xPath = xPath.replace("$$" , String.valueOf(i));
+				}
+				updatedDocument = xmlUtil.updateDocument(updatedDocument, xPath, value);
 			}
 
 
@@ -129,23 +135,38 @@ public class OrderXMLGenerator extends OrderConstants {
 
 	}
 
-	private String generateValue(String generateValuesBasedonString) {
-		String value ="0";
-		switch (generateValuesBasedonString){
+	private String generateValue(NodeValue nodeValueToGenerate) {
+	//private String generateValue(String generateValuesBasedonString,String format,int startRange , int endRanage) {
+		String criteria  = nodeValueToGenerate.getGeneratedvalue();
+		String format = nodeValueToGenerate.getFormat();
+		int startRange = nodeValueToGenerate.getStartrange();
+		int endRanage = nodeValueToGenerate.getEndrange();
+
+		String returnGeneratedStr ="0";
+		switch (criteria){
 			case "randomnumber": {
-				value = OrderDataGenerator.getRandomNumberStr();
+				returnGeneratedStr = String.valueOf(OrderDataGenerator.getRandomNumberNumber(1000,9999));
 				break;
 			}
-			case "MMDDYY": {
-				value = OrderDataGenerator.getDateFormat("MMddyy");
+			case "randomstring": {
+				returnGeneratedStr = OrderDataGenerator.generateRandomString();
 				break;
 			}
-			case "MMddyy:hh:mm:ss": {
-				value = OrderDataGenerator.getDateFormat("MMddyy:hh:mm:ss");
+			case "number": {
+				returnGeneratedStr = String.valueOf(OrderDataGenerator.getRandomNumberNumber(startRange,endRanage));
+				break;
+			}
+			case "date": {
+				returnGeneratedStr = OrderDataGenerator.getDateFormat(format);
+				break;
+			}
+
+			case "randomfromlist": {
+				 returnGeneratedStr = OrderDataGenerator.getRandomItemNumberFromtheList(Arrays.asList(nodeValueToGenerate.getList().split(",", -1)));
 				break;
 			}
 		}
-		return  value;
+		return  returnGeneratedStr;
 	}
 
 	/**

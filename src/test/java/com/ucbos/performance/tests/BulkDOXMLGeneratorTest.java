@@ -29,7 +29,7 @@ public class BulkDOXMLGeneratorTest {
 	}
 
 	@Test
-
+	@Ignore
 	public void testAutoGeneratePODataFilesUsingFieldMapper() {
 		try {
 			OrderXMLGenerator doXMLGenerator = new OrderXMLGenerator();
