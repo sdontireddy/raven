@@ -16,7 +16,7 @@ http://maven.apache.org/maven-v4_0_0.xsd">
 		<NUMBER_OF_THREADS>1</NUMBER_OF_THREADS>
 		<NUMBER_OF_ORDERS>3</NUMBER_OF_ORDERS>
 		<NUMBER_OF_LINEITEMS>4</NUMBER_OF_LINEITEMS>
-		<SAMPLE_FILE>Sample_DO.xml</SAMPLE_FILE>
+		<MAPPING_FILE>mapping.yaml</MAPPING_FILE>
 	</properties>
 
 	<dependencies>
@@ -189,7 +189,7 @@ http://maven.apache.org/maven-v4_0_0.xsd">
 							<log_level.jmeter>WARN</log_level.jmeter>
 							<NUMBER_OF_ORDERS>${NUMBER_OF_ORDERS}</NUMBER_OF_ORDERS>
 							<NUMBER_OF_THREADS>${NUMBER_OF_THREADS}</NUMBER_OF_THREADS>
-							<SAMPLE_FILE>${SAMPLE_FILE}</SAMPLE_FILE>
+							<MAPPING_FILE>${MAPPING_FILE}</MAPPING_FILE>
 							<NUMBER_OF_LINEITEMS>${NUMBER_OF_LINEITEMS}</NUMBER_OF_LINEITEMS>
 						</propertiesUser>
 					</configuration>

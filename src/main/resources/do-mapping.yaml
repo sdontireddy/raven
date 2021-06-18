@@ -1,9 +1,9 @@
 ---
 bulkloadconfig:
-  samplefile : Sample_DO.xml
-  numberoffiles: 5
+  samplefile : DO_sample_under_resource.xml
+  numberoffiles: 100
   childnode: LineItem
-  numberofchildnodes: 3
+  numberofchildnodes: 5
   resultsfolderwithpath: "../../../results//"
 xmlnodes:
   -
@@ -12,7 +12,7 @@ xmlnodes:
     value:
       generatedvalue: randomstring
       prefix: SD
-      suffix: 0617
+      suffix: 061721
   -
     name: OrderedDttm
     path: /tXML/Message/DistributionOrder/OrderedDttm

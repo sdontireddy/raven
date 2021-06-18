@@ -1,8 +1,8 @@
 package com.ucbos.performance.generators;
 
+import com.ucbos.performance.config.YmlConfigReader;
 import com.ucbos.performance.models.NodeValue;
 import com.ucbos.performance.models.YmlNode;
-import com.ucbos.performance.config.YmlConfigReader;
 import com.ucbos.utils.DataGeneratorUtil;
 import com.ucbos.utils.XMLUtil;
 import org.w3c.dom.Document;
@@ -12,13 +12,12 @@ import org.w3c.dom.NodeList;
 
 import java.io.InputStream;
 import java.util.Arrays;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.IntStream;
 
 /**
- * Generates Order XML with given set of Product
+ * Generates bulk of data files with given set of configurations defined in the mapping.yaml
  * <p>
  * Use init method to pass required Products information to be use
  *
@@ -28,35 +27,21 @@ public class XMLDataGenerator {
 
     private static Logger LOGGER = Logger.getLogger("XMLDataGenerator.class.getName()");
 
-    private static List<YmlNode> fieldsToUpdate;
 
-
-    static {
-        try {
-            fieldsToUpdate = YmlConfigReader.readYamlConfigurationAssumingListinSameDocument();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    public boolean autoGenerateOrderDataFiles(String path, String fileName, int numberFilestoCreate,
-                                              int nummberOfLineItems) throws Exception {
+    public boolean generateOrderDataFiles() throws Exception {
         boolean returnFlag = false;
-        String sampleFilePath = path + fileName;
+        String sampleFileName = YmlConfigReader.getBulkLoadConfig().getSamplefile();
+        int nummberOfLineItems = YmlConfigReader.getBulkLoadConfig().getNumberofchildnodes();
 
-        LOGGER.log(Level.INFO, "--------------Started----------------" + sampleFilePath);
-        System.out.println("sampleFilePath" + sampleFilePath);
+        LOGGER.log(Level.INFO, "--------------Started----------------" + sampleFileName);
+        System.out.println("sampleFilePath" + sampleFileName);
         long tStart = System.currentTimeMillis();
-        IntStream.range(0, numberFilestoCreate).forEach(counter -> {
+        IntStream.range(0, YmlConfigReader.getBulkLoadConfig().getNumberoffiles()).forEach(counter -> {
             try {
-                String newFilePath = "../results//" + (counter + 1) + fileName;
+                String newFilePath = YmlConfigReader.getBulkLoadConfig().getResultsfolderwithpath() + (counter + 1) + sampleFileName;
 
-                //XMLUtil xmlUtil = XMLUtil.init(sampleFilePath);
-                InputStream stream = this.getClass().getClassLoader().getResourceAsStream(sampleFilePath);
+                InputStream stream = this.getClass().getClassLoader().getResourceAsStream(sampleFileName);
                 XMLUtil xmlUtil = new XMLUtil(stream);
-                //TODO
-                //Document updatedDocument = fillTheMappedValues(xmlUtil.getDocument(), xmlUtil, nummberOfLineItems);
                 Document updatedDocument = fillTheMappedValuesYml(xmlUtil.getDocument(), xmlUtil, nummberOfLineItems);
 
                 System.out.println("New File Path" + newFilePath);
@@ -78,6 +63,7 @@ public class XMLDataGenerator {
 
     }
 
+
     /***
      * Based on the YAML configuration , given xpaths will be updated with the configured values
      */
@@ -86,12 +72,13 @@ public class XMLDataGenerator {
         System.out.println("Fill the Mapped Values");
 
         String expression = "";
-        document = updateXMLDocwithLineItemItems(document, numberOfChildLineItems);
+
+        document = updateXMLDocwithGivenChildItems(document, "LineItem", numberOfChildLineItems);
         Document updatedDocument = document;
         for (int i = 1; i <= numberOfChildLineItems; i++) {
             System.out.println("i ************" + i);
 
-            for (YmlNode xmlConfigNode : fieldsToUpdate) {
+            for (YmlNode xmlConfigNode : YmlConfigReader.getXmlNodesToUpdate()) {
                 System.out.println(xmlConfigNode);
                 //For each of the node , we will have Name , Path , Value obj
                 //First generate/calculate the with given values
@@ -173,6 +160,23 @@ public class XMLDataGenerator {
             newOrderItem = (Element) orderItemElement.cloneNode(true);
 
             distributionOrder.appendChild(newOrderItem);
+        }
+
+        return rootDocument;
+    }
+
+
+    private Document updateXMLDocwithGivenChildItems(Document rootDocument, String nameOftheChildItem, int numberOfItems) {
+
+        NodeList lineItemListElement = rootDocument.getElementsByTagName(nameOftheChildItem);
+        Node parentNode = lineItemListElement.item(0).getParentNode();
+        //Node distributionOrder = rootDocument.getElementsByTagName("DistributionOrder").item(0);
+        Element newOrderItem = null;
+        for (int i = 1; i < numberOfItems; i++) {
+            Element orderItemElement = (Element) lineItemListElement.item(0);
+            //Just append the Lineitems
+            newOrderItem = (Element) orderItemElement.cloneNode(true);
+            parentNode.appendChild(newOrderItem);
         }
 
         return rootDocument;

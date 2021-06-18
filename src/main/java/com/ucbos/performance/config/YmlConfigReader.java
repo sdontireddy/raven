@@ -3,6 +3,7 @@ package com.ucbos.performance.config;
 import java.io.InputStream;
 import java.util.List;
 
+import com.ucbos.performance.models.BulkLoadConfig;
 import com.ucbos.performance.models.YamlDocumentModel;
 import com.ucbos.performance.models.YmlNode;
 import org.yaml.snakeyaml.TypeDescription;
@@ -15,12 +16,15 @@ import static org.junit.Assert.assertTrue;
 
 
 public class YmlConfigReader {
+    private static List<YmlNode> xmlNodesToUpdate;
+    private static BulkLoadConfig bulkLoadConfig;
 
     public static void main(String[] args) throws Exception {
-        readYamlConfigurationAssumingListinSameDocument();
+        readYamlConfigurationAssumingListinSameDocument("mapping.yaml");
     }
 
-    public static List<YmlNode> readYamlConfigurationAssumingListinSameDocument() throws Exception{
+    public static List<YmlNode> readYamlConfigurationAssumingListinSameDocument(String mappingFile) throws Exception{
+        System.out.println("Loading Mapping file configured " + mappingFile);
         Constructor constructor = new Constructor(YamlDocumentModel.class);
         TypeDescription configDesc = new TypeDescription(YamlDocumentModel.class);
         configDesc.putListPropertyType("xmlnodes", YmlNode.class);
@@ -28,15 +32,18 @@ public class YmlConfigReader {
         Yaml yaml = new Yaml(constructor);
         InputStream inputStream = YmlConfigReader.class
                 .getClassLoader()
-                .getResourceAsStream("mapping.yaml");
+                .getResourceAsStream(mappingFile);
         YamlDocumentModel xmlNodeconfig = (YamlDocumentModel) yaml.load(inputStream);
-
+        System.out.println("Begin generating data files using below Configurations");
+        System.out.println(bulkLoadConfig);
         int count = 0;
         for (YmlNode object : xmlNodeconfig.getXmlnodes()) {
             count++;
             System.out.println(object);
             assertTrue(object instanceof YmlNode);
         }
+        xmlNodesToUpdate = xmlNodeconfig.getXmlnodes();
+        bulkLoadConfig = xmlNodeconfig.getBulkloadconfig();
 
         return xmlNodeconfig.getXmlnodes();
 
@@ -46,7 +53,7 @@ public class YmlConfigReader {
             Yaml yaml = new Yaml(new Constructor(YmlNode.class));
             InputStream inputStream = YmlConfigReader.class
                     .getClassLoader()
-                    .getResourceAsStream("mapping-multi-documents.yaml");
+                    .getResourceAsStream("mapping-multi-documents_tobe_deleted.yaml");
             int count = 0;
             for (Object object : yaml.loadAll(inputStream)) {
                 count++;
@@ -55,7 +62,23 @@ public class YmlConfigReader {
             }
 
         }
+
+    public static List<YmlNode> getXmlNodesToUpdate() {
+        return xmlNodesToUpdate;
     }
+
+    public static void setXmlNodesToUpdate(List<YmlNode> xmlNodesToUpdate) {
+        YmlConfigReader.xmlNodesToUpdate = xmlNodesToUpdate;
+    }
+
+    public static BulkLoadConfig getBulkLoadConfig() {
+        return bulkLoadConfig;
+    }
+
+    public static void setBulkLoadConfig(BulkLoadConfig bulkLoadConfig) {
+        YmlConfigReader.bulkLoadConfig = bulkLoadConfig;
+    }
+}
 
 
 
