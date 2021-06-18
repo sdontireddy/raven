@@ -1,6 +1,10 @@
 package com.ucbos.performance;
 
+import org.apache.commons.lang.RandomStringUtils;
+
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
@@ -26,7 +30,13 @@ public class OrderDataGenerator extends OrderConstants {
 		long randomNum = ThreadLocalRandom.current().nextLong(startItemRange, endItemRange + 1);
 		return randomNum;
 	}
-	
+
+	public static String generateRandomString() {
+		return RandomStringUtils.randomAlphanumeric(5);
+
+
+	}
+
 	public static String getItemIDFromPreConfiguredList() {
 		String randomNum = getRandomItemNumberFromtheList(Arrays.asList(itemsList.split(",",-1)));
 		return randomNum;
@@ -52,6 +62,11 @@ public class OrderDataGenerator extends OrderConstants {
 		return randomNum;
 
 	}
+	public static long getRandomNumberNumber(int startRanage , int endRange) {
+		long randomNum =ThreadLocalRandom.current().nextLong(startRanage, endRange + 1);
+
+		return randomNum;
+	}
 
 	public static String getNextOrderID() {
 		String randomNum =ThreadLocalRandom.current().nextLong(startQtyRange, endQtyRange + 1) + "-" + getSiteID() + "-"
@@ -72,6 +87,14 @@ public class OrderDataGenerator extends OrderConstants {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMddyy");
 
 		return "AIML1125202SET" + currentDate.format(formatter) + randomNum;
+	}
+
+	public static String getDateFormat(String dateFormat) {
+
+		ZonedDateTime currentDate = ZonedDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(dateFormat);
+
+		return  currentDate.format(formatter) ;
 	}
 	
 	public static String getFutureDate(int numberOfDaysAhead) {

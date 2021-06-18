@@ -1,0 +1,21 @@
+---
+        name: DistributionOrderId
+        path: //DistributionOrderId
+        value:
+                prefix: AIML1125202SET
+                suffix: MMDDYY
+                generatedvalue: randomnumber
+---
+        name: DistributionOrderId2
+        path: //DistributionOrderId
+        value:
+                prefix: AIML1125202SET
+                suffix: MMDDYY
+                generatedvalue: randomnumber
+---
+name: DistributionOrderId3
+path: //DistributionOrderId/22222
+value:
+        prefix: AIML1125202SET/222223
+        suffix: MMDDYY/2323
+        generatedvalue: randomnumber/2323

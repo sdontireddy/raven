@@ -1,5 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ucbos.tests.performance</groupId>
@@ -43,7 +43,7 @@ http://maven.apache.org/maven-v4_0_0.xsd">
 			<version>2.5</version>
 		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.apache.jmeter/ApacheJMeter_parent -->
+		
 		<dependency>
 			<groupId>org.apache.jmeter</groupId>
 			<artifactId>ApacheJMeter_tcp</artifactId>
@@ -55,176 +55,200 @@ http://maven.apache.org/maven-v4_0_0.xsd">
 			<version>5.1.1</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-yaml -->
+<dependency>
+    <groupId>com.fasterxml.jackson.dataformat</groupId>
+    <artifactId>jackson-dataformat-yaml</artifactId>
+    <version>2.12.3</version>
+</dependency>
 
-
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.12.3</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.12.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.12.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.yaml</groupId>
+			<artifactId>snakeyaml</artifactId>
+			<version>1.29</version>
+		</dependency>
 	</dependencies>
-	<profiles>
-		<profile>
-			<id>qc</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<build>
-				<resources>
-					<resource>
-						<directory>src/main/resources/qc</directory>
-					</resource>
-				</resources>
-			</build>
-		</profile>
-		<profile>
-			<id>dev</id>
-			<build>
-				<resources>
-					<resource>
-						<directory>src/main/resources/dev</directory>
-					</resource>
-				</resources>
-			</build>
-		</profile>
-		<profile>
-			<id>prod</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-			<build>
-				<resources>
-					<resource>
-						<directory>src/main/resources/prod</directory>
-					</resource>
-				</resources>
-			</build>
-		</profile>
-	</profiles>
-	<build>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-			</resource>
-			<resource>
-				<directory>data</directory>
-			</resource>
-			<resource>
-				<directory>data/DO</directory>
-			</resource>
-		</resources>
-		<plugins>
+		<profiles>
+			<profile>
+				<id>qc</id>
+				<activation>
+					<activeByDefault>true</activeByDefault>
+				</activation>
+				<build>
+					<resources>
+						<resource>
+							<directory>src/main/resources/qc</directory>
+						</resource>
+					</resources>
+				</build>
+			</profile>
+			<profile>
+				<id>dev</id>
+				<build>
+					<resources>
+						<resource>
+							<directory>src/main/resources/dev</directory>
+						</resource>
+					</resources>
+				</build>
+			</profile>
+			<profile>
+				<id>prod</id>
+				<activation>
+					<activeByDefault>false</activeByDefault>
+				</activation>
+				<build>
+					<resources>
+						<resource>
+							<directory>src/main/resources/prod</directory>
+						</resource>
+					</resources>
+				</build>
+			</profile>
+		</profiles>
+		<build>
+			<resources>
+				<resource>
+					<directory>src/main/resources</directory>
+				</resource>
+				<resource>
+					<directory>data</directory>
+				</resource>
+				<resource>
+					<directory>data/DO</directory>
+				</resource>
+			</resources>
+			<plugins>
 
-			<plugin>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>copy-dependencies</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>copy-dependencies</goal>
-						</goals>
-						<configuration>
-							<excludeGroupIds>org.codehaus.groovy,org.apache.logging.log4j</excludeGroupIds>
-							<outputDirectory>target/jmeter/lib/ext</outputDirectory>
-							<overWriteReleases>false</overWriteReleases>
-							<overWriteSnapshots>false</overWriteSnapshots>
-							<overWriteIfNewer>true</overWriteIfNewer>
-						</configuration>
-					</execution>
-					<execution>
-						<id>install-jar</id>
-						<phase>package</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>com.ucbos.tests.performance</groupId>
-									<artifactId>performance-tests</artifactId>
-									<version>1.0-SNAPSHOT</version>
-								</artifactItem>
-								<artifactItem>
+				<plugin>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>copy-dependencies</id>
+							<phase>prepare-package</phase>
+							<goals>
+								<goal>copy-dependencies</goal>
+							</goals>
+							<configuration>
+								<excludeGroupIds>org.codehaus.groovy,org.apache.logging.log4j</excludeGroupIds>
+								<outputDirectory>target/jmeter/lib/ext</outputDirectory>
+								<overWriteReleases>false</overWriteReleases>
+								<overWriteSnapshots>false</overWriteSnapshots>
+								<overWriteIfNewer>true</overWriteIfNewer>
+							</configuration>
+						</execution>
+						<execution>
+							<id>install-jar</id>
+							<phase>package</phase>
+							<goals>
+								<goal>copy</goal>
+							</goals>
+							<configuration>
+								<artifactItems>
+									<artifactItem>
+										<groupId>com.ucbos.tests.performance</groupId>
+										<artifactId>performance-tests</artifactId>
+										<version>1.0-SNAPSHOT</version>
+									</artifactItem>
+									<artifactItem>
 
 										<groupId>com.ucbos.utils</groupId>
 										<artifactId>common-utils</artifactId>
 										<version>1.0-SNAPSHOT</version>
 
-								</artifactItem>
+									</artifactItem>
 
-							</artifactItems>
-							<outputDirectory>target/jmeter/lib/ext</outputDirectory>
-							<stripVersion>true</stripVersion>
-						</configuration>
-					</execution>
+								</artifactItems>
+								<outputDirectory>target/jmeter/lib/ext</outputDirectory>
+								<stripVersion>true</stripVersion>
+							</configuration>
+						</execution>
 
-				</executions>
-			</plugin>
+					</executions>
+				</plugin>
 
-			<plugin>
-				<groupId>com.lazerycode.jmeter</groupId>
-				<artifactId>jmeter-maven-plugin</artifactId>
-				<version>2.7.0</version>
-				<executions>
-					<execution>
-						<id>jmeter-tests</id>
-						<goals>
-							<!-- <goal>configure</goal> -->
-							<goal>jmeter</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<jMeterProcessJVMSettings>
-						<xms>8192</xms>
-						<xmx>8192</xmx>
-						<arguments>
-							<argument>-Xprof</argument>
-							<argument>-Xfuture</argument>
-						</arguments>
-					</jMeterProcessJVMSettings>
-					<overrideRootLogLevel>WARN</overrideRootLogLevel>
+				<plugin>
+					<groupId>com.lazerycode.jmeter</groupId>
+					<artifactId>jmeter-maven-plugin</artifactId>
+					<version>2.7.0</version>
+					<executions>
+						<execution>
+							<id>jmeter-tests</id>
+							<goals>
+								<goal>jmeter</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<jMeterProcessJVMSettings>
+							<xms>8192</xms>
+							<xmx>8192</xmx>
+							<arguments>
+								<argument>-Xprof</argument>
+								<argument>-Xfuture</argument>
+							</arguments>
+						</jMeterProcessJVMSettings>
+						<overrideRootLogLevel>WARN</overrideRootLogLevel>
 
-					<propertiesSystem>
-						<meterengine.stopfail.system.exit>true</meterengine.stopfail.system.exit>
-					</propertiesSystem>
-					<propertiesUser>
-						<log_level.jmeter>WARN</log_level.jmeter>
-						<NUMBER_OF_ORDERS>${NUMBER_OF_ORDERS}</NUMBER_OF_ORDERS>
-						<NUMBER_OF_THREADS>${NUMBER_OF_THREADS}</NUMBER_OF_THREADS>
-						<SAMPLE_FILE>${SAMPLE_FILE}</SAMPLE_FILE>
-						<NUMBER_OF_LINEITEMS>${NUMBER_OF_LINEITEMS}</NUMBER_OF_LINEITEMS>
-					</propertiesUser>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.0.2</version>
-			</plugin>
-			<plugin>
-
-				<groupId>de.codecentric</groupId>
-				<artifactId>jmeter-graph-maven-plugin</artifactId>
-				<version>0.1.0</version>
-				<configuration>
-					<inputFile>${project.build.directory}/jmeter/results/20170319-BlazeDemo
+						<propertiesSystem>
+							<meterengine.stopfail.system.exit>true</meterengine.stopfail.system.exit>
+						</propertiesSystem>
+						<propertiesUser>
+							<log_level.jmeter>WARN</log_level.jmeter>
+							<NUMBER_OF_ORDERS>${NUMBER_OF_ORDERS}</NUMBER_OF_ORDERS>
+							<NUMBER_OF_THREADS>${NUMBER_OF_THREADS}</NUMBER_OF_THREADS>
+							<SAMPLE_FILE>${SAMPLE_FILE}</SAMPLE_FILE>
+							<NUMBER_OF_LINEITEMS>${NUMBER_OF_LINEITEMS}</NUMBER_OF_LINEITEMS>
+						</propertiesUser>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>1.8</source>
+						<target>1.8</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>3.0.2</version>
+				</plugin>
+				<plugin>
+					<groupId>de.codecentric</groupId>
+					<artifactId>jmeter-graph-maven-plugin</artifactId>
+					<version>0.1.0</version>
+					<configuration>
+						<inputFile>${project.build.directory}/jmeter/results/20170319-BlazeDemo
 						Home Page.jtl</inputFile>
-					<graphs>
-						<graph>
-							<pluginType>ResponseTimesOverTime</pluginType>
-							<width>800</width>
-							<height>600</height>
-							<outputFile>${project.build.directory}/jmeter/results/BlazeDemo
+						<graphs>
+							<graph>
+								<pluginType>ResponseTimesOverTime</pluginType>
+								<width>800</width>
+								<height>600</height>
+								<outputFile>${project.build.directory}/jmeter/results/BlazeDemo
 								Request.png</outputFile>
-						</graph>
-					</graphs>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-</project>
+							</graph>
+						</graphs>
+					</configuration>
+				</plugin>
+			</plugins>
+		</build>
+	</project>

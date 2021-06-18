@@ -1,0 +1,27 @@
+---
+xmlnodes:
+  -
+    name: DistributionOrderId
+    path: //DistributionOrderId
+    value:
+      generatedvalue: randomstring
+      prefix: AIML1125202SET
+      suffix: 0615
+  -
+    name: OrderedDttm
+    path: /tXML/Message/DistributionOrder/OrderedDttm
+    value:
+      generatedvalue: date
+      format: yyyy-MM-dd'T'HH:mm:ss.SSSZ
+  -
+    name: ItemName
+    path: /tXML/Message/DistributionOrder/LineItem[$$]/ItemName
+    value:
+      generatedvalue: randomfromlist
+      list: 1234,42323,94545,57834,4534
+  - name: OrderQty
+    path: /tXML/Message/DistributionOrder/LineItem[$$]/Quantity/OrderQty
+    value:
+      generatedvalue: number
+      startrange: 2
+      endrange: 5
