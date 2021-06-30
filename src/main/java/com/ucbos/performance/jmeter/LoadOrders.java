@@ -1,20 +1,20 @@
-package com.ucbos.performance;
+package com.ucbos.performance.jmeter;
 
 
+import com.ucbos.performance.config.YmlConfigReader;
+import com.ucbos.performance.generators.XMLDataGenerator;
 import org.apache.jmeter.config.Arguments;
 import org.apache.jmeter.protocol.java.sampler.AbstractJavaSamplerClient;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
 import org.apache.log4j.Logger;
+import org.apache.logging.log4j.core.config.yaml.YamlConfiguration;
 
 import java.io.File;
 import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 import static org.junit.Assert.assertTrue;
 
@@ -35,6 +35,7 @@ public class LoadOrders extends AbstractJavaSamplerClient implements Serializabl
 
 	private static DateFormat df = new SimpleDateFormat("dd:MM:yy:HH:mm:ss");
 
+
 	@Override
 	public void setupTest(JavaSamplerContext context) {
 
@@ -51,7 +52,8 @@ public class LoadOrders extends AbstractJavaSamplerClient implements Serializabl
 				LOG.warn("Initializing  LoadThread  " + Thread.currentThread().getName() + "time : "
 						+ df.format(new Date()));
 				numberOfOrders = Integer.parseInt(context.getParameter(NUMBER_OF_ORDERS));
-
+				YmlConfigReader.readYamlConfigurationAssumingListinSameDocument(context.getParameter("MAPPING_FILE") );
+				System.out.println("****************************Auto generating "+context.getParameter(NUMBER_OF_ORDERS)+" DO Files with "+context.getParameter(NUMBER_OF_LINEITEMS)+" line items using" +context.getParameter("MAPPING_FILE") +" under data/DO folder" );
 				
 				haveToWait = false;
 			} catch (Exception e) {
@@ -96,16 +98,16 @@ public class LoadOrders extends AbstractJavaSamplerClient implements Serializabl
 		blockAllThreads();
 		LOG.info("Start Executing ?" + haveToWait);
 		try {
-			OrderXMLGenerator doXMLGenerator = new OrderXMLGenerator();
+			XMLDataGenerator doXMLGenerator = new XMLDataGenerator();
 			System.out.println("**************************************************************************************" );
 
 			LOG.warn("**************************************************************************************" );
-			System.out.println("Auto generating "+context.getParameter(NUMBER_OF_ORDERS)+" DO Files with "+context.getParameter(NUMBER_OF_LINEITEMS)+" line items using" +context.getParameter("SAMPLE_FILE") +" under data/DO folder" );
-			LOG.warn("Auto generating "+context.getParameter(NUMBER_OF_ORDERS)+" DO Files with "+context.getParameter(NUMBER_OF_LINEITEMS)+" line items using" +context.getParameter("SAMPLE_FILE") +" under data/DO folder" );
+			System.out.println("Auto generating "+context.getParameter(NUMBER_OF_ORDERS)+" DO Files with "+context.getParameter(NUMBER_OF_LINEITEMS)+" line items using" +context.getParameter("MAPPING_FILE") +" under data/DO folder" );
+			LOG.warn("Auto generating "+context.getParameter(NUMBER_OF_ORDERS)+" DO Files with "+context.getParameter(NUMBER_OF_LINEITEMS)+" line items using" +context.getParameter("MAPPING_FILE") +" under data/DO folder" );
 			//Hey Here is my Sample XML file , Path
 			//Generate 2 XML files in the same location and each file to have 4 LineItems
-			boolean isFileGenerated = doXMLGenerator.autoGenerateOrderDataFiles("", context.getParameter("SAMPLE_FILE"),Integer.parseInt(context.getParameter(NUMBER_OF_ORDERS)),Integer.parseInt(context.getParameter(NUMBER_OF_LINEITEMS)));
-			System.out.println("Auto generating Data Files are under" + "../data//DO/");
+			//boolean isFileGenerated = doXMLGenerator.autoGenerateOrderDataFiles("", context.getParameter("MAPPING_FILE"),Integer.parseInt(context.getParameter(NUMBER_OF_ORDERS)),Integer.parseInt(context.getParameter(NUMBER_OF_LINEITEMS)));
+			boolean  isFileGenerated = doXMLGenerator.generateOrderDataFiles();
 			assertTrue(isFileGenerated);
 
 		} catch (Exception e) {

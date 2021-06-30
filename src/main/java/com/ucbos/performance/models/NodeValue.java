@@ -1,6 +1,6 @@
 package com.ucbos.performance.models;
 
-import com.sun.xml.fastinfoset.stax.events.Util;
+
 
 public class NodeValue {
 
@@ -10,10 +10,11 @@ public class NodeValue {
     private String format;
     private int startrange;
     private int endrange;
+    private int adddays;
 
 
     public String getList() {
-        if(Util.isEmptyString(list)) return  "" ;
+        if(list==null) return  "" ;
         return list;
     }
 
@@ -62,5 +63,13 @@ public class NodeValue {
 
     public void setStartrange(int startrange) {
         this.startrange = startrange;
+    }
+
+    public int getAdddays() {
+        return adddays;
+    }
+
+    public void setAdddays(int adddays) {
+        this.adddays = adddays;
     }
 }

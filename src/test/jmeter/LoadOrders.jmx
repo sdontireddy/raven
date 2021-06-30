@@ -90,16 +90,16 @@
                                            <stringProp name="Argument.value">${__P(NUMBER_OF_LINEITEMS,1)}</stringProp>
                                            <stringProp name="Argument.metadata">=</stringProp>
                                          </elementProp>
-                <elementProp name="SAMPLE_FILE" elementType="Argument">
-                                                          <stringProp name="Argument.name">SAMPLE_FILE</stringProp>
-                                                          <stringProp name="Argument.value">${__P(SAMPLE_FILE,"Sample_DO.XML")}</stringProp>
+                <elementProp name="MAPPING_FILE" elementType="Argument">
+                                                          <stringProp name="Argument.name">MAPPING_FILE</stringProp>
+                                                          <stringProp name="Argument.value">${__P(MAPPING_FILE,mapping.yaml)}</stringProp>
                                                           <stringProp name="Argument.metadata">=</stringProp>
                                                         </elementProp>
 
 
             </collectionProp>
           </elementProp>
-          <stringProp name="classname">com.ucbos.performance.LoadOrders</stringProp>
+          <stringProp name="classname">com.ucbos.performance.jmeter.LoadOrders</stringProp>
 
           <!--  <stringProp name="classname">com.ucbos.utils.XMLUtil</stringProp> -->
         </JavaSampler>
