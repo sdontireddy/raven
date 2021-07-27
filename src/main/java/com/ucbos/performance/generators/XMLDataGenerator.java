@@ -1,20 +1,24 @@
 package com.ucbos.performance.generators;
 
-import com.ucbos.performance.config.YmlConfigReader;
-import com.ucbos.performance.models.NodeValue;
-import com.ucbos.performance.models.YmlNode;
-import com.ucbos.utils.DataGeneratorUtil;
-import com.ucbos.utils.XMLUtil;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.IntStream;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import java.io.InputStream;
-import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.stream.IntStream;
+import com.ucbos.performance.config.YmlConfigReader;
+import com.ucbos.performance.jmeter.LoadTestConstants;
+import com.ucbos.performance.models.NodeValue;
+import com.ucbos.performance.models.YmlNode;
+import com.ucbos.utils.DataGeneratorUtil;
+import com.ucbos.utils.XMLUtil;
 
 /**
  * Generates bulk of data files with given set of configurations defined in the mapping.yaml
@@ -27,22 +31,24 @@ public class XMLDataGenerator {
 
     private static Logger LOGGER = Logger.getLogger("XMLDataGenerator.class.getName()");
 
-
     public boolean generateOrderDataFiles() throws Exception {
         boolean returnFlag = false;
         String sampleFileName = YmlConfigReader.getBulkLoadConfig().getSamplefile();
         int nummberOfLineItems = YmlConfigReader.getBulkLoadConfig().getNumberofchildnodes();
+        int nummberOfSubLineItems = YmlConfigReader.getBulkLoadConfig().getNumberofsubchildnodes();
 
         LOGGER.log(Level.INFO, "--------------Started----------------" + sampleFileName);
         System.out.println("sampleFilePath" + sampleFileName);
         long tStart = System.currentTimeMillis();
         IntStream.range(0, YmlConfigReader.getBulkLoadConfig().getNumberoffiles()).forEach(counter -> {
             try {
-                String newFilePath = YmlConfigReader.getBulkLoadConfig().getResultsfolderwithpath() + (counter + 1) + sampleFileName;
-
+                String newFilePath =
+                    YmlConfigReader.getBulkLoadConfig().getResultsfolderwithpath() + (counter + 1) + sampleFileName;
+                System.out.println("New File Path" + newFilePath);
                 InputStream stream = this.getClass().getClassLoader().getResourceAsStream(sampleFileName);
                 XMLUtil xmlUtil = new XMLUtil(stream);
-                Document updatedDocument = fillTheMappedValuesYml(xmlUtil.getDocument(), xmlUtil, nummberOfLineItems);
+                Document updatedDocument = fillTheMappedValuesYml(xmlUtil.getDocument(), xmlUtil, nummberOfLineItems,
+                    nummberOfSubLineItems);
 
                 System.out.println("New File Path" + newFilePath);
                 xmlUtil.createXMLFile(newFilePath, updatedDocument);
@@ -63,40 +69,58 @@ public class XMLDataGenerator {
 
     }
 
-
     /***
      * Based on the YAML configuration , given xpaths will be updated with the configured values
      */
-    private Document fillTheMappedValuesYml(Document document, XMLUtil xmlUtil, int numberOfChildLineItems)
-            throws Exception {
+    private Document fillTheMappedValuesYml(Document document, XMLUtil xmlUtil, int numberOfChildLineItems,
+        int numberOfSubLineItems)
+        throws Exception {
         System.out.println("Fill the Mapped Values");
 
-        String expression = "";
+        String value = "";
+        int numberofmainnodes = YmlConfigReader.getBulkLoadConfig().getNumberofmainnodes();
 
-        document = updateXMLDocwithGivenChildItems(document, "LineItem", numberOfChildLineItems);
+        List<String> childNodeList = Arrays.asList(YmlConfigReader.getBulkLoadConfig().getChildnode().split(","));
+
+        for (String childNode : childNodeList) {
+
+            document = updateXMLDocwithGivenChildItems(document, childNode, numberOfChildLineItems);
+
+        }
         Document updatedDocument = document;
-        for (int i = 1; i <= numberOfChildLineItems; i++) {
+        for (int i = 1; i <= (numberOfChildLineItems + numberofmainnodes); i++) {
             System.out.println("i ************" + i);
 
             for (YmlNode xmlConfigNode : YmlConfigReader.getXmlNodesToUpdate()) {
                 System.out.println(xmlConfigNode);
-                //For each of the node , we will have Name , Path , Value obj
-                //First generate/calculate the with given values
+                // For each of the node , we will have Name , Path , Value obj
+                // First generate/calculate the with given values
                 NodeValue nodeValueToGenerate = xmlConfigNode.getValue();
-                System.out.println("Geneating value " + nodeValueToGenerate.getPrefix() + nodeValueToGenerate.getGeneratedvalue() + nodeValueToGenerate.getSuffix());
+                System.out.println("Geneating value " + nodeValueToGenerate.getPrefix()
+                    + nodeValueToGenerate.getValuetype() + nodeValueToGenerate.getSuffix());
 
-                String value = nodeValueToGenerate.getPrefix() + generateValue(nodeValueToGenerate) + nodeValueToGenerate.getSuffix();
+                numberOfSubLineItems =
+                    xmlConfigNode.getPath().contains("$$$") ? numberOfSubLineItems : numberofmainnodes;
 
-                //we got the value we wanted to be updated with
-                //just update the
-                System.out.println("**********************Update" + xmlConfigNode.getPath() + "Value " + value);
-                String xPath = xmlConfigNode.getPath();
-                if (xPath.indexOf("$$") > -1) {
-                    xPath = xPath.replace("$$", String.valueOf(i));
+                for (int j = 1; j <= numberOfSubLineItems; j++) {
+                    value = nodeValueToGenerate.getPrefix() + generateValue(nodeValueToGenerate, value)
+                        + nodeValueToGenerate.getSuffix();
+                    System.out.println("*****UpdatePath*****" + xmlConfigNode.getPath() + "Value " + value);
+
+                    String xPath = xmlConfigNode.getPath();
+                    if (xPath.indexOf("$$") > -1 && xPath.indexOf("$$$") > -1) {
+                        xPath = xPath.replace("$$$", String.valueOf(j));
+                        xPath = xPath.replace("$$", String.valueOf(i));
+                    } else if (xPath.indexOf("$$") > -1) {
+
+                        xPath = xPath.replace("$$", String.valueOf(i));
+                    }
+                    System.out.println("expression=====================================" + xPath);
+                    System.out.println("newValue=====================================" + value);
+                    updatedDocument = xmlUtil.updateDocument(updatedDocument, xPath, value);
                 }
-                updatedDocument = xmlUtil.updateDocument(updatedDocument, xPath, value);
+                value = "";
             }
-
 
         }
 
@@ -104,44 +128,102 @@ public class XMLDataGenerator {
 
     }
 
-    private String generateValue(NodeValue nodeValueToGenerate) {
-        //private String generateValue(String generateValuesBasedonString,String format,int startRange , int endRanage) {
-        String criteria = nodeValueToGenerate.getGeneratedvalue();
+    private String generateValue(NodeValue nodeValueToGenerate, String value) {
+
+        String criteria = nodeValueToGenerate.getValuetype();
         String format = nodeValueToGenerate.getFormat();
-        int startRange = nodeValueToGenerate.getStartrange();
-        int endRanage = nodeValueToGenerate.getEndrange();
+        String startRange = nodeValueToGenerate.getStartrange();
+        String endRanage = nodeValueToGenerate.getEndrange();
         int adddays = nodeValueToGenerate.getAdddays();
-        String returnGeneratedStr = "0";
+        int minusdays = nodeValueToGenerate.getMinusdays();
+        long addMinutes = nodeValueToGenerate.getAddMinutes();
+        long minusMinutes = nodeValueToGenerate.getMinusMinutes();
+
+        System.out.println("nodeValueToGenerate======="+nodeValueToGenerate.toString());
+        
+        String replaceValue = "0";
         switch (criteria) {
-            case "randomnumber": {
-                returnGeneratedStr = String.valueOf(DataGeneratorUtil.getRandomNumberNumber(1000, 9999));
+            case LoadTestConstants.RANDOM_NUMBER:
+                replaceValue = String.valueOf(DataGeneratorUtil.getRandomNumber(Integer.toString(1000),
+                    Integer.toString(9999)));
                 break;
-            }
-            case "randomstring": {
-                returnGeneratedStr = DataGeneratorUtil.generateRandomString();
+            case LoadTestConstants.RANDOM_STRING:
+                replaceValue = DataGeneratorUtil.generateRandomString();
                 break;
-            }
-            case "number": {
-                returnGeneratedStr = String.valueOf(DataGeneratorUtil.getRandomNumberNumber(startRange, endRanage));
+            case LoadTestConstants.RANDOM_INTEGER_NUMBER:
+                replaceValue = String.valueOf(DataGeneratorUtil.getRandomNumber(startRange, endRanage));
                 break;
-            }
-            case "date": {
-                if (adddays >= 0) {
-                    returnGeneratedStr = DataGeneratorUtil.getFutureDate(format, adddays);
+            case LoadTestConstants.RANDOM_DECIMAL_NUMBER:
+                replaceValue = DataGeneratorUtil.getRandomDecimalNumber(startRange, endRanage);
+                break;
+            case LoadTestConstants.DATE_TIME:
+                if (adddays > 0) {
+                    replaceValue = DataGeneratorUtil.getFutureDate(format, adddays);
+                } else if (minusdays > 0) {
+                    replaceValue = DataGeneratorUtil.getPreviousDate(format, minusdays);
+                } else if (addMinutes > 0) {
+                    replaceValue = DataGeneratorUtil.addMinutesToDate(format, addMinutes);
+                } else if (minusMinutes > 0) {
+                    replaceValue = DataGeneratorUtil.minusMinutesToDate(format, minusMinutes);
                 } else {
-                    returnGeneratedStr = DataGeneratorUtil.getDateFormat(format);
+                    replaceValue = DataGeneratorUtil.getDateFormat(format);
                 }
                 break;
-            }
-
-            case "randomfromlist": {
-                returnGeneratedStr = DataGeneratorUtil.getRandomItemNumberFromtheList(Arrays.asList(nodeValueToGenerate.getList().split(",", -1)));
+            case LoadTestConstants.RANDOM_FROM_LIST:
+                replaceValue = DataGeneratorUtil
+                    .getRandomItemNumberFromtheList(Arrays.asList(nodeValueToGenerate.getList().split(",")));
                 break;
-            }
+            case LoadTestConstants.BOOLEAN:
+                replaceValue = DataGeneratorUtil
+                    .getRandomBooleanFromtheList(Arrays.asList(nodeValueToGenerate.getBooleanlist().split(",")));
+                break;
+            case LoadTestConstants.STATIC:
+                replaceValue = nodeValueToGenerate.getStaticValue();
+                break;
+            case LoadTestConstants.INTEGER:
+                if (nodeValueToGenerate.getStepType().equalsIgnoreCase(LoadTestConstants.INCREMENT)) {
+                    if (!value.isEmpty()) {
+                        replaceValue = String
+                            .valueOf(Integer.valueOf(value) + Integer.valueOf(nodeValueToGenerate.getStepValue()));
+                    } else {
+                        replaceValue = String.valueOf(nodeValueToGenerate.getStartrange());
+                    }
+                } else {
+                    if (!value.isEmpty()) {
+                        replaceValue = String
+                            .valueOf(Integer.valueOf(value) - Integer.valueOf(nodeValueToGenerate.getStepValue()));
+                    } else {
+                        replaceValue = String.valueOf(nodeValueToGenerate.getEndrange());
+                    }
+                }
+            case LoadTestConstants.DECIMAL:
+                if (nodeValueToGenerate.getStepType().equalsIgnoreCase(LoadTestConstants.INCREMENT)) {
+                    if (!value.isEmpty()) {
+                        replaceValue = String
+                            .valueOf(new BigDecimal(value).add(new BigDecimal(nodeValueToGenerate.getStepValue())));
+                    } else {
+                        replaceValue = String.valueOf(new BigDecimal(nodeValueToGenerate.getStartrange()));
+                    }
+                } else {
+                    if (!value.isEmpty()) {
+                        replaceValue = String.valueOf(
+                            new BigDecimal(value).subtract(new BigDecimal(nodeValueToGenerate.getStepValue())));
+                    } else {
+                        replaceValue = String.valueOf(new BigDecimal(nodeValueToGenerate.getEndrange()));
+                    }
+                }
+            case LoadTestConstants.STRING_COUNTER:
+                if (!value.isEmpty()) {
+                    StringBuffer sb = new StringBuffer(value);
+                    sb.deleteCharAt(sb.length() - 1);
+                    int counter = Integer.valueOf(nodeValueToGenerate.getStepValue());
+                    replaceValue = sb.toString() + counter++;
+                } else {
+                    replaceValue = nodeValueToGenerate.getStaticString() + nodeValueToGenerate.getStepValue();
+                }
         }
-        return returnGeneratedStr;
+        return replaceValue;
     }
-
 
     /**
      * Create number of OrderItems
@@ -165,16 +247,16 @@ public class XMLDataGenerator {
         return rootDocument;
     }
 
-
-    private Document updateXMLDocwithGivenChildItems(Document rootDocument, String nameOftheChildItem, int numberOfItems) {
+    private Document updateXMLDocwithGivenChildItems(Document rootDocument, String nameOftheChildItem,
+        int numberOfItems) {
 
         NodeList lineItemListElement = rootDocument.getElementsByTagName(nameOftheChildItem);
         Node parentNode = lineItemListElement.item(0).getParentNode();
-        //Node distributionOrder = rootDocument.getElementsByTagName("DistributionOrder").item(0);
+        // Node distributionOrder = rootDocument.getElementsByTagName("DistributionOrder").item(0);
         Element newOrderItem = null;
-        for (int i = 1; i < numberOfItems; i++) {
+        for (int i = 1; i <= numberOfItems; i++) {
             Element orderItemElement = (Element) lineItemListElement.item(0);
-            //Just append the Lineitems
+            // Just append the Lineitems
             newOrderItem = (Element) orderItemElement.cloneNode(true);
             parentNode.appendChild(newOrderItem);
         }
