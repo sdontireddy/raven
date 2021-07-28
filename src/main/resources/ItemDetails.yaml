@@ -1,0 +1,64 @@
+---
+bulkloadconfig:
+  sampleFile : ItemDetails.xml
+  numberOfFiles: 2
+  childNode: ItemPriceList
+  numberOfMainNodes: 1
+  numberOfChildNodes: 0
+  numberOfSubChildNodes: 10
+  resultsFolderWithPath: "C:/performance-tests-master/target/jmeter/results/"
+xmlnodes:
+  -
+    name: CurrencyCode
+    path: /tXML/Message/Item/ItemPriceList[$$]/ItemPrice[$$$]/CurrencyCode
+    value:
+      valueType: RANDOM_FROM_LIST
+      list: $,Rs,yen,riaal,CAD,pound,Euro,NZD,AUD,CHF
+  -
+    name: Gtin
+    path: /tXML/Message/Item/ItemPackageList[$$]/ItemPackage[$$$]/Gtin
+    value:
+      valueType: RANDOM_FROM_LIST
+      list: G1,G2,G3,G4,G5,G6,G7,G8
+  -
+    name: ItemColor
+    path: /tXML/Message/Item/ItemColor
+    value:
+      valueType: STATIC
+      staticValue: BLACK
+  -
+    name: MaxUnitsNested
+    path: /tXML/Message/Item/MaxUnitsNested
+    value:
+      valueType: INTEGER
+      startRange: 1
+      endRange: 5
+      stepType: increment
+      stepValue: 1
+  -
+    name: UnitLength
+    path: /tXML/Message/Item/UnitLength
+    value:
+      valueType: RANDOM_DECIMAL_NUMBER
+      startRange: 1
+      endRange: 5
+  -
+    name: ItemQualityCode
+    path: /tXML/Message/Item/ItemQualityCode
+    value:
+      valueType: BOOLEAN
+      booleanList: yes,no
+  -
+    name: Description
+    path: /tXML/Message/Item/Description
+    value:
+      valueType: STRING_COUNTER
+      staticString: UB
+      stepValue: 1
+  -
+    name: ItemUpcGtin
+    path: /tXML/Message/Item/ItemUpcGtin
+    value:
+      valueType: DATE_TIME
+      minutes: 20
+      format: yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
