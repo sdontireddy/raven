@@ -3,7 +3,6 @@ package com.ucbos.utils;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -32,15 +31,15 @@ public class DataGeneratorUtil {
 
     }
 
-    public static long getRandomNumber(String startRanage, String endRange) {
+    public static long getRandomNumber(int startRanage, int endRange) {
         long randomNum = ThreadLocalRandom.current().nextLong(Integer.valueOf(startRanage),
             Integer.valueOf(endRange) + 1);
 
         return randomNum;
     }
 
-    public static String getRandomDecimalNumber(String min, String max) {
-        double randomDeciNum = Math.random() * (Integer.valueOf(max) - Integer.valueOf(min) + 1) + Integer.valueOf(min);
+    public static String getRandomDecimalNumber(int min, int max) {
+        double randomDeciNum = Math.random() * (max - min + 1) + min;
         decimalFormate.setRoundingMode(RoundingMode.UP);
 
         return decimalFormate.format(randomDeciNum);
@@ -54,22 +53,18 @@ public class DataGeneratorUtil {
         return currentDate.format(formatter);
     }
 
-    public static String getFutureDate(String format, int numberOfDaysAhead) {
+    public static String getModifiedDaysDate(String format, int days, int minutes) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
-
-        ZonedDateTime zonedDateTime = ZonedDateTime.now().plusDays(numberOfDaysAhead);
-
-        return zonedDateTime.format(formatter);
-    }
-
-    public static String getPreviousDate(String format, int numberOfDaysPrevious) {
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
-
         ZonedDateTime zonedDateTime = ZonedDateTime.now();
-        ZonedDateTime previousDate = zonedDateTime.minus(Period.ofDays(numberOfDaysPrevious));
-        return previousDate.format(formatter);
+        ZonedDateTime zoneDateTimeModified;
+
+        if (days != 0) {
+            zoneDateTimeModified = zonedDateTime.plusDays(days);
+        } else {
+            zoneDateTimeModified = zonedDateTime.plusMinutes(minutes);
+        }
+        return zoneDateTimeModified.format(formatter);
     }
 
     public static String addMinutesToDate(String format, long numberOfMinutes) {
@@ -78,14 +73,6 @@ public class DataGeneratorUtil {
         ZonedDateTime zonedDateTime = ZonedDateTime.now();
         ZonedDateTime zoneDateTimeAddMinutes = zonedDateTime.plusMinutes(numberOfMinutes);
         return zoneDateTimeAddMinutes.format(formatter);
-    }
-
-    public static String minusMinutesToDate(String format, long numberOfMinutes) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
-
-        ZonedDateTime zonedDateTime = ZonedDateTime.now();
-        ZonedDateTime zonedDateTimeMinusMinutes = zonedDateTime.minusMinutes(numberOfMinutes);
-        return zonedDateTimeMinusMinutes.format(formatter);
     }
 
     public static LocalDate between(LocalDate startInclusive, LocalDate endExclusive) {

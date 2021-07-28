@@ -8,29 +8,18 @@ public class NodeValue {
 
     private String prefix;
     private String suffix;
-    private String valuetype;
+    private String valueType;
     private String format;
-    private String startrange;
-    private String endrange;
-    private int adddays;
+    private int startRange;
+    private int endRange;
+    private int days;
     private String list;
-    private String booleanlist;
-    private int minusdays;
+    private String booleanList;
     private String staticValue;
     private String stepType;
     private String stepValue;
     private String staticString;
-    private long addMinutes;
-    private long minusMinutes;
-    
-    @Override
-    public String toString() {
-        return "NodeValue [prefix=" + prefix + ", suffix=" + suffix + ", valuetype=" + valuetype + ", format=" + format
-            + ", startrange=" + startrange + ", endrange=" + endrange + ", adddays=" + adddays + ", list=" + list
-            + ", booleanlist=" + booleanlist + ", minusdays=" + minusdays + ", staticValue=" + staticValue
-            + ", stepType=" + stepType + ", stepValue=" + stepValue + ", staticString=" + staticString + ", addMinutes="
-            + addMinutes + ", minusMinutes=" + minusMinutes + "]";
-    }
+    private int minutes;
 
     public String getPrefix() {
         if (prefix == null)
@@ -52,17 +41,19 @@ public class NodeValue {
         this.suffix = value;
     }
 
-    public String getValuetype() {
-        if (valuetype == null)
+    public String getValueType() {
+        if (valueType == null)
             return "";
-        return valuetype;
+        return valueType;
     }
 
-    public void setValuetype(String valuetype) {
-        this.valuetype = valuetype;
+    public void setValueType(String valueType) {
+        this.valueType = valueType;
     }
 
     public String getFormat() {
+        if (valueType == null)
+            return "";
         return format;
     }
 
@@ -70,28 +61,28 @@ public class NodeValue {
         this.format = format;
     }
 
-    public String getStartrange() {
-        return startrange;
+    public int getStartRange() {
+        return startRange;
     }
 
-    public void setStartrange(String startrange) {
-        this.startrange = startrange;
+    public void setStartRange(int startRange) {
+        this.startRange = startRange;
     }
 
-    public String getEndrange() {
-        return endrange;
+    public int getEndRange() {
+        return endRange;
     }
 
-    public void setEndrange(String endrange) {
-        this.endrange = endrange;
+    public void setEndRange(int endRange) {
+        this.endRange = endRange;
     }
 
-    public int getAdddays() {
-        return adddays;
+    public int getDays() {
+        return days;
     }
 
-    public void setAdddays(int adddays) {
-        this.adddays = adddays;
+    public void setDays(int days) {
+        this.days = days;
     }
 
     public String getList() {
@@ -104,25 +95,19 @@ public class NodeValue {
         this.list = list;
     }
 
-    public String getBooleanlist() {
-        if (booleanlist == null)
+    public String getBooleanList() {
+        if (booleanList == null)
             return "";
-        return booleanlist;
+        return booleanList;
     }
 
-    public void setBooleanlist(String booleanlist) {
-        this.booleanlist = booleanlist;
-    }
-
-    public int getMinusdays() {
-        return minusdays;
-    }
-
-    public void setMinusdays(int minusdays) {
-        this.minusdays = minusdays;
+    public void setBooleanList(String booleanList) {
+        this.booleanList = booleanList;
     }
 
     public String getStaticValue() {
+        if (staticValue == null)
+            return "";
         return staticValue;
     }
 
@@ -147,6 +132,8 @@ public class NodeValue {
     }
 
     public String getStaticString() {
+        if (staticString == null)
+            return "";
         return staticString;
     }
 
@@ -154,19 +141,20 @@ public class NodeValue {
         this.staticString = staticString;
     }
 
-    public long getAddMinutes() {
-        return addMinutes;
+    public int getMinutes() {
+        return minutes;
     }
 
-    public void setAddMinutes(long addMinutes) {
-        this.addMinutes = addMinutes;
+    public void setMinutes(int minutes) {
+        this.minutes = minutes;
     }
 
-    public long getMinusMinutes() {
-        return minusMinutes;
+    @Override
+    public String toString() {
+        return "NodeValue [prefix=" + prefix + ", suffix=" + suffix + ", valueType=" + valueType + ", format=" + format
+            + ", startRange=" + startRange + ", endRange=" + endRange + ", days=" + days + ", list=" + list
+            + ", booleanList=" + booleanList + ", staticValue=" + staticValue + ", stepType=" + stepType
+            + ", stepValue=" + stepValue + ", staticString=" + staticString + ", minutes=" + minutes + "]";
     }
 
-    public void setMinusMinutes(long minusMinutes) {
-        this.minusMinutes = minusMinutes;
-    }
 }

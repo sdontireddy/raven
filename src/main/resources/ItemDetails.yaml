@@ -1,64 +1,64 @@
 ---
 bulkloadconfig:
-  samplefile : ItemDetails.xml
-  numberoffiles: 2
-  childnode: ItemPriceList
-  numberofmainnodes: 1
-  numberofchildnodes: 0
-  numberofsubchildnodes: 10
-  resultsfolderwithpath: "C:/performance-tests/target/jmeter/results/"
+  sampleFile : ItemDetails.xml
+  numberOfFiles: 2
+  childNode: ItemPriceList
+  numberOfMainNodes: 1
+  numberOfChildNodes: 0
+  numberOfSubChildNodes: 10
+  resultsFolderWithPath: "C:/performance-tests-master/target/jmeter/results/"
 xmlnodes:
   -
     name: CurrencyCode
     path: /tXML/Message/Item/ItemPriceList[$$]/ItemPrice[$$$]/CurrencyCode
     value:
-      valuetype: randomfromlist
+      valueType: RANDOM_FROM_LIST
       list: $,Rs,yen,riaal,CAD,pound,Euro,NZD,AUD,CHF
   -
     name: Gtin
     path: /tXML/Message/Item/ItemPackageList[$$]/ItemPackage[$$$]/Gtin
     value:
-      valuetype: randomfromlist
+      valueType: RANDOM_FROM_LIST
       list: G1,G2,G3,G4,G5,G6,G7,G8
   -
     name: ItemColor
     path: /tXML/Message/Item/ItemColor
     value:
-      valuetype: static
+      valueType: STATIC
       staticValue: BLACK
   -
     name: MaxUnitsNested
     path: /tXML/Message/Item/MaxUnitsNested
     value:
-      valuetype: integer
-      startrange: 1
-      endrange: 5
-      stepType: Increment
+      valueType: INTEGER
+      startRange: 1
+      endRange: 5
+      stepType: increment
       stepValue: 1
   -
     name: UnitLength
     path: /tXML/Message/Item/UnitLength
     value:
-      valuetype: randomDecimalNumber
-      startrange: 1
-      endrange: 5
+      valueType: RANDOM_DECIMAL_NUMBER
+      startRange: 1
+      endRange: 5
   -
     name: ItemQualityCode
     path: /tXML/Message/Item/ItemQualityCode
     value:
-      valuetype: boolean
-      booleanlist: yes,no
+      valueType: BOOLEAN
+      booleanList: yes,no
   -
     name: Description
     path: /tXML/Message/Item/Description
     value:
-      valuetype: stringCounter
+      valueType: STRING_COUNTER
       staticString: UB
       stepValue: 1
   -
     name: ItemUpcGtin
     path: /tXML/Message/Item/ItemUpcGtin
     value:
-      valuetype: dateTime
-      minusdays : 20
+      valueType: DATE_TIME
+      minutes: 20
       format: yyyy-MM-dd'T'HH:mm:ss.SSS'Z'

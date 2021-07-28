@@ -14,18 +14,18 @@ public interface LoadTestConstants {
     String PUBLISHED_ORDERS_REPORT = ".." + File.separator + "results" + File.separator + "ORDERS_PUBLISHED_REPORT.csv";
     String TEST_PRODUCTS_REPORT = ".." + File.separator + "results" + File.separator + "TEST_PRODUCTS_REPORT.csv";
 
-    String RANDOM_NUMBER = "randomnumber";
-    String RANDOM_STRING = "randomstring";
+    String RANDOM_NUMBER = "randomNumber";
+    String RANDOM_STRING = "randomString";
     String RANDOM_INTEGER_NUMBER = "randomIntegerNumber";
     String RANDOM_DECIMAL_NUMBER = "randomDecimalNumber";
     String DATE_TIME = "dateTime";
-    String RANDOM_FROM_LIST = "randomfromlist";
+    String RANDOM_FROM_LIST = "randomFromList";
     String BOOLEAN = "boolean";
     String STATIC = "static";
     String INTEGER = "integer";
     String DECIMAL = "decimal";
     String STRING_COUNTER = "stringCounter";
-    String INCREMENT = "Increment";
+    String INCREMENT = "increment";
 
     void setupTest(JavaSamplerContext context);
 

@@ -33,17 +33,17 @@ public class XMLDataGenerator {
 
     public boolean generateOrderDataFiles() throws Exception {
         boolean returnFlag = false;
-        String sampleFileName = YmlConfigReader.getBulkLoadConfig().getSamplefile();
-        int nummberOfLineItems = YmlConfigReader.getBulkLoadConfig().getNumberofchildnodes();
-        int nummberOfSubLineItems = YmlConfigReader.getBulkLoadConfig().getNumberofsubchildnodes();
+        String sampleFileName = YmlConfigReader.getBulkLoadConfig().getSampleFile();
+        int nummberOfLineItems = YmlConfigReader.getBulkLoadConfig().getNumberOfChildNodes();
+        int nummberOfSubLineItems = YmlConfigReader.getBulkLoadConfig().getNumberOfSubChildNodes();
 
         LOGGER.log(Level.INFO, "--------------Started----------------" + sampleFileName);
         System.out.println("sampleFilePath" + sampleFileName);
         long tStart = System.currentTimeMillis();
-        IntStream.range(0, YmlConfigReader.getBulkLoadConfig().getNumberoffiles()).forEach(counter -> {
+        IntStream.range(0, YmlConfigReader.getBulkLoadConfig().getNumberOfFiles()).forEach(counter -> {
             try {
                 String newFilePath =
-                    YmlConfigReader.getBulkLoadConfig().getResultsfolderwithpath() + (counter + 1) + sampleFileName;
+                    YmlConfigReader.getBulkLoadConfig().getResultsFolderWithPath() + (counter + 1) + sampleFileName;
                 System.out.println("New File Path" + newFilePath);
                 InputStream stream = this.getClass().getClassLoader().getResourceAsStream(sampleFileName);
                 XMLUtil xmlUtil = new XMLUtil(stream);
@@ -78,9 +78,9 @@ public class XMLDataGenerator {
         System.out.println("Fill the Mapped Values");
 
         String value = "";
-        int numberofmainnodes = YmlConfigReader.getBulkLoadConfig().getNumberofmainnodes();
+        int numberofmainnodes = YmlConfigReader.getBulkLoadConfig().getNumberOfMainNodes();
 
-        List<String> childNodeList = Arrays.asList(YmlConfigReader.getBulkLoadConfig().getChildnode().split(","));
+        List<String> childNodeList = Arrays.asList(YmlConfigReader.getBulkLoadConfig().getChildNode().split(","));
 
         for (String childNode : childNodeList) {
 
@@ -97,15 +97,16 @@ public class XMLDataGenerator {
                 // First generate/calculate the with given values
                 NodeValue nodeValueToGenerate = xmlConfigNode.getValue();
                 System.out.println("Geneating value " + nodeValueToGenerate.getPrefix()
-                    + nodeValueToGenerate.getValuetype() + nodeValueToGenerate.getSuffix());
+                    + nodeValueToGenerate.getValueType() + nodeValueToGenerate.getSuffix());
 
                 numberOfSubLineItems =
                     xmlConfigNode.getPath().contains("$$$") ? numberOfSubLineItems : numberofmainnodes;
 
                 for (int j = 1; j <= numberOfSubLineItems; j++) {
+
                     value = nodeValueToGenerate.getPrefix() + generateValue(nodeValueToGenerate, value)
                         + nodeValueToGenerate.getSuffix();
-                    System.out.println("*****UpdatePath*****" + xmlConfigNode.getPath() + "Value " + value);
+                    System.out.println("*****UpdatePath*****" + xmlConfigNode.getPath() + " " + value);
 
                     String xPath = xmlConfigNode.getPath();
                     if (xPath.indexOf("$$") > -1 && xPath.indexOf("$$$") > -1) {
@@ -130,22 +131,20 @@ public class XMLDataGenerator {
 
     private String generateValue(NodeValue nodeValueToGenerate, String value) {
 
-        String criteria = nodeValueToGenerate.getValuetype();
+        String criteria = nodeValueToGenerate.getValueType();
         String format = nodeValueToGenerate.getFormat();
-        String startRange = nodeValueToGenerate.getStartrange();
-        String endRanage = nodeValueToGenerate.getEndrange();
-        int adddays = nodeValueToGenerate.getAdddays();
-        int minusdays = nodeValueToGenerate.getMinusdays();
-        long addMinutes = nodeValueToGenerate.getAddMinutes();
-        long minusMinutes = nodeValueToGenerate.getMinusMinutes();
+        int startRange = nodeValueToGenerate.getStartRange();
+        int endRanage = nodeValueToGenerate.getEndRange();
+        int days = nodeValueToGenerate.getDays();
+        int minutes = nodeValueToGenerate.getMinutes();
 
-        System.out.println("nodeValueToGenerate======="+nodeValueToGenerate.toString());
-        
+        System.out.println("nodeValueToGenerate=======" + nodeValueToGenerate.toString());
+
         String replaceValue = "0";
         switch (criteria) {
             case LoadTestConstants.RANDOM_NUMBER:
-                replaceValue = String.valueOf(DataGeneratorUtil.getRandomNumber(Integer.toString(1000),
-                    Integer.toString(9999)));
+                replaceValue = String.valueOf(DataGeneratorUtil.getRandomNumber(1000,
+                    9999));
                 break;
             case LoadTestConstants.RANDOM_STRING:
                 replaceValue = DataGeneratorUtil.generateRandomString();
@@ -157,14 +156,8 @@ public class XMLDataGenerator {
                 replaceValue = DataGeneratorUtil.getRandomDecimalNumber(startRange, endRanage);
                 break;
             case LoadTestConstants.DATE_TIME:
-                if (adddays > 0) {
-                    replaceValue = DataGeneratorUtil.getFutureDate(format, adddays);
-                } else if (minusdays > 0) {
-                    replaceValue = DataGeneratorUtil.getPreviousDate(format, minusdays);
-                } else if (addMinutes > 0) {
-                    replaceValue = DataGeneratorUtil.addMinutesToDate(format, addMinutes);
-                } else if (minusMinutes > 0) {
-                    replaceValue = DataGeneratorUtil.minusMinutesToDate(format, minusMinutes);
+                if (days != 0 || minutes != 0) {
+                    replaceValue = DataGeneratorUtil.getModifiedDaysDate(format, days, minutes);
                 } else {
                     replaceValue = DataGeneratorUtil.getDateFormat(format);
                 }
@@ -175,25 +168,27 @@ public class XMLDataGenerator {
                 break;
             case LoadTestConstants.BOOLEAN:
                 replaceValue = DataGeneratorUtil
-                    .getRandomBooleanFromtheList(Arrays.asList(nodeValueToGenerate.getBooleanlist().split(",")));
+                    .getRandomBooleanFromtheList(Arrays.asList(nodeValueToGenerate.getBooleanList().split(",")));
                 break;
             case LoadTestConstants.STATIC:
                 replaceValue = nodeValueToGenerate.getStaticValue();
                 break;
             case LoadTestConstants.INTEGER:
                 if (nodeValueToGenerate.getStepType().equalsIgnoreCase(LoadTestConstants.INCREMENT)) {
+
                     if (!value.isEmpty()) {
                         replaceValue = String
                             .valueOf(Integer.valueOf(value) + Integer.valueOf(nodeValueToGenerate.getStepValue()));
                     } else {
-                        replaceValue = String.valueOf(nodeValueToGenerate.getStartrange());
+
+                        replaceValue = String.valueOf(nodeValueToGenerate.getStartRange());
                     }
                 } else {
                     if (!value.isEmpty()) {
                         replaceValue = String
                             .valueOf(Integer.valueOf(value) - Integer.valueOf(nodeValueToGenerate.getStepValue()));
                     } else {
-                        replaceValue = String.valueOf(nodeValueToGenerate.getEndrange());
+                        replaceValue = String.valueOf(nodeValueToGenerate.getEndRange());
                     }
                 }
             case LoadTestConstants.DECIMAL:
@@ -202,14 +197,14 @@ public class XMLDataGenerator {
                         replaceValue = String
                             .valueOf(new BigDecimal(value).add(new BigDecimal(nodeValueToGenerate.getStepValue())));
                     } else {
-                        replaceValue = String.valueOf(new BigDecimal(nodeValueToGenerate.getStartrange()));
+                        replaceValue = String.valueOf(new BigDecimal(nodeValueToGenerate.getStartRange()));
                     }
                 } else {
                     if (!value.isEmpty()) {
                         replaceValue = String.valueOf(
                             new BigDecimal(value).subtract(new BigDecimal(nodeValueToGenerate.getStepValue())));
                     } else {
-                        replaceValue = String.valueOf(new BigDecimal(nodeValueToGenerate.getEndrange()));
+                        replaceValue = String.valueOf(new BigDecimal(nodeValueToGenerate.getEndRange()));
                     }
                 }
             case LoadTestConstants.STRING_COUNTER:

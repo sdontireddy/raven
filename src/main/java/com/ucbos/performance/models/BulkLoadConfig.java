@@ -6,80 +6,76 @@ package com.ucbos.performance.models;
  */
 public class BulkLoadConfig {
 
-    private String samplefile;
-    private int numberoffiles;
-    private String resultsfolderwithpath;
-    private String childnode;
-    private int numberofchildnodes;
-    private int numberofsubchildnodes;
-    private int numberofmainnodes;
+    private String sampleFile;
+    private int numberOfFiles;
+    private String resultsFolderWithPath;
+    private String childNode;
+    private int numberOfChildNodes;
+    private int numberOfSubChildNodes;
+    private int numberOfMainNodes;
 
-    public String getResultsfolderwithpath() {
-        return resultsfolderwithpath;
+    public String getResultsFolderWithPath() {
+        return resultsFolderWithPath;
     }
 
-    public void setResultsfolderwithpath(String value) {
-        this.resultsfolderwithpath = value;
+    public void setResultsFolderWithPath(String value) {
+        this.resultsFolderWithPath = value;
     }
 
-    public String getSamplefile() {
-        return samplefile;
+    public String getSampleFile() {
+        return sampleFile;
     }
 
-    public void setSamplefile(String value) {
-        this.samplefile = value;
+    public void setSampleFile(String value) {
+        this.sampleFile = value;
     }
 
-    public int getNumberoffiles() {
-        return numberoffiles;
+    public int getNumberOfFiles() {
+        return numberOfFiles;
     }
 
-    public void setNumberoffiles(int value) {
-        this.numberoffiles = value;
+    public void setNumberOfFiles(int value) {
+        this.numberOfFiles = value;
     }
 
-    public String getChildnode() {
-        return childnode;
+    public String getChildNode() {
+        return childNode;
     }
 
-    public void setChildnode(String value) {
-        this.childnode = value;
+    public void setChildNode(String value) {
+        this.childNode = value;
     }
 
-    public int getNumberofchildnodes() {
-        return numberofchildnodes;
+    public int getNumberOfChildNodes() {
+        return numberOfChildNodes;
     }
 
-    public void setNumberofchildnodes(int value) {
-        this.numberofchildnodes = value;
+    public void setNumberOfChildNodes(int value) {
+        this.numberOfChildNodes = value;
     }
 
-    public int getNumberofsubchildnodes() {
-        return numberofsubchildnodes;
+    public int getNumberOfSubChildNodes() {
+        return numberOfSubChildNodes;
     }
 
-    public void setNumberofsubchildnodes(int numberofsubchildnodes) {
-        this.numberofsubchildnodes = numberofsubchildnodes;
+    public void setNumberOfSubChildNodes(int numberOfSubChildNodes) {
+        this.numberOfSubChildNodes = numberOfSubChildNodes;
     }
 
-    public int getNumberofmainnodes() {
-        return numberofmainnodes;
+    public int getNumberOfMainNodes() {
+        return numberOfMainNodes;
     }
 
-    public void setNumberofmainnodes(int numberofmainnodes) {
-        this.numberofmainnodes = numberofmainnodes;
+    public void setNumberOfMainNodes(int numberOfMainNodes) {
+        this.numberOfMainNodes = numberOfMainNodes;
     }
 
     @Override
     public String toString() {
-        return "BulkLoadConfig{" +
-            "samplefile='" + samplefile + '\'' +
-            ", numberoffiles=" + numberoffiles +
-            ", resultsfolderwithpath='" + resultsfolderwithpath + '\'' +
-            ", childnode='" + childnode + '\'' +
-            ", numberofchildnodes=" + numberofchildnodes + '\'' +
-            ", numberofsubchildnodes=" + numberofsubchildnodes + '\'' +
-            ", numberofmainnodes=" + numberofmainnodes +
-            '}';
+        return "BulkLoadConfig [sampleFile=" + sampleFile + ", numberOfFiles=" + numberOfFiles
+            + ", resultsFolderWithPath=" + resultsFolderWithPath + ", childNode=" + childNode + ", numberOfChildNodes="
+            + numberOfChildNodes + ", numberOfSubChildNodes=" + numberOfSubChildNodes + ", numberOfMainNodes="
+            + numberOfMainNodes + "]";
     }
+
 }
