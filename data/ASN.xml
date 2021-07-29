@@ -1,0 +1,585 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tXML>
+	<Header>
+		<Source>HotTopic</Source>
+		<Action_Type>Replace</Action_Type>
+		<Sequence_Number/>
+		<Batch_ID/>
+		<Reference_ID>653365_897012928378</Reference_ID>
+		<User_ID>WMADMIN</User_ID>
+		<Password>password</Password>
+		<Message_Type>ASN</Message_Type>
+		<Company_ID>1</Company_ID>
+		<Msg_Locale>en_US</Msg_Locale>
+		<Version>2014</Version>
+		<Internal_Reference_ID/>
+		<Internal_Date_Time_Stamp/>
+		<External_Reference_ID_Type/>
+		<External_Reference_ID/>
+		<External_Date_Time_Stamp/>
+		<Msg_Time_Zone>UTC</Msg_Time_Zone>
+	</Header>
+	<Message>
+		<ASN>
+			<ASNID>10121584</ASNID>
+			<ASNType>30</ASNType>
+			<ShipmentID>12</ShipmentID>
+			<LastTransmittedDTTM>2020-01-20 00:00:00</LastTransmittedDTTM>
+			<ASNStatus>Intransit</ASNStatus>
+			<ASNPriority>H</ASNPriority>
+			<BusinessPartnerCode>5116841</BusinessPartnerCode>
+			<BusinessUnit>21</BusinessUnit>
+			<OriginFacilityAliasID>1001</OriginFacilityAliasID>
+			<DestinationFacilityAliasID>1002</DestinationFacilityAliasID>
+			<MfgPlant/>
+			<PalletFootprint/>
+			<PickupEndDTTM>2020-01-25 00:00:00</PickupEndDTTM>
+			<InvoiceDate>2020-01-25 00:00:00</InvoiceDate>
+			<ActualShippedDTTM>2019-01-23 00:00:00</ActualShippedDTTM>
+			<DeliveryStart>2020-01-23 00:00:00</DeliveryStart>
+			<DeliveryEnd>2020-01-27 00:00:00</DeliveryEnd>
+			<AppointmentID>APPOINT10</AppointmentID>
+			<AppointmentDTTM>2020-01-20 00:00:00</AppointmentDTTM>
+			<AppointmentDuration>2</AppointmentDuration>
+			<ScheduleAppointment>2020-01-01 00:00:00</ScheduleAppointment>
+			<FirmAppointmentIndicator>Y</FirmAppointmentIndicator>
+			<AssignedCarrierCode>ASCC101</AssignedCarrierCode>
+			<BillOfLadingNumber>B1248547</BillOfLadingNumber>
+			<PRONumber>PN457896</PRONumber>
+			<EquipmentCode>EC154245</EquipmentCode>
+			<TractorCarrierCode>TCC7854964</TractorCarrierCode>
+			<TractorNumber>EUS687</TractorNumber>
+			<Mode>RW</Mode>
+			<ShippingCost>1.05</ShippingCost>
+			<ShippingCostCurrency>Dollar</ShippingCostCurrency>
+			<BuyerCode>002</BuyerCode>
+			<RepresentativeName>Diageo PLC</RepresentativeName>
+			<ContactAddress1>603 D ST</ContactAddress1>
+			<ContactAddress2/>
+			<ContactAddress3/>
+			<ContactCity>WA</ContactCity>
+			<ContactCounty/>
+			<ContactCountry/>
+			<ContactStateOrProvince/>
+			<ContactPostalCode>99501</ContactPostalCode>
+			<ContactNumber/>
+			<RefField1/>
+			<RefField2/>
+			<RefField3/>
+			<ExternalSysCreationDTTM/>
+			<EquipmentType/>
+			<OriginType>M</OriginType>
+			<DestinationType>C</DestinationType>
+			<DCOrderNumber/>
+			<ContractLocation/>
+			<TransferFlag>N</TransferFlag>
+			<QualityCheckHoldUponReceipt/>
+			<ManifNbr/>
+			<ManifType/>
+			<DeliveryStopSeq/>
+			<CutNbr/>
+			<IsCancelled>0</IsCancelled>
+			<IsClosed/>
+			<TrailerNbr/>
+			<ShippedLPNCount>1</ShippedLPNCount>
+			<FlowthruAllocMethod/>
+			<ExpectedReceiptDate/>
+			<WorkOrdNbr/>
+			<TotalWeight>1.61</TotalWeight>
+			<TotalWeightUOM>lb</TotalWeightUOM>
+			<Volume>538.8932</Volume>
+			<VolumeUOM>Cu Inch</VolumeUOM>
+			<CustomFieldList type=""/>
+			<ASNDetail>
+				<SequenceNumber>123456</SequenceNumber>
+				<BusinessPartnerCode>5116841</BusinessPartnerCode>
+				<PurchaseOrderID>5506841</PurchaseOrderID>
+				<PurchaseOrderLineItemID>10</PurchaseOrderLineItemID>
+				<DistributionOrderID></DistributionOrderID>
+				<DistributionOrderLineItemID></DistributionOrderLineItemID>
+				<ItemName>11001101</ItemName>
+				<GTIN>GT154254</GTIN>
+				<StandardSubPackQuantity>100</StandardSubPackQuantity>
+				<StandardPackQuantity>100</StandardPackQuantity>
+				<StandardCaseQuantity></StandardCaseQuantity>
+				<LPNPerTier>50</LPNPerTier>
+				<TierPerPallet>50</TierPerPallet>
+				<ManufacturingFacilityAliasID>1001</ManufacturingFacilityAliasID>
+				<ManufacturedDTTM>2020-01-01 00:00:00</ManufacturedDTTM>
+				<PackageType>Case</PackageType>
+				<IncubationDate>2020-01-01 00:00:00</IncubationDate>
+				<ShipByDate>2020-01-01 00:00:00</ShipByDate>
+				<ExpireDate>2023-01-01 00:00:00</ExpireDate>
+				<EPCReqOnAllCases>Y</EPCReqOnAllCases>
+				<NbrOfPackForCatchWt>Y</NbrOfPackForCatchWt>
+				<PriceTixAvail>Y</PriceTixAvail>
+				<RetailPrice>1.025</RetailPrice>
+				<ShippedLPNCount>10</ShippedLPNCount>
+				<QCHoldUponReceipt>Y</QCHoldUponReceipt>
+				<PutawayType>Case</PutawayType>
+				<ProcessImmdNeeds>Y</ProcessImmdNeeds>
+				<PrePackGroupCode>15248542</PrePackGroupCode>
+				<IsCancelled>Y</IsCancelled>
+				<IsClosed>Y</IsClosed>
+				<CutNbr>CN414856</CutNbr>
+				<Disposition>Y</Disposition>
+				<ExtSegPlan></ExtSegPlan>
+				<DispositionType></DispositionType>
+				<InventoryAttributes>
+					<InventoryType>Active</InventoryType>
+					<ProductStatus>Cloths</ProductStatus>
+					<BatchNumber>1234125</BatchNumber>
+					<ItemAttribute1></ItemAttribute1>
+					<ItemAttribute2></ItemAttribute2>
+					<ItemAttribute3></ItemAttribute3>
+					<ItemAttribute4></ItemAttribute4>
+					<ItemAttribute5></ItemAttribute5>
+					<CountryofOrigin>USA</CountryofOrigin>
+				</InventoryAttributes>
+				<CustomFieldList>
+					<CustomField>
+						<Name></Name>
+						<Value></Value>
+					</CustomField>
+				</CustomFieldList>
+				<Quantity>
+					<ShippedQty>100</ShippedQty>
+					<ReceivedQty>1</ReceivedQty>
+					<QtyUOM>CASE</QtyUOM>
+				</Quantity>
+				<Weight>
+					<ShippedWeight>1.05</ShippedWeight>
+					<WeightUOM>3.20</WeightUOM>
+				</Weight>
+				<Notes>
+					<Note></Note>
+					<Visibility></Visibility>
+				</Notes>
+				<UnitDetails>
+					<ReferenceNumber></ReferenceNumber>
+					<Quantity>100</Quantity>
+					<QtyUOM>CASE</QtyUOM>
+					<ReceiveConditionCode></ReceiveConditionCode>
+					<ReturnAction></ReturnAction>
+				</UnitDetails>
+			</ASNDetail>
+			<ASNDetail>
+				<SequenceNumber>123457</SequenceNumber>
+				<BusinessPartnerCode>5116841</BusinessPartnerCode>
+				<PurchaseOrderID>5506841</PurchaseOrderID>
+				<PurchaseOrderLineItemID>10</PurchaseOrderLineItemID>
+				<DistributionOrderID></DistributionOrderID>
+				<DistributionOrderLineItemID></DistributionOrderLineItemID>
+				<ItemName>11001102</ItemName>
+				<GTIN>GT154254</GTIN>
+				<StandardSubPackQuantity>100</StandardSubPackQuantity>
+				<StandardPackQuantity>100</StandardPackQuantity>
+				<StandardCaseQuantity></StandardCaseQuantity>
+				<LPNPerTier>50</LPNPerTier>
+				<TierPerPallet>50</TierPerPallet>
+				<ManufacturingFacilityAliasID>1001</ManufacturingFacilityAliasID>
+				<ManufacturedDTTM>2020-01-01 00:00:00</ManufacturedDTTM>
+				<PackageType>Case</PackageType>
+				<IncubationDate>2020-01-01 00:00:00</IncubationDate>
+				<ShipByDate>2020-01-01 00:00:00</ShipByDate>
+				<ExpireDate>2023-01-01 00:00:00</ExpireDate>
+				<EPCReqOnAllCases>Y</EPCReqOnAllCases>
+				<NbrOfPackForCatchWt>Y</NbrOfPackForCatchWt>
+				<PriceTixAvail>Y</PriceTixAvail>
+				<RetailPrice>1.025</RetailPrice>
+				<ShippedLPNCount>10</ShippedLPNCount>
+				<QCHoldUponReceipt>Y</QCHoldUponReceipt>
+				<PutawayType>Case</PutawayType>
+				<ProcessImmdNeeds>Y</ProcessImmdNeeds>
+				<PrePackGroupCode>15248542</PrePackGroupCode>
+				<IsCancelled>Y</IsCancelled>
+				<IsClosed>Y</IsClosed>
+				<CutNbr>CN414856</CutNbr>
+				<Disposition>Y</Disposition>
+				<ExtSegPlan></ExtSegPlan>
+				<DispositionType></DispositionType>
+				<InventoryAttributes>
+					<InventoryType>Active</InventoryType>
+					<ProductStatus>Cloths</ProductStatus>
+					<BatchNumber>1234125</BatchNumber>
+					<ItemAttribute1></ItemAttribute1>
+					<ItemAttribute2></ItemAttribute2>
+					<ItemAttribute3></ItemAttribute3>
+					<ItemAttribute4></ItemAttribute4>
+					<ItemAttribute5></ItemAttribute5>
+					<CountryofOrigin>USA</CountryofOrigin>
+				</InventoryAttributes>
+				<CustomFieldList>
+					<CustomField>
+						<Name></Name>
+						<Value></Value>
+					</CustomField>
+				</CustomFieldList>
+				<Quantity>
+					<ShippedQty>100</ShippedQty>
+					<ReceivedQty>1</ReceivedQty>
+					<QtyUOM>CASE</QtyUOM>
+				</Quantity>
+				<Weight>
+					<ShippedWeight>1.05</ShippedWeight>
+					<WeightUOM>3.20</WeightUOM>
+				</Weight>
+				<Notes>
+					<Note></Note>
+					<Visibility></Visibility>
+				</Notes>
+				<UnitDetails>
+					<ReferenceNumber></ReferenceNumber>
+					<Quantity>100</Quantity>
+					<QtyUOM>CASE</QtyUOM>
+					<ReceiveConditionCode></ReceiveConditionCode>
+					<ReturnAction></ReturnAction>
+				</UnitDetails>
+			</ASNDetail>
+			<LPN>
+				<LPNID>89700000144346670</LPNID>
+				<BusinessUnit>21</BusinessUnit>
+				<LPNType>BRC</LPNType>
+				<LPNLabelType>LLT</LPNLabelType>
+				<LPNSizeType>W</LPNSizeType>
+				<LPNStatus>Intransit</LPNStatus>
+				<LPNFacilityStatus>Not printed</LPNFacilityStatus>
+				<LPNStatusDate>2020-01-27 00:00:00</LPNStatusDate>
+				<InboundOutboundIndicator>Y</InboundOutboundIndicator>
+				<SingleItemCase>N</SingleItemCase>
+				<Height>10</Height>
+				<Width>1.02</Width>
+				<Length>3</Length>
+				<OriginFacilityAliasID>1001</OriginFacilityAliasID>
+				<CurrentFacilityAliasID>1003</CurrentFacilityAliasID>
+				<DestinationFacilityAliasID>1002</DestinationFacilityAliasID>
+				<FinalDestinationFacilityAliasID>1005</FinalDestinationFacilityAliasID>
+				<ManufacturingFacilityAliasID>1001</ManufacturingFacilityAliasID>
+				<ProcessImmdNeeds/>
+				<PutawayType>A</PutawayType>
+				<TrailerNbr>TRNUM4512</TrailerNbr>
+				<ShipVia>RW</ShipVia>
+				<TrackingNbr>1ZA00R50YW27733858</TrackingNbr>
+				<ConsumeSeq>Y</ConsumeSeq>
+				<PalletID>458796412334478</PalletID>
+				<Conveyable>Y</Conveyable>
+				<ManufacturedDTTM>2020-01-27 00:00:00</ManufacturedDTTM>
+				<WorkOrdNbr>WON4582124</WorkOrdNbr>
+				<ShipByDate>2020-01-27 00:00:00</ShipByDate>
+				<BusinessPartnerId>5116841</BusinessPartnerId>
+				<ExpireDate>2023-01-27 00:00:00</ExpireDate>
+				<LocationID>1003</LocationID>
+				<PurchaseOrderID>5506841</PurchaseOrderID>
+				<DistributionOrderID/>
+				<OriginalShipmentNbr>SHIP224865124</OriginalShipmentNbr>
+				<ConsumeCasePriority>H</ConsumeCasePriority>
+				<ConsumePriorityDate>2020-01-27 00:00:00</ConsumePriorityDate>
+				<ManifNbr>MFN1248548</ManifNbr>
+				<OutofZoneIndicator>Y</OutofZoneIndicator>
+				<PhysicalEntityCode>PEC4857964</PhysicalEntityCode>
+				<VendorContainerNbr>V100101012</VendorContainerNbr>
+				<IncubationDate>2020-01-27 00:00:00</IncubationDate>
+				<InstructionCode1/>
+				<InstructionCode2/>
+				<InstructionCode3/>
+				<InstructionCode4/>
+				<InstructionCode5/>
+				<EstimatedWeight>1.61</EstimatedWeight>
+				<ActualWeight>1.61</ActualWeight>
+				<WeightUOM>lb</WeightUOM>
+				<ActualVolume>538.8932</ActualVolume>
+				<EstimatedVolume>538.8932</EstimatedVolume>
+				<VolumeUOM>Cu Inch</VolumeUOM>
+				<PackageType>Case</PackageType>
+				<IsCancelled>Y</IsCancelled>
+				<Location>
+					<Area>601</Area>
+					<Zone>501</Zone>
+					<Aisle>401</Aisle>
+					<Bay>301</Bay>
+					<Level>201</Level>
+					<Position>101</Position>
+				</Location>
+				<LPNMovement>
+					<ASNID>10121584</ASNID>
+				</LPNMovement>
+				<LPNDetail>
+					<ItemName>11001101</ItemName>
+					<ItemSequenceNbr>11001101</ItemSequenceNbr>
+					<PurchaseOrderID>5506841</PurchaseOrderID>
+					<ReferenceField1/>
+					<ReferenceField2/>
+					<PurchaseOrderLineItemID>10</PurchaseOrderLineItemID>
+					<DistributionOrderLineItemID/>
+					<GTIN>45215478533</GTIN>
+					<ExpireDate>2023-07-20 00:00:00</ExpireDate>
+					<ManufacturedDTTM>2020-01-01 00:00:00</ManufacturedDTTM>
+					<BestBeforeDate>2023-07-20 00:00:00</BestBeforeDate>
+					<ShipByDate>2020-01-23 00:00:00</ShipByDate>
+					<PrePackGroupCode>1524942357</PrePackGroupCode>
+					<CutNbr>1323465213</CutNbr>
+					<AssortmentNbr>124863218</AssortmentNbr>
+					<InstructionCode1/>
+					<InstructionCode2/>
+					<InstructionCode3>11140333</InstructionCode3>
+					<InstructionCode4>11140334</InstructionCode4>
+					<InstructionCode5>HT</InstructionCode5>
+					<StandardSubPackQuantity>100</StandardSubPackQuantity>
+					<StandardPackQuantity>100</StandardPackQuantity>
+					<StandardCaseQuantity>20</StandardCaseQuantity>
+					<LPNDetailQuantity>
+						<Quantity>100</Quantity>
+						<QuantityUOM>EA</QuantityUOM>
+						<ShippedAsnQuantity>30</ShippedAsnQuantity>
+						<OriginalQuantity>100</OriginalQuantity>
+						<ReceivedQuantity>1</ReceivedQuantity>
+					</LPNDetailQuantity>
+					<LPNDetailWeight>
+						<EstimatedWeight>0</EstimatedWeight>
+						<Weight>0</Weight>
+						<WeightUOM>lb</WeightUOM>
+					</LPNDetailWeight>
+					<LPNDetailVolume>
+						<EstimatedVolume>0</EstimatedVolume>
+						<VolumeUOM>Cu Inch</VolumeUOM>
+					</LPNDetailVolume>
+					<InventoryAttributes>
+						<InventoryType/>
+						<ProductStatus>ORGNL</ProductStatus>
+						<CountryofOrigin>USA</CountryofOrigin>
+						<BatchNumber>B1</BatchNumber>
+						<ItemAttribute1/>
+						<ItemAttribute2/>
+						<ItemAttribute3/>
+						<ItemAttribute4/>
+						<ItemAttribute5/>
+					</InventoryAttributes>
+				</LPNDetail>
+				<LPNDetail>
+					<ItemName>11001102</ItemName>
+					<ItemSequenceNbr>11001101</ItemSequenceNbr>
+					<PurchaseOrderID>5506841</PurchaseOrderID>
+					<ReferenceField1/>
+					<ReferenceField2/>
+					<PurchaseOrderLineItemID>10</PurchaseOrderLineItemID>
+					<DistributionOrderLineItemID/>
+					<GTIN>45215478533</GTIN>
+					<ExpireDate>2023-07-20 00:00:00</ExpireDate>
+					<ManufacturedDTTM>2020-01-01 00:00:00</ManufacturedDTTM>
+					<BestBeforeDate>2023-07-20 00:00:00</BestBeforeDate>
+					<ShipByDate>2020-01-23 00:00:00</ShipByDate>
+					<PrePackGroupCode>1524942357</PrePackGroupCode>
+					<CutNbr>1323465213</CutNbr>
+					<AssortmentNbr>124863218</AssortmentNbr>
+					<InstructionCode1/>
+					<InstructionCode2/>
+					<InstructionCode3>11140333</InstructionCode3>
+					<InstructionCode4>11140334</InstructionCode4>
+					<InstructionCode5>HT</InstructionCode5>
+					<StandardSubPackQuantity>100</StandardSubPackQuantity>
+					<StandardPackQuantity>100</StandardPackQuantity>
+					<StandardCaseQuantity>20</StandardCaseQuantity>
+					<LPNDetailQuantity>
+						<Quantity>100</Quantity>
+						<QuantityUOM>EA</QuantityUOM>
+						<ShippedAsnQuantity>100</ShippedAsnQuantity>
+						<OriginalQuantity>30</OriginalQuantity>
+						<ReceivedQuantity>1</ReceivedQuantity>
+					</LPNDetailQuantity>
+					<LPNDetailWeight>
+						<EstimatedWeight>0</EstimatedWeight>
+						<Weight>0</Weight>
+						<WeightUOM>lb</WeightUOM>
+					</LPNDetailWeight>
+					<LPNDetailVolume>
+						<EstimatedVolume>0</EstimatedVolume>
+						<VolumeUOM>Cu Inch</VolumeUOM>
+					</LPNDetailVolume>
+					<InventoryAttributes>
+						<InventoryType/>
+						<ProductStatus>ORGNL</ProductStatus>
+						<CountryofOrigin>USA</CountryofOrigin>
+						<BatchNumber>B1</BatchNumber>
+						<ItemAttribute1/>
+						<ItemAttribute2/>
+						<ItemAttribute3/>
+						<ItemAttribute4/>
+						<ItemAttribute5/>
+					</InventoryAttributes>
+				</LPNDetail>
+			</LPN>
+			<LPN>
+				<LPNID>89700000144346671</LPNID>
+				<BusinessUnit>21</BusinessUnit>
+				<LPNType>BRC</LPNType>
+				<LPNLabelType>LLT</LPNLabelType>
+				<LPNSizeType>W</LPNSizeType>
+				<LPNStatus>Intransit</LPNStatus>
+				<LPNFacilityStatus>Not printed</LPNFacilityStatus>
+				<LPNStatusDate>2020-01-27 00:00:00</LPNStatusDate>
+				<InboundOutboundIndicator>Y</InboundOutboundIndicator>
+				<SingleItemCase>N</SingleItemCase>
+				<Height>10</Height>
+				<Width>1.02</Width>
+				<Length>3</Length>
+				<OriginFacilityAliasID>1001</OriginFacilityAliasID>
+				<CurrentFacilityAliasID>1003</CurrentFacilityAliasID>
+				<DestinationFacilityAliasID>1002</DestinationFacilityAliasID>
+				<FinalDestinationFacilityAliasID>1005</FinalDestinationFacilityAliasID>
+				<ManufacturingFacilityAliasID>1001</ManufacturingFacilityAliasID>
+				<ProcessImmdNeeds/>
+				<PutawayType>A</PutawayType>
+				<TrailerNbr>TRNUM4512</TrailerNbr>
+				<ShipVia>RW</ShipVia>
+				<TrackingNbr>1ZA00R50YW27733858</TrackingNbr>
+				<ConsumeSeq>Y</ConsumeSeq>
+				<PalletID>458796412334478</PalletID>
+				<Conveyable>Y</Conveyable>
+				<ManufacturedDTTM>2020-01-27 00:00:00</ManufacturedDTTM>
+				<WorkOrdNbr>WON4582124</WorkOrdNbr>
+				<ShipByDate>2020-01-27 00:00:00</ShipByDate>
+				<BusinessPartnerId>5116841</BusinessPartnerId>
+				<ExpireDate>2023-01-27 00:00:00</ExpireDate>
+				<LocationID>1003</LocationID>
+				<PurchaseOrderID>5506841</PurchaseOrderID>
+				<DistributionOrderID/>
+				<OriginalShipmentNbr>SHIP224865124</OriginalShipmentNbr>
+				<ConsumeCasePriority>H</ConsumeCasePriority>
+				<ConsumePriorityDate>2020-01-27 00:00:00</ConsumePriorityDate>
+				<ManifNbr>MFN1248548</ManifNbr>
+				<OutofZoneIndicator>Y</OutofZoneIndicator>
+				<PhysicalEntityCode>PEC4857964</PhysicalEntityCode>
+				<VendorContainerNbr>V100101012</VendorContainerNbr>
+				<IncubationDate>2020-01-27 00:00:00</IncubationDate>
+				<InstructionCode1/>
+				<InstructionCode2/>
+				<InstructionCode3/>
+				<InstructionCode4/>
+				<InstructionCode5/>
+				<EstimatedWeight>1.61</EstimatedWeight>
+				<ActualWeight>1.61</ActualWeight>
+				<WeightUOM>lb</WeightUOM>
+				<ActualVolume>538.8932</ActualVolume>
+				<EstimatedVolume>538.8932</EstimatedVolume>
+				<VolumeUOM>Cu Inch</VolumeUOM>
+				<PackageType>Case</PackageType>
+				<IsCancelled>Y</IsCancelled>
+				<Location>
+					<Area>601</Area>
+					<Zone>501</Zone>
+					<Aisle>401</Aisle>
+					<Bay>301</Bay>
+					<Level>201</Level>
+					<Position>101</Position>
+				</Location>
+				<LPNMovement>
+					<ASNID>10121584</ASNID>
+				</LPNMovement>
+				<LPNDetail>
+					<ItemName>11001102</ItemName>
+					<ItemSequenceNbr>11001101</ItemSequenceNbr>
+					<PurchaseOrderID>5506841</PurchaseOrderID>
+					<ReferenceField1/>
+					<ReferenceField2/>
+					<PurchaseOrderLineItemID>10</PurchaseOrderLineItemID>
+					<DistributionOrderLineItemID/>
+					<GTIN>45215478533</GTIN>
+					<ExpireDate>2023-07-20 00:00:00</ExpireDate>
+					<ManufacturedDTTM>2020-01-01 00:00:00</ManufacturedDTTM>
+					<BestBeforeDate>2023-07-20 00:00:00</BestBeforeDate>
+					<ShipByDate>2020-01-23 00:00:00</ShipByDate>
+					<PrePackGroupCode>1524942357</PrePackGroupCode>
+					<CutNbr>1323465213</CutNbr>
+					<AssortmentNbr>124863218</AssortmentNbr>
+					<InstructionCode1/>
+					<InstructionCode2/>
+					<InstructionCode3>11140333</InstructionCode3>
+					<InstructionCode4>11140334</InstructionCode4>
+					<InstructionCode5>HT</InstructionCode5>
+					<StandardSubPackQuantity>100</StandardSubPackQuantity>
+					<StandardPackQuantity>100</StandardPackQuantity>
+					<StandardCaseQuantity>20</StandardCaseQuantity>
+					<LPNDetailQuantity>
+						<Quantity>100</Quantity>
+						<QuantityUOM>EA</QuantityUOM>
+						<ShippedAsnQuantity>30</ShippedAsnQuantity>
+						<OriginalQuantity>100</OriginalQuantity>
+						<ReceivedQuantity>1</ReceivedQuantity>
+					</LPNDetailQuantity>
+					<LPNDetailWeight>
+						<EstimatedWeight>0</EstimatedWeight>
+						<Weight>0</Weight>
+						<WeightUOM>lb</WeightUOM>
+					</LPNDetailWeight>
+					<LPNDetailVolume>
+						<EstimatedVolume>0</EstimatedVolume>
+						<VolumeUOM>Cu Inch</VolumeUOM>
+					</LPNDetailVolume>
+					<InventoryAttributes>
+						<InventoryType/>
+						<ProductStatus>ORGNL</ProductStatus>
+						<CountryofOrigin>USA</CountryofOrigin>
+						<BatchNumber>B1</BatchNumber>
+						<ItemAttribute1/>
+						<ItemAttribute2/>
+						<ItemAttribute3/>
+						<ItemAttribute4/>
+						<ItemAttribute5/>
+					</InventoryAttributes>
+				</LPNDetail>
+				<LPNDetail>
+					<ItemName>11001101</ItemName>
+					<ItemSequenceNbr>11001101</ItemSequenceNbr>
+					<PurchaseOrderID>5506841</PurchaseOrderID>
+					<ReferenceField1/>
+					<ReferenceField2/>
+					<PurchaseOrderLineItemID>10</PurchaseOrderLineItemID>
+					<DistributionOrderLineItemID/>
+					<GTIN>45215478533</GTIN>
+					<ExpireDate>2023-07-20 00:00:00</ExpireDate>
+					<ManufacturedDTTM>2020-01-01 00:00:00</ManufacturedDTTM>
+					<BestBeforeDate>2023-07-20 00:00:00</BestBeforeDate>
+					<ShipByDate>2020-01-23 00:00:00</ShipByDate>
+					<PrePackGroupCode>1524942357</PrePackGroupCode>
+					<CutNbr>1323465213</CutNbr>
+					<AssortmentNbr>124863218</AssortmentNbr>
+					<InstructionCode1/>
+					<InstructionCode2/>
+					<InstructionCode3>11140333</InstructionCode3>
+					<InstructionCode4>11140334</InstructionCode4>
+					<InstructionCode5>HT</InstructionCode5>
+					<StandardSubPackQuantity>100</StandardSubPackQuantity>
+					<StandardPackQuantity>100</StandardPackQuantity>
+					<StandardCaseQuantity>20</StandardCaseQuantity>
+					<LPNDetailQuantity>
+						<Quantity>100</Quantity>
+						<QuantityUOM>EA</QuantityUOM>
+						<ShippedAsnQuantity>1</ShippedAsnQuantity>
+						<OriginalQuantity>100</OriginalQuantity>
+						<ReceivedQuantity>1</ReceivedQuantity>
+					</LPNDetailQuantity>
+					<LPNDetailWeight>
+						<EstimatedWeight>0</EstimatedWeight>
+						<Weight>0</Weight>
+						<WeightUOM>lb</WeightUOM>
+					</LPNDetailWeight>
+					<LPNDetailVolume>
+						<EstimatedVolume>0</EstimatedVolume>
+						<VolumeUOM>Cu Inch</VolumeUOM>
+					</LPNDetailVolume>
+					<InventoryAttributes>
+						<InventoryType/>
+						<ProductStatus>ORGNL</ProductStatus>
+						<CountryofOrigin>USA</CountryofOrigin>
+						<BatchNumber>B1</BatchNumber>
+						<ItemAttribute1/>
+						<ItemAttribute2/>
+						<ItemAttribute3/>
+						<ItemAttribute4/>
+						<ItemAttribute5/>
+					</InventoryAttributes>
+				</LPNDetail>
+			</LPN>
+		</ASN>
+	</Message>
+</tXML>

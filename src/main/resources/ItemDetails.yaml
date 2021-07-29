@@ -1,6 +1,6 @@
 ---
 bulkloadconfig:
-  sampleFile : ItemDetails.xml
+  sampleFile: ItemDetails.xml
   numberOfFiles: 2
   childNode: ItemPriceList
   numberOfMainNodes: 1
@@ -12,25 +12,25 @@ xmlnodes:
     name: CurrencyCode
     path: /tXML/Message/Item/ItemPriceList[$$]/ItemPrice[$$$]/CurrencyCode
     value:
-      valueType: RANDOM_FROM_LIST
+      valueType: randomFromList
       list: $,Rs,yen,riaal,CAD,pound,Euro,NZD,AUD,CHF
   -
     name: Gtin
     path: /tXML/Message/Item/ItemPackageList[$$]/ItemPackage[$$$]/Gtin
     value:
-      valueType: RANDOM_FROM_LIST
+      valueType: randomFromList
       list: G1,G2,G3,G4,G5,G6,G7,G8
   -
     name: ItemColor
     path: /tXML/Message/Item/ItemColor
     value:
-      valueType: STATIC
+      valueType: static
       staticValue: BLACK
   -
     name: MaxUnitsNested
     path: /tXML/Message/Item/MaxUnitsNested
     value:
-      valueType: INTEGER
+      valueType: integer
       startRange: 1
       endRange: 5
       stepType: increment
@@ -39,26 +39,26 @@ xmlnodes:
     name: UnitLength
     path: /tXML/Message/Item/UnitLength
     value:
-      valueType: RANDOM_DECIMAL_NUMBER
+      valueType: randomDecimalNumber
       startRange: 1
       endRange: 5
   -
     name: ItemQualityCode
     path: /tXML/Message/Item/ItemQualityCode
     value:
-      valueType: BOOLEAN
+      valueType: boolean
       booleanList: yes,no
   -
     name: Description
     path: /tXML/Message/Item/Description
     value:
-      valueType: STRING_COUNTER
+      valueType: stringCounter
       staticString: UB
       stepValue: 1
   -
     name: ItemUpcGtin
     path: /tXML/Message/Item/ItemUpcGtin
     value:
-      valueType: DATE_TIME
+      valueType: dateTime
       minutes: 20
       format: yyyy-MM-dd'T'HH:mm:ss.SSS'Z'

@@ -1,0 +1,33 @@
+---
+bulkloadconfig:
+  sampleFile : ASN.xml
+  numberOfFiles: 5
+  childNode: ASNDetail,LPN
+  numberOfMainNodes: 2
+  numberOfChildNodes: 2
+  numberOfSubChildNodes: 2
+  resultsFolderWithPath: "C:/performance-tests/target/jmeter/results/"
+xmlnodes:
+  -
+    name: ProductStatus
+    path: /tXML/Message/ASN/ASNDetail[$$]/InventoryAttributes/ProductStatus
+    value:
+      valueType: randomString
+  -
+    name: InstructionCode5
+    path: /tXML/Message/ASN/LPN[$$]/LPNDetail[$$$]/InstructionCode5
+    value:
+      valueType: randomString
+  -
+    name: PickupEndDTTM
+    path: /tXML/Message/ASN/PickupEndDTTM
+    value:
+      valueType: dateTime
+      days : -10
+      format: yyyy-MM-dd'T'HH:mm:ss.SSSZ
+  -
+    name: Version
+    path: /tXML/Header/Version
+    value:
+      valueType: randomFromList
+      list : 2014,2015,2016,2017

@@ -26,6 +26,9 @@ public interface LoadTestConstants {
     String DECIMAL = "decimal";
     String STRING_COUNTER = "stringCounter";
     String INCREMENT = "increment";
+    String ITEM_DETAILS = "ItemDetails.yaml";
+    String SAMPLE_DO = "mapping.yaml";
+    String STUDENT = "Student.yaml";
 
     void setupTest(JavaSamplerContext context);
 

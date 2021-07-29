@@ -9,28 +9,22 @@ Idea is to use the same script for generating different types XML's and perform 
 
 #### How to RUN
 
-```mvn install -D NUMBER_OF_ORDERS=1000 -DNUMBER_OF_THREADS=3 -DNUMBER_OF_LINEITEMS=2```
+```mvn clean install -DMAPPING_FILE=do-mapping.yaml```
 
 ##### What are these arguments?
 
-1. NUMBER_OF_ORDERS = number of distribution orders to be created
-1. NUMBER_OF_LINEITEMS = Number of line items for each pf the orders
-1. NUMBER_OF_THREADS = Controls the number of threads to be used for generating. Useful when we anted to genearate bulk of XML files for faster execution
-2. SAMPLE_FILE = This is the sample DO file 
+1. SAMPLE_FILE = This is the sample DO yaml file 
    1. Note : Please make sure to include the sample file under data folder
 
 ##### Where should i keep sample files?
 
 Sample files used for generating bulk of files should be placed under **data** folder.
-You can place a new sample XML file in the **data** folder and pass the file name with **SAMPLE_FILE = newfilename.xml** as an argument to the scripts.
-
 
 ##### Where are files generated?
 ALl the generated files will be under **results** folder , each file appended with a sequence number
 ```
 /performance-tests/target/jmeter/results
 ```
-
 
 ##### Flow
 
@@ -63,7 +57,7 @@ Maven --> pom.xml ---> LoadOrders.jmx ---> LoadOrders.java ---XMLDataGenerator.j
     name: DistributionOrderId
     path: //DistributionOrderId
     value:
-      generatedvalue: randomstring
+      valueType: randomString
       prefix: AIML1125202SET
       suffix: 0615
     ```
@@ -73,46 +67,46 @@ Maven --> pom.xml ---> LoadOrders.jmx ---> LoadOrders.java ---XMLDataGenerator.j
 name : Name of the field from XML that needs to be updated
 path : Xpath of the node to be updated
 value : Value configuration
-generatedvalue : Various preconfigured ENUMS which generates different values
+valueType : Various preconfigured ENUMS which generates different values
 
-####### Available generatedvalue ENUMS
+####### Available valueType ENUMS
 
-1. randomstring 
+1. randomString 
    
    Random String will be generated.
    
     Optional "prefix" and "suffix" can be provided.
 ```
     value:
-      generatedvalue: randomstring
+      valueType: randomString
       prefix: AIML1125202SET
       suffix: 0615
   ``` 
 2.number
 
-   Generates a radom number betwen 0 to 999 by default.
-    However optional **startrange** and **endRange** can also be provided
+   Generates a random number between 0 to 999 by default.
+    However optional **startRange** and **endRange** can also be provided
     
 ```   
     value:
-      generatedvalue: number
-      startrange: 2
-      endrange: 5
+      valueType: randomNumber
+      startRange: 2
+      endRange: 5
 ```
-3.randomfromlist
+3.randomFromList
 
 Need to provide subnode "list" with comma separated list of values
 ```    
    value:
-    generatedvalue: randomfromlist
+    valueType: randomFromList
     list: 1234,42323,94545,57834,4534
 ```
-4. date
+4. dateTime
     Generate date in the given format
 ```
     value:
-      generatedvalue: date
-      adddays : 10 #optional  - Generates a future date with additional 10 days to the current
+      valueType: date
+      days : 10 #optional  - Generates a future date with additional 10 days to the current
       format: yyyy-MM-dd'T'HH:mm:ss.SSSZ
 ```
 **Note** : Dependency on the below common-utils was removed
