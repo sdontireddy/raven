@@ -1,12 +1,12 @@
 ---
 bulkloadconfig:
   sampleFile : Sample_DO.xml
-  numberOfFiles: 5
+  numberOfFiles: 2
   childNode: LineItem
   numberOfMainNodes: 1
   numberOfChildNodes: 1
   numberOfSubChildNodes: 0
-  resultsFolderWithPath: "C:/performance-tests/target/jmeter/results/"
+  resultsFolderWithPath: "./"
 xmlnodes:
   -
     name: DistributionOrderId

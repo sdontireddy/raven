@@ -6,7 +6,7 @@ bulkloadconfig:
   numberOfMainNodes: 1
   numberOfChildNodes: 0
   numberOfSubChildNodes: 2
-  resultsFolderWithPath: "C:/performance-tests/target/jmeter/results/"
+  resultsFolderWithPath: "./"
 xmlnodes:
   -
     name: CertificationName

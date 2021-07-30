@@ -23,10 +23,16 @@ public class sampleDoGeneratorTest {
     @Test
     // @Ignore
     public void testAutoGeneratePODataFilesUsingFieldMapper() {
+
+        FileCreationCheck fileCreationCheck = new FileCreationCheck();
+
         try {
             XMLDataGenerator doXMLGenerator = new XMLDataGenerator();
             boolean isFileGenerated = doXMLGenerator.generateOrderDataFiles();
             assertTrue(isFileGenerated);
+
+            fileCreationCheck.filePresenceAndCountCheckTest(LoadTestConstants.SAMPLE_DO_PATH,
+                LoadTestConstants.GENERIC_PATH, LoadTestConstants.SAMPLE_DO_XML);
 
         } catch (Exception e) {
             LOGGER.severe("Exception Generating the data " + e.getMessage());

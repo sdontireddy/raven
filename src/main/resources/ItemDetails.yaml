@@ -6,7 +6,7 @@ bulkloadconfig:
   numberOfMainNodes: 1
   numberOfChildNodes: 0
   numberOfSubChildNodes: 10
-  resultsFolderWithPath: "C:/performance-tests-master/target/jmeter/results/"
+  resultsFolderWithPath: "./"
 xmlnodes:
   -
     name: CurrencyCode

@@ -1,12 +1,12 @@
 ---
 bulkloadconfig:
   sampleFile : ASN.xml
-  numberOfFiles: 5
+  numberOfFiles: 2
   childNode: ASNDetail,LPN
   numberOfMainNodes: 2
   numberOfChildNodes: 2
   numberOfSubChildNodes: 2
-  resultsFolderWithPath: "C:/performance-tests/target/jmeter/results/"
+  resultsFolderWithPath: "./"
 xmlnodes:
   -
     name: ProductStatus
