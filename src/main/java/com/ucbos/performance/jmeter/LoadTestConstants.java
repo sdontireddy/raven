@@ -39,7 +39,7 @@ public interface LoadTestConstants {
     String GENERIC_PATH = "C:/performance-tests";
 
     String ITEM_DETAIL_XML = "ItemDetails.xml";
-    String ASN_XML = "ASN.XML";
+    String ASN_XML = "ASN.xml";
     String STUDENT_XML = "Student.xml";
     String SAMPLE_DO_XML = "Sample_DO.xml";
 
