@@ -32,17 +32,6 @@ public interface LoadTestConstants {
     String SAMPLE_DO = "mapping.yaml";
     String STUDENT = "Student.yaml";
 
-    String STUDENT_PATH = "C:/performance-tests/1Student.xml";
-    String ASN_PATH = "C:/performance-tests/1ASN.xml";
-    String ITEM_DETAILS_PATH = "C:/performance-tests/1ItemDetails.xml";
-    String SAMPLE_DO_PATH = "C:/performance-tests/1Sample_DO.xml";
-    String GENERIC_PATH = "C:/performance-tests";
-
-    String ITEM_DETAIL_XML = "ItemDetails.xml";
-    String ASN_XML = "ASN.xml";
-    String STUDENT_XML = "Student.xml";
-    String SAMPLE_DO_XML = "Sample_DO.xml";
-
     void setupTest(JavaSamplerContext context);
 
     SampleResult runTest(JavaSamplerContext context);
