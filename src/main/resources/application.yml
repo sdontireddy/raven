@@ -1,0 +1,18 @@
+loadtesting:
+  pathconstants:
+    asnpathconstant: ./1ASN.xml
+	studentpathconstant: ./1Student.xml
+	sampledopathconstant: ./1Sample_DO.xml
+	itemdetailspathconstants: ./1ItemDetails.xml
+    genericpath: ./
+  testconstants:
+    asnconstant: ANS.xml
+    studentconstant: Student.xml
+    sampledoconstants: Sample_DO.xml
+    itemdetailsconstants: ItemDetails.xml
+  yamlconstants:
+    asnyaml: ASN.yaml
+    itemdetailsyaml: ItemDetails.yaml
+    studentyaml: Student.yaml
+    sampledoyaml: mapping.yaml
+    

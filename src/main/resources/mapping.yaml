@@ -1,34 +1,44 @@
 ---
 bulkloadconfig:
-  samplefile : Sample_DO.xml
-  numberoffiles: 5
-  childnode: LineItem
-  numberofchildnodes: 3
-  resultsfolderwithpath: "../../../results//"
+  sampleFile : Sample_DO.xml
+  numberOfFiles: 2
+  childNode: LineItem
+  numberOfMainNodes: 1
+  numberOfChildNodes: 1
+  numberOfSubChildNodes: 0
+  resultsFolderWithPath: "./"
 xmlnodes:
   -
     name: DistributionOrderId
-    path: //DistributionOrderId
+    path: /tXML/Message/DistributionOrder/DistributionOrderId
     value:
-      generatedvalue: randomstring
+      valueType: randomString
       prefix: SD
       suffix: 0617
   -
     name: OrderedDttm
     path: /tXML/Message/DistributionOrder/OrderedDttm
     value:
-      generatedvalue: date
-      adddays : 10
-      format: yyyy-MM-dd'T'HH:mm:ss.SSSZ
+      valueType: dateTime
+      days : 10
+      format: yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
   -
     name: ItemName
     path: /tXML/Message/DistributionOrder/LineItem[$$]/ItemName
     value:
-      generatedvalue: randomfromlist
+      valueType: randomFromList
       list: 1234,42323,94545,57834,4534
-  - name: OrderQty
+  -
+    name: OrderQty
     path: /tXML/Message/DistributionOrder/LineItem[$$]/Quantity/OrderQty
     value:
-      generatedvalue: number
-      startrange: 2
-      endrange: 5
+      valueType: randomIntegerNumber
+      startRange: 2
+      endRange: 5
+  -
+    name: HasSplit
+    path: /tXML/Message/DistributionOrder/HasSplit
+    value:
+      valueType: boolean
+      booleanList: yes,no
+

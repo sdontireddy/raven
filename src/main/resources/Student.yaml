@@ -1,0 +1,22 @@
+---
+bulkloadconfig:
+  sampleFile : Student.xml
+  numberOfFiles: 2
+  childNode: Certifications
+  numberOfMainNodes: 1
+  numberOfChildNodes: 0
+  numberOfSubChildNodes: 2
+  resultsFolderWithPath: "./"
+xmlnodes:
+  -
+    name: CertificationName
+    path: /tXML/Message/Student/Certifications[$$]/Certification[$$$]/CertificationName
+    value:
+      valueType: randomFromList
+      list: Java,Python,Ruby,Apache,Spring,UI,js
+  -
+    name: Year
+    path: /tXML/Message/Student/Awards[$$]/Award[$$$]/Year
+    value:
+      valueType: randomFromList
+      list: 2010.2012,2013,2014,2015,,2016,2017,2018

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tXML>
+   <Message>
+    <Student>
+     <StudentId>144</StudentId>
+	 <StudentName>ABC</StudentName>
+	 <School>LBHS</School>
+	 <College>SIT</College>
+	 <Graduation>IIT</Graduation>
+	    <Awards>
+		  <Award>
+		     <AwardsName>PadmaShree</AwardsName>
+		     <Year>2010</Year>
+		  </Award>
+		  <Award>
+		     <AwardsName>PadmaBhushan</AwardsName>
+		     <Year>2011</Year>
+		  </Award>
+		  <Award>
+		     <AwardsName>Oscar</AwardsName>
+		     <Year>2011</Year>
+		  </Award>
+		</Awards>
+		<Certifications>
+		  <Certification>
+		     <CertificationName>JAVA</CertificationName>
+			 <Grade>A</Grade>
+			 <Institue>TT</Institue>
+			 <DateOfIssue>12-08-2017</DateOfIssue>
+		  </Certification>
+		  <Certification>
+		     <CertificationName>Python</CertificationName>
+			 <Grade>A</Grade>
+			 <Institue>TT</Institue>
+			 <DateOfIssue>12-08-2018</DateOfIssue>
+		  </Certification>
+		</Certifications>
+		<Hobbies>
+		  <HobbieName>Cricket</HobbieName>
+		  <HobbieName>Running</HobbieName>
+		  <HobbieName>Cycling</HobbieName>
+		</Hobbies>
+    </Student>
+   </Message>
+</tXML>

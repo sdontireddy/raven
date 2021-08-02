@@ -27,6 +27,11 @@ public interface LoadTestConstants {
     String STRING_COUNTER = "stringCounter";
     String INCREMENT = "increment";
 
+    String ITEM_DETAILS = "ItemDetails.yaml";
+    String ASN = "ASN.yaml";
+    String SAMPLE_DO = "mapping.yaml";
+    String STUDENT = "Student.yaml";
+
     void setupTest(JavaSamplerContext context);
 
     SampleResult runTest(JavaSamplerContext context);
