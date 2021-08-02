@@ -10,12 +10,12 @@ Inorder to stress test the system we need to generate bulk(50K-100k) of these XM
 A simple and elegant way of configuring an  [YML](https://github.com/sdontireddy/performance-tests/blob/master/src/main/resources/do-mapping.yaml) file with required configuration along with sample XML(Ex: [DO.xml](https://github.com/sdontireddy/performance-tests/blob/master/src/main/resources/DO_sample_under_resource.xml) ) file and feed to this tool.
 
 #### Technology Used / Pre-Requisites
-1. Java
-2. JMeter
-3. Maven
+1. Java 8 +
+2. JMeter - No need to install , pre-baked in to the source code using Jmeter-maven plugin
+3. Maven 3.5+
 
 #### TODO 
-1. Check if we can have dockcer 
+1. Docker container
 2. Automatically push the generated files to SFTP
 
 #### How to RUN the tool
