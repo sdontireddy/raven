@@ -1,35 +1,47 @@
 ### Performance Scipts for UCBOS
 
-Jmeter based scripts to generate bulk of the test files to perform load testing on the UCBOS system.
+#### Problem Statement 
 
-Currently configured to generate bulk  Distribution Orders with random number of line items and random number of order quantity.
+UCBOS system takes different formats of XML's (Ex:Distribuition Orders , ASN's , PO's , Invoice etc.. ) as an input and performs the business logic.
+Inorder to stress test the system we need to generate bulk(50K-100k) of these XML's with different combinations of child nodes and different field values and feed to the system.
 
-Idea is to use the same script for generating different types XML's and perform load tests.
+#### Solution
 
+A simple and elegant way of configuring an  [YML](https://github.com/sdontireddy/performance-tests/blob/master/src/main/resources/do-mapping.yaml) file with required configuration along with sample XML(Ex: [DO.xml](https://github.com/sdontireddy/performance-tests/blob/master/src/main/resources/DO_sample_under_resource.xml) ) file and feed to this tool.
 
-#### How to RUN
+#### Technology Used / Pre-Requisites
+1. Java
+2. JMeter
+3. Maven
 
-```mvn install -D NUMBER_OF_ORDERS=1000 -DNUMBER_OF_THREADS=3 -DNUMBER_OF_LINEITEMS=2```
-```mvn clean install -DMAPPING_FILE=mapping.yaml```
+#### TODO 
+1. Check if we can have dockcer 
+2. Automatically push the generated files to SFTP
+
+#### How to RUN the tool
+
+``` mvn verify -DMAPPING_FILE=do-mapping.yaml ```
+
+Note : do-mapping.yml is already available under resource folder configured to generate bulk of Distribution Order related XML's
+
+In order to levarage JMeter to create bulk of orders , need to pass additional parameters
+
+``` mvn verify -NUMBER_OF_THREADS=20 -DMAPPING_FILE=do-mapping.yaml ```
 
 ##### What are these arguments?
 
-1. NUMBER_OF_LINEITEMS = Number of line items for each pf the orders
-1. NUMBER_OF_THREADS = Controls the number of threads to be used for generating. Useful when we anted to genearate bulk of XML files for faster execution
-1. NUMBER_OF_ORDERS = Number of orders to be genearated
+1. NUMBER_OF_THREADS = Controls the number of threads to be used for generating. Useful when we anted to genearate bulk of XML files for faster execution 
+2. MAPPING_FILE = [YML](https://github.com/sdontireddy/performance-tests/blob/master/src/main/resources/do-mapping.yaml) configuration defines sample XML file to be used as a base XML , number of XML's to generate , child nodes that needs to be updated/different for each of the generated XML's
    
-2. MAPPING_FILE = This is the sample DO file
-   1. Note : Please make sure to include the sample file under data folder
 
-##### Where should i keep sample files?
+##### Where should i keep sample resource files?
 
-Sample files used for generating bulk of files should be placed under **data** folder.
+Configuration files can be placed under **resource** folder or any other folder and provide the relavtive or absolute path as below.
+
+``` mvn verify -DMAPPING_FILE=../configs/mapping.yaml ```
 
 ##### Where are files generated?
-ALl the generated files will be under **results** folder , each file appended with a sequence number
-```
-/performance-tests/target/jmeter/results
-```
+ALl the generated files will be under [folder](https://github.com/sdontireddy/performance-tests/blob/master/src/main/resources/do-mapping.yaml#L7) defined in the configuration file , each file appended with a sequence number.
 
 ##### Flow
 
@@ -56,8 +68,40 @@ Maven --> pom.xml ---> LoadOrders.jmx ---> LoadOrders.java ---XMLDataGenerator.j
 3. **LoadOrders.java** : Glue between Jmeter and the actual scripts that generates XML files
 4.  **XMLDataGenerator.java** : Script that reads the configurations and generates bulk of XML files
 5.  **mapping.yaml** : Lists all our configurations , including the fields to be updated , corresponding XPATH and what should be the value
+
+#### Define the configuration file 
+
+```
+bulkloadconfig:
+	samplefile                -- This is the file name which needs to be created and updated
+	numberoffiles             -- Number of files needs to be generated
+	childnode                 -- The Child nodes which needs to be created
+	numberofmainnodes         -- Number of main nodes present in the samplefile
+	numberofchildnodes        -- Number of childnodes present within the main nodes
+	numberofsubchildnodes     -- Number of subchildnodes present within the childnodes
+	resultsfolderwithpath     -- The path where the generated files needs to be generated
+```
+Ex: To create 5000 xmls from a sample ASN.xml(placed under resource folder). And ASN has ASNDetail and LPN as child nodes 
+
+Generated 5000 ASN's will have different number of of ASNDetail Nodes
+
+```
+  samplefile : ASN.xml # Sample XML base file 
+  numberoffiles: 5000 # How many files to generate
+  childnode: ASNDetail,LPN # CHild nodes within the sample file that needs to be different in each of the XML's
+  numberofmainnodes: 2        #Optional, only if main nodes needs to be updated.
+  numberofchildnodes: 2       #Optional, only if childNode needs to be generated and updated
+  numberofsubchildnodes: 2    #Optional, only if subChildNode needs to be updated.
+  resultsfolderwithpath: "../results/" # result generated files folder
+  
+ ```
+
+#### How to update individual xml nodes
+
+Individual xml nodes can be defined with current XPath and ValueType so that a ranndom value will be generated
+
+  Ex  : Below configuration updates  **DistributionOrderId** field at the given xpath "/DistributionOrderId" with a random string appended with given suffix and prefix
     
-    Ex  : Below configuration updates  **DistributionOrderId** field at the given xpath "/DistributionOrderId" with a random string appended with given suffix and prefix
     ```   
     name: DistributionOrderId
     path: //DistributionOrderId
@@ -65,40 +109,21 @@ Maven --> pom.xml ---> LoadOrders.jmx ---> LoadOrders.java ---XMLDataGenerator.j
       valueType: randomString
       prefix: AIML1125202SET
       suffix: 0615
+      
     ```
-	```
-	name: CertificationName
+ Ex 2 : Update CertificationName node at given path with one of the values from defined list
+
+```
+   name: CertificationName
     path: /tXML/Message/Student/Certifications[$$]/Certification[$$$]/CertificationName
     value:
       valueType: randomFromList
       list: Java,Python,Ruby,Apache,Spring,UI,js
-	```
+	
 	where,
 	$$  -->  childNode
 	$$$ -->  subChildNode
-	
-	
-```````
-bulkloadconfig:
-  samplefile : ASN.xml
-  numberoffiles: 5
-  childnode: ASNDetail,LPN
-  numberofmainnodes: 2        #Optional, only if main nodes needs to be updated.
-  numberofchildnodes: 2       #Optional, only if childNode needs to be generated and updated
-  numberofsubchildnodes: 2    #Optional, only if subChildNode needs to be updated.
-  resultsfolderwithpath: "C:/performance-tests-master/target/jmeter/results/"
-
-
-samplefile                -- This is the file name which needs to be created and updated
-numberoffiles             -- Number of files needs to be generated
-childnode                 -- The Child nodes which needs to be created
-numberofmainnodes         -- Number of main nodes present in the samplefile
-numberofchildnodes        -- Number of childnodes present within the main nodes
-numberofsubchildnodes     -- Number of subchildnodes present within the childnodes
-resultsfolderwithpath     -- The path where the generated files needs to be generated
-```````	  
-	  
-##### How to Configure Mapping.yaml
+```
 
 ###### Required fields :
 name : Name of the field from XML that needs to be updated
@@ -106,9 +131,9 @@ path : Xpath of the node to be updated
 value : Value configuration
 valueType : Various preconfigured ENUMS which generates different values
 
-####### Available valueType ENUMS
+##### Available valueType ENUMS to update fields
 
-1. randomString 
+1. **randomString**
    
    Random String will be generated.
    
@@ -119,7 +144,7 @@ valueType : Various preconfigured ENUMS which generates different values
       prefix: AIML1125202SET
       suffix: 0615
 ``` 
-2.randomNumber
+2.**randomNumber**
 
    Generates a random number between 1000 to 9999 by default.
     
@@ -127,7 +152,7 @@ valueType : Various preconfigured ENUMS which generates different values
     value:
       valueType: randomNumber
 ```
-3.randomFromList
+3.**randomFromList**
 
     Picks the random value from the list
     Need to provide subnode "list" with comma separated list of values
@@ -136,7 +161,7 @@ valueType : Various preconfigured ENUMS which generates different values
     valueType: randomFromList
     list: 1234,42323,94545,57834,4534
 ```
-4. dateTime
+4. **dateTime**
 
     Generate dateTime in the given format
 	days, minutes are optional
@@ -149,7 +174,7 @@ valueType : Various preconfigured ENUMS which generates different values
 	  minutes: 10
       format: yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
 ```
-5. randomIntegerNumber
+5. **randomIntegerNumber**
     
 	Generate Random integer number with the given startRange and endRange
 ```
@@ -158,7 +183,7 @@ valueType : Various preconfigured ENUMS which generates different values
       startRange: 1
       endRange: 10
 ```
-6. randomDecimalNumber
+6. **randomDecimalNumber**
     
 	Generate Random decimal number with the given startRange and endRange
 ```
@@ -167,7 +192,7 @@ valueType : Various preconfigured ENUMS which generates different values
       startRange: 1
       endRange: 10
 ```
-7. boolean
+7. **boolean**
     
 	Generate boolean value from the given booleanList
 ```
@@ -175,7 +200,7 @@ valueType : Various preconfigured ENUMS which generates different values
       valueType: boolean
       booleanList: yes,no
 ```
-8. static
+8. **static**
     
 	Replaces the given static value
 ```
@@ -183,7 +208,7 @@ valueType : Various preconfigured ENUMS which generates different values
       valuetype: static
       staticValue: Black
 ```
-9. integer
+9. **integer**
     
 	Generate integer/decimal value which keep on incrementing/decrementing between the startRange and endRange with the given stepValue
 ```
@@ -194,7 +219,7 @@ valueType : Various preconfigured ENUMS which generates different values
       stepType: increment      #Optional. By default it will be decrement. It can be increment also.
       stepValue: 1             #The value by which the given number needs to be incremented/decremented.
 ```
-10. stringCounter
+10. **stringCounter**
     
 	Generate concatinated string of staticString and stepValue. where stepValue keeps on incrementing.
 ```	  
@@ -203,9 +228,5 @@ valueType : Various preconfigured ENUMS which generates different values
       staticString: UB
       stepValue: 1
 ```
-	  
-**Note** : Dependency on the below common-utils was removed
-
-**[common-utils](https://github.com/sdontireddy/common-utils)** : A dependent project and more of a library with common utils parse XML's , JSON etc..
 
 
