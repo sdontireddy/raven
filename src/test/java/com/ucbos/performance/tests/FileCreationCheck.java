@@ -35,5 +35,4 @@ public class FileCreationCheck {
         System.out.println(YmlConfigReader.getBulkLoadConfig().getNumberOfFiles());
         assertTrue(count == YmlConfigReader.getBulkLoadConfig().getNumberOfFiles());
     }
-
 }

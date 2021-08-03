@@ -36,7 +36,6 @@ public class YmlNode {
 
     @Override
     public String toString() {
-        return "\nName: " + name + "\npath: " + path;
+        return "YmlNode [name=" + name + ", path=" + path + ", value=" + value + "]";
     }
-
 }

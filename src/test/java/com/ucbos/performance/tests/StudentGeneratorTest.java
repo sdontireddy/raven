@@ -12,6 +12,12 @@ import com.ucbos.performance.config.YmlConfigReader;
 import com.ucbos.performance.generators.XMLDataGenerator;
 import com.ucbos.performance.jmeter.LoadTestConstants;
 
+/**
+ * Test case Student file generation
+ * 
+ * @author Rudreshkumar
+ *
+ */
 public class StudentGeneratorTest {
 
     private static Logger logger = Logger.getLogger("StudentGeneratorTest.class.getName()");
@@ -45,5 +51,4 @@ public class StudentGeneratorTest {
             logger.severe("Exception Generating the data " + e.getMessage());
         }
     }
-
 }
