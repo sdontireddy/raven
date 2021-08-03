@@ -26,9 +26,8 @@ public class DataGeneratorUtil {
 
         Random r = new Random();
         String randomNum = list.get(r.nextInt(list.size()));
-        System.out.println("randomNum" + randomNum);
-        return randomNum;
 
+        return randomNum;
     }
 
     public static long getRandomNumber(int startRanage, int endRange) {
@@ -64,6 +63,7 @@ public class DataGeneratorUtil {
         } else {
             zoneDateTimeModified = zonedDateTime.plusMinutes(minutes);
         }
+
         return zoneDateTimeModified.format(formatter);
     }
 
@@ -72,6 +72,7 @@ public class DataGeneratorUtil {
 
         ZonedDateTime zonedDateTime = ZonedDateTime.now();
         ZonedDateTime zoneDateTimeAddMinutes = zonedDateTime.plusMinutes(numberOfMinutes);
+
         return zoneDateTimeAddMinutes.format(formatter);
     }
 
@@ -88,7 +89,7 @@ public class DataGeneratorUtil {
     public static String getRandomBooleanFromtheList(List<String> list) {
         Random r = new Random();
         String randomBoolean = list.get(r.nextInt(list.size()));
+
         return randomBoolean;
     }
-
 }

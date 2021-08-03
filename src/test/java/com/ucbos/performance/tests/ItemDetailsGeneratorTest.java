@@ -12,6 +12,12 @@ import com.ucbos.performance.config.YmlConfigReader;
 import com.ucbos.performance.generators.XMLDataGenerator;
 import com.ucbos.performance.jmeter.LoadTestConstants;
 
+/**
+ * Test case for ItemDetails file generation
+ * 
+ * @author Rudreshkumar
+ *
+ */
 public class ItemDetailsGeneratorTest {
 
     private static Logger logger = Logger.getLogger(ItemDetailsGeneratorTest.class.getName());
@@ -45,5 +51,4 @@ public class ItemDetailsGeneratorTest {
             logger.severe("Exception Generating the data " + e.getMessage());
         }
     }
-
 }

@@ -66,7 +66,6 @@ public class XMLDataGenerator {
         LOGGER.log(Level.INFO, "--------------Completed : Time Elapsed----------------" + elapsedSeconds);
 
         return returnFlag;
-
     }
 
     /***
@@ -85,7 +84,6 @@ public class XMLDataGenerator {
         for (String childNode : childNodeList) {
 
             document = updateXMLDocwithGivenChildItems(document, childNode, numberOfChildLineItems);
-
         }
         Document updatedDocument = document;
         for (int i = 1; i <= (numberOfChildLineItems + numberofmainnodes); i++) {
@@ -122,11 +120,9 @@ public class XMLDataGenerator {
                 }
                 value = "";
             }
-
         }
 
         return updatedDocument;
-
     }
 
     private String generateValue(NodeValue nodeValueToGenerate, String value) {
@@ -137,8 +133,6 @@ public class XMLDataGenerator {
         int endRanage = nodeValueToGenerate.getEndRange();
         int days = nodeValueToGenerate.getDays();
         int minutes = nodeValueToGenerate.getMinutes();
-
-        System.out.println("nodeValueToGenerate=======" + nodeValueToGenerate.toString());
 
         String replaceValue = "0";
         switch (criteria) {
@@ -238,7 +232,6 @@ public class XMLDataGenerator {
 
             distributionOrder.appendChild(newOrderItem);
         }
-
         return rootDocument;
     }
 
@@ -255,8 +248,6 @@ public class XMLDataGenerator {
             newOrderItem = (Element) orderItemElement.cloneNode(true);
             parentNode.appendChild(newOrderItem);
         }
-
         return rootDocument;
     }
-
 }

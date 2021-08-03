@@ -39,5 +39,4 @@ public interface LoadTestConstants {
     Arguments getDefaultParameters();
 
     void teardownTest(JavaSamplerContext context);
-
 }

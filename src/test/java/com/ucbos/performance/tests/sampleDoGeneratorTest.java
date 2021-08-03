@@ -12,6 +12,12 @@ import com.ucbos.performance.config.YmlConfigReader;
 import com.ucbos.performance.generators.XMLDataGenerator;
 import com.ucbos.performance.jmeter.LoadTestConstants;
 
+/**
+ * Test case for Sample_DO file generation
+ * 
+ * @author Rudreshkumar
+ *
+ */
 public class sampleDoGeneratorTest {
 
     private static Logger LOGGER = Logger.getLogger("sampleDoGeneratorTest.class.getName()");
@@ -44,5 +50,4 @@ public class sampleDoGeneratorTest {
             LOGGER.severe("Exception Generating the data " + e.getMessage());
         }
     }
-
 }

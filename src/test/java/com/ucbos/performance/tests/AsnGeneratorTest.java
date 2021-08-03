@@ -12,6 +12,12 @@ import com.ucbos.performance.config.YmlConfigReader;
 import com.ucbos.performance.generators.XMLDataGenerator;
 import com.ucbos.performance.jmeter.LoadTestConstants;
 
+/**
+ * Test case for ASN file generation
+ * 
+ * @author Rudreshkumar
+ *
+ */
 public class AsnGeneratorTest {
 
     private static Logger logger = Logger.getLogger("AsnGeneratorTest.class.getName()");
@@ -48,5 +54,4 @@ public class AsnGeneratorTest {
             logger.severe("Exception Generating the data " + e.getMessage());
         }
     }
-
 }

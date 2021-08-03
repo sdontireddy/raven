@@ -77,5 +77,4 @@ public class BulkLoadConfig {
             + numberOfChildNodes + ", numberOfSubChildNodes=" + numberOfSubChildNodes + ", numberOfMainNodes="
             + numberOfMainNodes + "]";
     }
-
 }

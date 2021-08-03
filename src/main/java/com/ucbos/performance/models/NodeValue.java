@@ -156,5 +156,4 @@ public class NodeValue {
             + ", booleanList=" + booleanList + ", staticValue=" + staticValue + ", stepType=" + stepType
             + ", stepValue=" + stepValue + ", staticString=" + staticString + ", minutes=" + minutes + "]";
     }
-
 }
