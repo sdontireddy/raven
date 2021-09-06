@@ -80,13 +80,22 @@ public class XMLDataGenerator {
         String value = "";
         int numberofmainnodes = YmlConfigReader.getBulkLoadConfig().getNumberOfMainNodes();
 
-        List<String> childNodeList = Arrays.asList(YmlConfigReader.getBulkLoadConfig().getChildNode().split(","));
+        String childNode = YmlConfigReader.getBulkLoadConfig().getChildNode();
+        childNode = childNode.substring(1, childNode.length()-1);
+        List<String> childNodeList = Arrays.asList(childNode.split(","));
 
-        for (String childNode : childNodeList) {
+        for (String childNodeDetail : childNodeList) {
 
-            document = updateXMLDocwithGivenChildItems(document, childNode, numberOfChildLineItems);
+            String parentNode = childNodeDetail.substring(0, childNodeDetail.indexOf('='));
+            String childNodeName = childNodeDetail.substring(childNodeDetail.indexOf('=')+1,
+                childNodeDetail.indexOf("=", childNodeDetail.indexOf('=')+1));
+            String childNodeCount = childNodeDetail.substring(
+                childNodeDetail.indexOf("=", childNodeDetail.indexOf('=')+1)+1, childNodeDetail.length());
 
-        }
+            document = updateXMLDocwithGivenChildItems(document, childNodeName, Integer.parseInt(childNodeCount),
+                parentNode);
+            }
+
         Document updatedDocument = document;
         for (int i = 1; i <= (numberOfChildLineItems + numberofmainnodes); i++) {
             System.out.println("i ************" + i);
@@ -243,19 +252,21 @@ public class XMLDataGenerator {
     }
 
     private Document updateXMLDocwithGivenChildItems(Document rootDocument, String nameOftheChildItem,
-        int numberOfItems) {
+        int numberOfItems, String nameOftheParentNode) {
 
-        NodeList lineItemListElement = rootDocument.getElementsByTagName(nameOftheChildItem);
-        Node parentNode = lineItemListElement.item(0).getParentNode();
-        // Node distributionOrder = rootDocument.getElementsByTagName("DistributionOrder").item(0);
+        NodeList lineItemChildListElement = rootDocument.getElementsByTagName(nameOftheChildItem);
+        NodeList lineItemParentListElement = rootDocument.getElementsByTagName(nameOftheParentNode);
         Element newOrderItem = null;
-        for (int i = 1; i <= numberOfItems; i++) {
-            Element orderItemElement = (Element) lineItemListElement.item(0);
-            // Just append the Lineitems
-            newOrderItem = (Element) orderItemElement.cloneNode(true);
-            parentNode.appendChild(newOrderItem);
-        }
 
+        for(int i = 0; i < lineItemParentListElement.getLength(); i++) {
+
+            for (int j = 1; j <= numberOfItems; j++) {
+                Element orderItemElement = (Element) lineItemChildListElement.item(0);
+                // Just append the Lineitems
+                newOrderItem = (Element) orderItemElement.cloneNode(true);
+                lineItemParentListElement.item(i).appendChild(newOrderItem);
+            }
+        }
         return rootDocument;
     }
 

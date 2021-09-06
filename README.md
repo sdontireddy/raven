@@ -88,7 +88,7 @@ Generated 5000 ASN's will have different number of of ASNDetail Nodes
 ```
   samplefile : ASN.xml # Sample XML base file 
   numberoffiles: 5000 # How many files to generate
-  childnode: ASNDetail,LPN # CHild nodes within the sample file that needs to be different in each of the XML's
+  childnode: {parentnode=childnode=countof-childnode} # Child nodes within the sample file that needs to be in each XML file.
   numberofmainnodes: 2        #Optional, only if main nodes needs to be updated.
   numberofchildnodes: 2       #Optional, only if childNode needs to be generated and updated
   numberofsubchildnodes: 2    #Optional, only if subChildNode needs to be updated.
