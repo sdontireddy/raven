@@ -1,33 +1,30 @@
 ---
 bulkloadconfig:
   sampleFile : ASN.xml
-  numberOfFiles: 2
-  childNode: ASNDetail,LPN
-  numberOfMainNodes: 2
-  numberOfChildNodes: 2
-  numberOfSubChildNodes: 2
-  resultsFolderWithPath: "./"
+  numberOfFiles: 5
+  childNode: "{ASNDetail=InventoryAttributes=2,ASN=ASNDetail=2}"
+  resultsFolderWithPath: "C:/performance-tests/target/jmeter/results/"
 xmlnodes:
   -
     name: ProductStatus
-    path: /tXML/Message/ASN/ASNDetail[$$]/InventoryAttributes/ProductStatus
+    path: /tXML/Message/ASN/ASNDetail[$$]/InventoryAttributes[$$$]/ProductStatus/[$$=3,$$$=3]
     value:
       valueType: randomString
   -
-    name: InstructionCode5
-    path: /tXML/Message/ASN/LPN[$$]/LPNDetail[$$$]/InstructionCode5
+    name: BusinessUnit
+    path: /tXML/Message/ASN/BusinessUnit
     value:
-      valueType: randomString
+      valueType: randomNumber
   -
-    name: PickupEndDTTM
-    path: /tXML/Message/ASN/PickupEndDTTM
+    name: PurchaseOrderLineItemID
+    path: /tXML/Message/ASN/ASNDetail[$$]/PurchaseOrderLineItemID/[$$=3]
     value:
-      valueType: dateTime
-      days : -10
-      format: yyyy-MM-dd'T'HH:mm:ss.SSSZ
+      valueType: stringCounter
+      staticString: UB
+      stepValue: 10
   -
-    name: Version
-    path: /tXML/Header/Version
+    name: Name
+    path: /tXML/Message/ASN/ASNDetail[$$]/CustomFieldList[$$$]/CustomField[$$$$]/Name/[$$=3,$$$=1,$$$$=1]
     value:
-      valueType: randomFromList
-      list : 2014,2015,2016,2017
+      valueType: static
+      staticValue: GOLD

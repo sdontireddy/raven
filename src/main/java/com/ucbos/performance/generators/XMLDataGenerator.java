@@ -3,7 +3,9 @@ package com.ucbos.performance.generators;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.IntStream;
@@ -31,11 +33,15 @@ public class XMLDataGenerator {
 
     private static Logger LOGGER = Logger.getLogger("XMLDataGenerator.class.getName()");
 
+    /**
+     * Method to generate files
+     *
+     * @return true if files generate else false
+     * @throws Exception
+     */
     public boolean generateOrderDataFiles() throws Exception {
         boolean returnFlag = false;
         String sampleFileName = YmlConfigReader.getBulkLoadConfig().getSampleFile();
-        int nummberOfLineItems = YmlConfigReader.getBulkLoadConfig().getNumberOfChildNodes();
-        int nummberOfSubLineItems = YmlConfigReader.getBulkLoadConfig().getNumberOfSubChildNodes();
 
         LOGGER.log(Level.INFO, "--------------Started----------------" + sampleFileName);
         System.out.println("sampleFilePath" + sampleFileName);
@@ -47,8 +53,7 @@ public class XMLDataGenerator {
                 System.out.println("New File Path" + newFilePath);
                 InputStream stream = this.getClass().getClassLoader().getResourceAsStream(sampleFileName);
                 XMLUtil xmlUtil = new XMLUtil(stream);
-                Document updatedDocument = fillTheMappedValuesYml(xmlUtil.getDocument(), xmlUtil, nummberOfLineItems,
-                    nummberOfSubLineItems);
+                Document updatedDocument = fillTheMappedValuesYml(xmlUtil.getDocument(), xmlUtil);
 
                 System.out.println("New File Path" + newFilePath);
                 xmlUtil.createXMLFile(newFilePath, updatedDocument);
@@ -66,23 +71,19 @@ public class XMLDataGenerator {
         LOGGER.log(Level.INFO, "--------------Completed : Time Elapsed----------------" + elapsedSeconds);
 
         return returnFlag;
-
     }
 
-    /***
+    /**
      * Based on the YAML configuration , given xpaths will be updated with the configured values
      */
-    private Document fillTheMappedValuesYml(Document document, XMLUtil xmlUtil, int numberOfChildLineItems,
-        int numberOfSubLineItems)
+    private Document fillTheMappedValuesYml(Document document, XMLUtil xmlUtil)
         throws Exception {
         System.out.println("Fill the Mapped Values");
-
-        String value = "";
-        int numberofmainnodes = YmlConfigReader.getBulkLoadConfig().getNumberOfMainNodes();
 
         String childNode = YmlConfigReader.getBulkLoadConfig().getChildNode();
         childNode = childNode.substring(1, childNode.length()-1);
         List<String> childNodeList = Arrays.asList(childNode.split(","));
+        System.out.println("childNodeList======================="+childNodeList);
 
         for (String childNodeDetail : childNodeList) {
 
@@ -91,53 +92,128 @@ public class XMLDataGenerator {
                 childNodeDetail.indexOf("=", childNodeDetail.indexOf('=')+1));
             String childNodeCount = childNodeDetail.substring(
                 childNodeDetail.indexOf("=", childNodeDetail.indexOf('=')+1)+1, childNodeDetail.length());
-
             document = updateXMLDocwithGivenChildItems(document, childNodeName, Integer.parseInt(childNodeCount),
                 parentNode);
             }
 
         Document updatedDocument = document;
-        for (int i = 1; i <= (numberOfChildLineItems + numberofmainnodes); i++) {
-            System.out.println("i ************" + i);
 
-            for (YmlNode xmlConfigNode : YmlConfigReader.getXmlNodesToUpdate()) {
-                System.out.println(xmlConfigNode);
-                // For each of the node , we will have Name , Path , Value obj
-                // First generate/calculate the with given values
-                NodeValue nodeValueToGenerate = xmlConfigNode.getValue();
-                System.out.println("Geneating value " + nodeValueToGenerate.getPrefix()
-                    + nodeValueToGenerate.getValueType() + nodeValueToGenerate.getSuffix());
+        for (YmlNode xmlConfigNode : YmlConfigReader.getXmlNodesToUpdate()) {
 
-                numberOfSubLineItems =
-                    xmlConfigNode.getPath().contains("$$$") ? numberOfSubLineItems : numberofmainnodes;
-
-                for (int j = 1; j <= numberOfSubLineItems; j++) {
-
-                    value = nodeValueToGenerate.getPrefix() + generateValue(nodeValueToGenerate, value)
-                        + nodeValueToGenerate.getSuffix();
-                    System.out.println("*****UpdatePath*****" + xmlConfigNode.getPath() + " " + value);
-
-                    String xPath = xmlConfigNode.getPath();
-                    if (xPath.indexOf("$$") > -1 && xPath.indexOf("$$$") > -1) {
-                        xPath = xPath.replace("$$$", String.valueOf(j));
-                        xPath = xPath.replace("$$", String.valueOf(i));
-                    } else if (xPath.indexOf("$$") > -1) {
-
-                        xPath = xPath.replace("$$", String.valueOf(i));
-                    }
-                    System.out.println("expression=====================================" + xPath);
-                    System.out.println("newValue=====================================" + value);
-                    updatedDocument = xmlUtil.updateDocument(updatedDocument, xPath, value);
-                }
-                value = "";
-            }
-
+            updatedDocument = this.updateNodesWithGeneratedValue(updatedDocument, xmlConfigNode,
+                xmlUtil);
         }
 
         return updatedDocument;
-
     }
 
+    /**
+     * Method to update xmlnodes
+     *
+     * @param updatedDocument
+     * @param xmlConfigNode
+     * @param xmlUtil
+     * @return updatedDocument
+     * @throws Exception
+     */
+    private Document updateNodesWithGeneratedValue(Document updatedDocument, YmlNode xmlConfigNode, XMLUtil xmlUtil) 
+        throws Exception {
+
+        String value = "";
+        NodeValue nodeValueToGenerate = xmlConfigNode.getValue();
+        String xPathToBeUpdated = xmlConfigNode.getPath();
+
+        if (xPathToBeUpdated.indexOf("$$$$") > -1) {
+            System.out.println("*****************5***************************");
+            String xPath = xPathToBeUpdated.substring(0, xPathToBeUpdated.indexOf("/["));
+            String xPathToUpdate = xPathToBeUpdated.substring(0, xPathToBeUpdated.indexOf("/["));
+
+            Map<String, Integer> hashMap = this.getNodeCountValue(xPathToBeUpdated);
+
+            for (int i = 1; i <= hashMap.get("$$"); i++) {
+                System.out.println("i ************" + i);
+
+                for (int j = 1; j <= hashMap.get("$$$"); j++) {
+                    System.out.println("j ************" + j);
+
+                    for (int k = 1; k <= hashMap.get("$$$$"); k++) {
+
+                        value = nodeValueToGenerate.getPrefix() + generateValue(nodeValueToGenerate, value)
+                            + nodeValueToGenerate.getSuffix();
+
+                        xPath = xPath.replace("$$$$", String.valueOf(k));
+                        xPath = xPath.replace("$$$", String.valueOf(j));
+                        xPath = xPath.replace("$$", String.valueOf(i));
+
+                        updatedDocument = xmlUtil.updateDocument(updatedDocument, xPath, value);
+                        System.out.println("expression=====================================" + xPath);
+                        System.out.println("newValue=====================================" + value);
+                        xPath = xPathToUpdate;
+                    }
+                    value = "";
+                }
+            }
+        } else if (xPathToBeUpdated.indexOf("$$$") > -1) {
+
+            String xPath = xPathToBeUpdated.substring(0, xPathToBeUpdated.indexOf("/["));
+            String xPathToUpdate = xPathToBeUpdated.substring(0, xPathToBeUpdated.indexOf("/["));
+            Map<String, Integer> hashMap = this.getNodeCountValue(xPathToBeUpdated);
+
+            for (int i = 1; i <= hashMap.get("$$"); i++) {
+                System.out.println("i ************" + i);
+
+                for (int j = 1; j <= hashMap.get("$$$"); j++) {
+                    System.out.println("j ************" + j);
+
+                    value = nodeValueToGenerate.getPrefix() + generateValue(nodeValueToGenerate, value)
+                        + nodeValueToGenerate.getSuffix();
+
+                    xPath = xPath.replace("$$$", String.valueOf(j));
+                    xPath = xPath.replace("$$", String.valueOf(i));
+
+                    updatedDocument = xmlUtil.updateDocument(updatedDocument, xPath, value);
+                    System.out.println("expression=====================================" + xPath);
+                    System.out.println("newValue=====================================" + value);
+                    xPath = xPathToUpdate;
+                }
+                value = "";
+            }
+        } else if (xPathToBeUpdated.indexOf("$$") > -1) {
+
+            String xPath = xPathToBeUpdated.substring(0, xPathToBeUpdated.indexOf("/["));
+            String xPathToUpdate = xPathToBeUpdated.substring(0, xPathToBeUpdated.indexOf("/["));
+            Map<String, Integer> hashMap = this.getNodeCountValue(xPathToBeUpdated);
+
+            for (int i = 1; i <= hashMap.get("$$"); i++) {
+
+                value = nodeValueToGenerate.getPrefix() + generateValue(nodeValueToGenerate, value)
+                    + nodeValueToGenerate.getSuffix();
+
+                xPath = xPath.replace("$$", String.valueOf(i));
+
+                System.out.println("expression=====================================" + xPath);
+                System.out.println("newValue=====================================" + value);
+                updatedDocument = xmlUtil.updateDocument(updatedDocument, xPath, value);
+                xPath = xPathToUpdate;
+            }
+        } else {
+
+            value = nodeValueToGenerate.getPrefix() + generateValue(nodeValueToGenerate, value)
+            + nodeValueToGenerate.getSuffix();
+
+            updatedDocument = xmlUtil.updateDocument(updatedDocument, xPathToBeUpdated, value);
+        }
+
+        return updatedDocument;
+    }
+
+    /**
+     * Method to generate the value of different types
+     *
+     * @param nodeValueToGenerate
+     * @param value
+     * @return replaceValue
+     */
     private String generateValue(NodeValue nodeValueToGenerate, String value) {
 
         String criteria = nodeValueToGenerate.getValueType();
@@ -218,10 +294,10 @@ public class XMLDataGenerator {
                 }
             case LoadTestConstants.STRING_COUNTER:
                 if (!value.isEmpty()) {
-                    StringBuffer sb = new StringBuffer(value);
-                    sb.deleteCharAt(sb.length() - 1);
-                    int counter = Integer.valueOf(nodeValueToGenerate.getStepValue());
-                    replaceValue = sb.toString() + counter++;
+
+                    StringBuilder numbersBuilder = this.stringSeperate(value);
+                    Integer counter = Integer.valueOf(numbersBuilder.toString());
+                    replaceValue = nodeValueToGenerate.getStaticString() + (++counter);
                 } else {
                     replaceValue = nodeValueToGenerate.getStaticString() + nodeValueToGenerate.getStepValue();
                 }
@@ -234,7 +310,7 @@ public class XMLDataGenerator {
      *
      * @param rootDocument
      * @param numberOfItems
-     * @return
+     * @return rootDocument
      */
     private Document updateXMLDocwithLineItemItems(Document rootDocument, int numberOfItems) {
 
@@ -251,6 +327,15 @@ public class XMLDataGenerator {
         return rootDocument;
     }
 
+    /**
+     * Method to update the document using the given node of different count
+     *
+     * @param rootDocument to be updated
+     * @param nameOftheChildItem to be populated
+     * @param numberOfItems to be created
+     * @param nameOftheParentNode to which nodes to be appended
+     * @return rootDocument
+     */
     private Document updateXMLDocwithGivenChildItems(Document rootDocument, String nameOftheChildItem,
         int numberOfItems, String nameOftheParentNode) {
 
@@ -268,6 +353,45 @@ public class XMLDataGenerator {
             }
         }
         return rootDocument;
+    }
+
+    /**
+     * Method to get key-value pair for node count
+     *
+     * @param path from where node count needs to be fetched
+     * @return hashMap
+     */
+    public Map<String, Integer> getNodeCountValue(String path) {
+
+        String subString = path.substring(path.indexOf("/[")+1, path.length());
+
+        String nodeCount = subString.substring(1, subString.length() - 1);
+        String[] keyValuePairs = nodeCount.split(",");
+        Map<String, Integer> hashMap = new HashMap<>();
+
+        for (String pair : keyValuePairs) {
+            String[] entry = pair.split("=");
+            hashMap.put(entry[0].trim(), Integer.valueOf(entry[1].trim()));
+        }
+        return hashMap;
+    }
+
+    /**
+     * Method to fetch number out of given string
+     *
+     * @param value string
+     * @return numbersBuilder
+     */
+    private StringBuilder stringSeperate(String value) {
+
+        StringBuilder numbersBuilder = new StringBuilder();
+        for (int i = 0; i < value.length(); i++) {
+            char ch = value.charAt(i);
+            if (Character.isDigit(ch)) {
+                numbersBuilder.append(ch);
+            }
+        }
+        return numbersBuilder;
     }
 
 }
