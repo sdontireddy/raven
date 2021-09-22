@@ -103,7 +103,7 @@ Individual xml nodes can be defined with current XPath and ValueType so that a r
   Ex  : Below configuration updates  **DistributionOrderId** field at the given xpath "/DistributionOrderId" with a random string appended with given suffix and prefix
     
     ```   
-    name: DistributionOrderId
+    name: DistributionOrderId         #name is not a mandatory field
     path: //DistributionOrderId
     value:
       valueType: randomString
@@ -114,7 +114,7 @@ Individual xml nodes can be defined with current XPath and ValueType so that a r
  Ex 2 : Update CertificationName node at given path with one of the values from defined list
 
 ```
-   name: CertificationName
+   name: CertificationName               #name is not a mandatory field
     path: /tXML/Message/Student/Certifications[$$]/Certification[$$$]/CertificationName
     value:
       valueType: randomFromList
@@ -134,7 +134,7 @@ valueType : Various preconfigured ENUMS which generates different values
 ##### Available valueType ENUMS to update fields
 
 1. **randomString**
-   
+
    Random String will be generated.
    
     Optional "prefix" and "suffix" can be provided.
@@ -143,12 +143,11 @@ valueType : Various preconfigured ENUMS which generates different values
       valueType: randomString
       prefix: AIML1125202SET
       suffix: 0615
-``` 
+```
 2.**randomNumber**
 
-   Generates a random number between 1000 to 9999 by default.
-    
-```   
+   Generates a random number between 1000 to 9999 by default. 
+```
     value:
       valueType: randomNumber
 ```
@@ -156,7 +155,7 @@ valueType : Various preconfigured ENUMS which generates different values
 
     Picks the random value from the list
     Need to provide subnode "list" with comma separated list of values
-```    
+```
    value:
     valueType: randomFromList
     list: 1234,42323,94545,57834,4534
@@ -175,7 +174,7 @@ valueType : Various preconfigured ENUMS which generates different values
       format: yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
 ```
 5. **randomIntegerNumber**
-    
+
 	Generate Random integer number with the given startRange and endRange
 ```
     value:
@@ -184,7 +183,7 @@ valueType : Various preconfigured ENUMS which generates different values
       endRange: 10
 ```
 6. **randomDecimalNumber**
-    
+
 	Generate Random decimal number with the given startRange and endRange
 ```
     value:
@@ -193,7 +192,7 @@ valueType : Various preconfigured ENUMS which generates different values
       endRange: 10
 ```
 7. **boolean**
-    
+
 	Generate boolean value from the given booleanList
 ```
     value:
@@ -201,32 +200,41 @@ valueType : Various preconfigured ENUMS which generates different values
       booleanList: yes,no
 ```
 8. **static**
-    
+
 	Replaces the given static value
 ```
     value:
-      valuetype: static
+      valueType: static
       staticValue: Black
 ```
 9. **integer**
-    
+
 	Generate integer/decimal value which keep on incrementing/decrementing between the startRange and endRange with the given stepValue
 ```
     value:
-      valuetype: integer       #integer or decimal value which needs to be generated.
-      startrange: 1
-      endrange: 5
+      valueType: integer       #integer or decimal value which needs to be generated.
+      startRange: 1
+      endRange: 5
       stepType: increment      #Optional. By default it will be decrement. It can be increment also.
       stepValue: 1             #The value by which the given number needs to be incremented/decremented.
 ```
 10. **stringCounter**
-    
+
 	Generate concatinated string of staticString and stepValue. where stepValue keeps on incrementing.
-```	  
+```
 	value:
-      valuetype: stringCounter
+      valueType: stringCounter
       staticString: UB
       stepValue: 1
+```
+11. **sequenceCounter**
+
+	Generate sequenceCounter value by concatinating staticString and startRange
+```
+    value:
+      valueType: sequenceCounter
+      staticString: POV1_
+      startRange: 1                  # No need to mention the endRange because it will iterate for all the files.
 ```
 
 

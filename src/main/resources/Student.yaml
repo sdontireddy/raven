@@ -2,21 +2,89 @@
 bulkloadconfig:
   sampleFile : Student.xml
   numberOfFiles: 2
-  childNode: Certifications
-  numberOfMainNodes: 1
-  numberOfChildNodes: 0
-  numberOfSubChildNodes: 2
-  resultsFolderWithPath: "./"
+  childNode: "{Message=Student=0}"
+  resultsFolderWithPath: "C:/performance-tests/target/jmeter/results/"
 xmlnodes:
   -
+    name: Tag
+    path: /tXML/Message/Student/Tag
+    value:
+      valueType: randomNumber
+  -
+    name: NickName
+    path: /tXML/Message/Student/NickName
+    value:
+      valueType: randomString
+  -
+    name: Height
+    path: /tXML/Message/Student/Height
+    value:
+      valueType: randomIntegerNumber
+      startRange: 1
+      endRange: 10
+  -
+    name: Weight
+    path: /tXML/Message/Student/Weight
+    value:
+      valueType: randomDecimalNumber
+      startRange: 1
+      endRange: 10
+  -
+    name: DateOfIssue
+    path: /tXML/Message/Student/Certifications/Certification[$$]/DateOfIssue/[$$=2]
+    value:
+      valueType: dateTime
+      days : 10
+      minutes: 10
+      format: yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
+  -
     name: CertificationName
-    path: /tXML/Message/Student/Certifications[$$]/Certification[$$$]/CertificationName
+    path: /tXML/Message/Student/Certifications/Certification[$$]/CertificationName/[$$=2]
     value:
       valueType: randomFromList
       list: Java,Python,Ruby,Apache,Spring,UI,js
   -
-    name: Year
-    path: /tXML/Message/Student/Awards[$$]/Award[$$$]/Year
+    name: Passed
+    path: /tXML/Message/Student/Certifications/Certification[$$]/Passed/[$$=2]
     value:
-      valueType: randomFromList
-      list: 2010.2012,2013,2014,2015,,2016,2017,2018
+      valueType: boolean
+      booleanList: Yes,NO
+  -
+    name: StudentName
+    path: /tXML/Message/Student/StudentName
+    value:
+      valueType: static
+      staticValue: ABC
+  -
+    name: Scholarship
+    path: /tXML/Message/Student/Scholarship
+    value:
+      valueType: integer
+      startRange: 100
+      endRange: 500
+      stepType: increment
+      stepValue: 1
+  -
+    name: YearOfStudy
+    path: /tXML/Message/Student/YearOfStudy
+    value:
+      valueType: decimal
+      startRange: 1
+      endRange: 4
+      stepType: increment
+      stepValue: 1
+  -
+    name: Grade
+    path: /tXML/Message/Student/Certifications/Certification[$$]/Grade/[$$=2]
+    value:
+      valueType: stringCounter
+      staticString: A
+      stepValue: 1
+  -
+    name: StudentId
+    path: /tXML/Message/Student/StudentId
+    value:
+      valueType: sequenceCounter
+      stringLength: 5
+      staticString: POV1_
+      startRange: 1

@@ -4,8 +4,14 @@
     <Student>
      <StudentId>144</StudentId>
 	 <StudentName>ABC</StudentName>
+	 <NickName></NickName>
+	 <Tag></Tag>
+	 <Height></Height>
+	 <Weight></Weight>
 	 <School>LBHS</School>
 	 <College>SIT</College>
+	 <Scholarship></Scholarship>
+	 <YearOfStudy></YearOfStudy>
 	 <Graduation>IIT</Graduation>
 	    <Awards>
 		  <Award>
@@ -25,12 +31,14 @@
 		  <Certification>
 		     <CertificationName>JAVA</CertificationName>
 			 <Grade>A</Grade>
+			 <Passed></Passed>
 			 <Institue>TT</Institue>
 			 <DateOfIssue>12-08-2017</DateOfIssue>
 		  </Certification>
 		  <Certification>
 		     <CertificationName>Python</CertificationName>
 			 <Grade>A</Grade>
+			 <Passed></Passed>
 			 <Institue>TT</Institue>
 			 <DateOfIssue>12-08-2018</DateOfIssue>
 		  </Certification>

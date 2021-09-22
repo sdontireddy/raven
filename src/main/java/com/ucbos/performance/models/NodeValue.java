@@ -19,6 +19,7 @@ public class NodeValue {
     private String stepValue;
     private String staticString;
     private int minutes;
+    private String stringLength;
 
     /**
      * return prefix
@@ -133,6 +134,13 @@ public class NodeValue {
     public int getMinutes() {
         return minutes;
     }
+    
+    /**
+     * @return stringLength
+     */
+    public String getStringLength() {
+        return stringLength;
+    }
 
     /**
      * @param value to be set for prefix
@@ -231,13 +239,21 @@ public class NodeValue {
     public void setMinutes(int minutes) {
         this.minutes = minutes;
     }
+    
+    /**
+     * @param stringLength to be set
+     */
+    public void setStringLength(String stringLength) {
+        this.stringLength = stringLength;
+    }
 
     @Override
     public String toString() {
         return "NodeValue [prefix=" + prefix + ", suffix=" + suffix + ", valueType=" + valueType + ", format=" + format
             + ", startRange=" + startRange + ", endRange=" + endRange + ", days=" + days + ", list=" + list
             + ", booleanList=" + booleanList + ", staticValue=" + staticValue + ", stepType=" + stepType
-            + ", stepValue=" + stepValue + ", staticString=" + staticString + ", minutes=" + minutes + "]";
+            + ", stepValue=" + stepValue + ", staticString=" + staticString + ", minutes=" + minutes + ", stringLength="
+            + stringLength + "]";
     }
 
 }

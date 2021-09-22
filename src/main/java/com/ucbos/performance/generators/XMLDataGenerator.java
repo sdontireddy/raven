@@ -30,6 +30,7 @@ import com.ucbos.utils.XMLUtil;
 public class XMLDataGenerator {
 
     private static Logger LOGGER = Logger.getLogger("XMLDataGenerator.class.getName()");
+    private String previousId = "";
 
     /**
      * Method to generate files
@@ -214,7 +215,8 @@ public class XMLDataGenerator {
         int endRanage = nodeValueToGenerate.getEndRange();
         int days = nodeValueToGenerate.getDays();
         int minutes = nodeValueToGenerate.getMinutes();
-        String replaceValue = "0";
+        String stringLength = nodeValueToGenerate.getStringLength();
+        String replaceValue = "";
 
         LOGGER.log(Level.INFO,"Generate value for given value-type");
 
@@ -268,6 +270,7 @@ public class XMLDataGenerator {
                         replaceValue = String.valueOf(nodeValueToGenerate.getEndRange());
                     }
                 }
+                break;
             case LoadTestConstants.DECIMAL:
                 if (nodeValueToGenerate.getStepType().equalsIgnoreCase(LoadTestConstants.INCREMENT)) {
                     if (!value.isEmpty()) {
@@ -284,6 +287,7 @@ public class XMLDataGenerator {
                         replaceValue = String.valueOf(new BigDecimal(nodeValueToGenerate.getEndRange()));
                     }
                 }
+                break;
             case LoadTestConstants.STRING_COUNTER:
                 if (!value.isEmpty()) {
 
@@ -293,7 +297,23 @@ public class XMLDataGenerator {
                 } else {
                     replaceValue = nodeValueToGenerate.getStaticString() + nodeValueToGenerate.getStepValue();
                 }
+                break;
+            case LoadTestConstants.SEQUENCE_COUNTER:
+                String stringFormat = "%0" + stringLength + "d";
+                if(!previousId.isEmpty()) {
+                    int counter = Integer.parseInt(previousId.substring(previousId.indexOf("_") + 1,
+                        previousId.length()));
+                    previousId = nodeValueToGenerate.getStaticString() +
+                        String.format(stringFormat, (++counter));
+                    replaceValue = previousId;
+                } else {
+                    previousId = nodeValueToGenerate.getStaticString() +
+                        String.format(stringFormat, startRange);
+                    replaceValue = previousId;
+                }
+                break;
         }
+
         LOGGER.log(Level.INFO,"Generated value for given value-type");
         return replaceValue;
     }

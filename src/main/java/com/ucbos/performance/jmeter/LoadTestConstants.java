@@ -29,6 +29,7 @@ public interface LoadTestConstants {
     String DECIMAL = "decimal";
     String STRING_COUNTER = "stringCounter";
     String INCREMENT = "increment";
+    String SEQUENCE_COUNTER = "sequenceCounter";
 
     String ITEM_DETAILS = "ItemDetails.yaml";
     String ASN = "ASN.yaml";
