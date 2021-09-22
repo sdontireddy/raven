@@ -2,7 +2,6 @@ package com.ucbos.performance.models;
 
 /**
  * Entity class for BulkLoadConfig
- *
  */
 public class BulkLoadConfig {
 
@@ -14,58 +13,100 @@ public class BulkLoadConfig {
     private int numberOfSubChildNodes;
     private int numberOfMainNodes;
 
+    /**
+     * return folderPath
+     */
     public String getResultsFolderWithPath() {
         return resultsFolderWithPath;
     }
 
-    public void setResultsFolderWithPath(String value) {
-        this.resultsFolderWithPath = value;
-    }
-
+    /**
+     * return samplefile name
+     */
     public String getSampleFile() {
         return sampleFile;
     }
 
-    public void setSampleFile(String value) {
-        this.sampleFile = value;
-    }
-
+    /**
+     * return number of files
+     */
     public int getNumberOfFiles() {
         return numberOfFiles;
     }
 
-    public void setNumberOfFiles(int value) {
-        this.numberOfFiles = value;
-    }
-
+    /**
+     * return childnode
+     */
     public String getChildNode() {
         return childNode;
     }
 
-    public void setChildNode(String value) {
-        this.childNode = value;
-    }
-
+    /**
+     * return number of childnodes
+     */
     public int getNumberOfChildNodes() {
         return numberOfChildNodes;
     }
 
-    public void setNumberOfChildNodes(int value) {
-        this.numberOfChildNodes = value;
-    }
-
+    /**
+     * return number of subchildnodes
+     */
     public int getNumberOfSubChildNodes() {
         return numberOfSubChildNodes;
     }
 
-    public void setNumberOfSubChildNodes(int numberOfSubChildNodes) {
-        this.numberOfSubChildNodes = numberOfSubChildNodes;
-    }
-
+    /**
+     * return number of main nodes
+     */
     public int getNumberOfMainNodes() {
         return numberOfMainNodes;
     }
 
+    /**
+     * @param value to be set for resultsFolderWithPath
+     */
+    public void setResultsFolderWithPath(String value) {
+        this.resultsFolderWithPath = value;
+    }
+
+    /**
+     * @param value to be set for sampleFile
+     */
+    public void setSampleFile(String value) {
+        this.sampleFile = value;
+    }
+
+    /**
+     * @param value to be set for numberOfFiles
+     */
+    public void setNumberOfFiles(int value) {
+        this.numberOfFiles = value;
+    }
+
+    /**
+     * @param value to be set for childNode
+     */
+    public void setChildNode(String value) {
+        this.childNode = value;
+    }
+
+    /**
+     * @param value to be set for numberOfChildNodes
+     */
+    public void setNumberOfChildNodes(int value) {
+        this.numberOfChildNodes = value;
+    }
+
+    /**
+     * @param value to be set for numberOfSubChildNodes
+     */
+    public void setNumberOfSubChildNodes(int numberOfSubChildNodes) {
+        this.numberOfSubChildNodes = numberOfSubChildNodes;
+    }
+
+    /**
+     * @param value to be set for numberOfMainNodes
+     */
     public void setNumberOfMainNodes(int numberOfMainNodes) {
         this.numberOfMainNodes = numberOfMainNodes;
     }
@@ -77,5 +118,4 @@ public class BulkLoadConfig {
             + numberOfChildNodes + ", numberOfSubChildNodes=" + numberOfSubChildNodes + ", numberOfMainNodes="
             + numberOfMainNodes + "]";
     }
-
 }

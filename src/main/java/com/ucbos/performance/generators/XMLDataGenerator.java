@@ -23,9 +23,7 @@ import com.ucbos.utils.DataGeneratorUtil;
 import com.ucbos.utils.XMLUtil;
 
 /**
- * Generates bulk of data files with given set of configurations defined in the mapping.yaml
- * <p>
- * Use init method to pass required Products information to be use
+ * Generates bulk of data files with given set of configurations defined in the corresponding yaml file
  *
  * @author sdontireddy
  */
@@ -37,15 +35,16 @@ public class XMLDataGenerator {
      * Method to generate files
      *
      * @return true if files generate else false
-     * @throws Exception
+     * @throws Exception exception to be thrown on failure
      */
     public boolean generateOrderDataFiles() throws Exception {
-        boolean returnFlag = false;
-        String sampleFileName = YmlConfigReader.getBulkLoadConfig().getSampleFile();
 
+        boolean returnFlag;
+        String sampleFileName = YmlConfigReader.getBulkLoadConfig().getSampleFile();
         LOGGER.log(Level.INFO, "--------------Started----------------" + sampleFileName);
-        System.out.println("sampleFilePath" + sampleFileName);
-        long tStart = System.currentTimeMillis();
+        long startTimeInMillis = System.currentTimeMillis();
+
+        // Iterate the yml file so to produce given number of files with given nodes updated.
         IntStream.range(0, YmlConfigReader.getBulkLoadConfig().getNumberOfFiles()).forEach(counter -> {
             try {
                 String newFilePath =
@@ -64,9 +63,9 @@ public class XMLDataGenerator {
             }
         });
 
-        long tEnd = System.currentTimeMillis();
-        long tDelta = tEnd - tStart;
-        double elapsedSeconds = tDelta / 1000.0;
+        long endTimeInMillis = System.currentTimeMillis();
+        long totalTimeTaken = endTimeInMillis - startTimeInMillis;
+        double elapsedSeconds = totalTimeTaken / 1000.0;
         returnFlag = true;
         LOGGER.log(Level.INFO, "--------------Completed : Time Elapsed----------------" + elapsedSeconds);
 
@@ -78,13 +77,14 @@ public class XMLDataGenerator {
      */
     private Document fillTheMappedValuesYml(Document document, XMLUtil xmlUtil)
         throws Exception {
-        System.out.println("Fill the Mapped Values");
+
+        LOGGER.log(Level.INFO,"Fill the Mapped Values");
 
         String childNode = YmlConfigReader.getBulkLoadConfig().getChildNode();
         childNode = childNode.substring(1, childNode.length()-1);
         List<String> childNodeList = Arrays.asList(childNode.split(","));
-        System.out.println("childNodeList======================="+childNodeList);
 
+        // Update the document with given count of the child nodes.
         for (String childNodeDetail : childNodeList) {
 
             String parentNode = childNodeDetail.substring(0, childNodeDetail.indexOf('='));
@@ -96,13 +96,14 @@ public class XMLDataGenerator {
                 parentNode);
             }
 
+        // Update the all the xml nodes with given value-type
         Document updatedDocument = document;
-
         for (YmlNode xmlConfigNode : YmlConfigReader.getXmlNodesToUpdate()) {
 
             updatedDocument = this.updateNodesWithGeneratedValue(updatedDocument, xmlConfigNode,
                 xmlUtil);
         }
+        LOGGER.log(Level.INFO,"Filled the Mapped Values");
 
         return updatedDocument;
     }
@@ -122,19 +123,17 @@ public class XMLDataGenerator {
         String value = "";
         NodeValue nodeValueToGenerate = xmlConfigNode.getValue();
         String xPathToBeUpdated = xmlConfigNode.getPath();
+        LOGGER.log(Level.INFO,"Update nodes with generated value");
 
         if (xPathToBeUpdated.indexOf("$$$$") > -1) {
-            System.out.println("*****************5***************************");
+
             String xPath = xPathToBeUpdated.substring(0, xPathToBeUpdated.indexOf("/["));
             String xPathToUpdate = xPathToBeUpdated.substring(0, xPathToBeUpdated.indexOf("/["));
-
             Map<String, Integer> hashMap = this.getNodeCountValue(xPathToBeUpdated);
 
             for (int i = 1; i <= hashMap.get("$$"); i++) {
-                System.out.println("i ************" + i);
 
                 for (int j = 1; j <= hashMap.get("$$$"); j++) {
-                    System.out.println("j ************" + j);
 
                     for (int k = 1; k <= hashMap.get("$$$$"); k++) {
 
@@ -146,8 +145,6 @@ public class XMLDataGenerator {
                         xPath = xPath.replace("$$", String.valueOf(i));
 
                         updatedDocument = xmlUtil.updateDocument(updatedDocument, xPath, value);
-                        System.out.println("expression=====================================" + xPath);
-                        System.out.println("newValue=====================================" + value);
                         xPath = xPathToUpdate;
                     }
                     value = "";
@@ -160,10 +157,8 @@ public class XMLDataGenerator {
             Map<String, Integer> hashMap = this.getNodeCountValue(xPathToBeUpdated);
 
             for (int i = 1; i <= hashMap.get("$$"); i++) {
-                System.out.println("i ************" + i);
 
                 for (int j = 1; j <= hashMap.get("$$$"); j++) {
-                    System.out.println("j ************" + j);
 
                     value = nodeValueToGenerate.getPrefix() + generateValue(nodeValueToGenerate, value)
                         + nodeValueToGenerate.getSuffix();
@@ -172,8 +167,6 @@ public class XMLDataGenerator {
                     xPath = xPath.replace("$$", String.valueOf(i));
 
                     updatedDocument = xmlUtil.updateDocument(updatedDocument, xPath, value);
-                    System.out.println("expression=====================================" + xPath);
-                    System.out.println("newValue=====================================" + value);
                     xPath = xPathToUpdate;
                 }
                 value = "";
@@ -191,8 +184,6 @@ public class XMLDataGenerator {
 
                 xPath = xPath.replace("$$", String.valueOf(i));
 
-                System.out.println("expression=====================================" + xPath);
-                System.out.println("newValue=====================================" + value);
                 updatedDocument = xmlUtil.updateDocument(updatedDocument, xPath, value);
                 xPath = xPathToUpdate;
             }
@@ -203,6 +194,7 @@ public class XMLDataGenerator {
 
             updatedDocument = xmlUtil.updateDocument(updatedDocument, xPathToBeUpdated, value);
         }
+        LOGGER.log(Level.INFO,"Updated nodes with generated value");
 
         return updatedDocument;
     }
@@ -211,8 +203,8 @@ public class XMLDataGenerator {
      * Method to generate the value of different types
      *
      * @param nodeValueToGenerate
-     * @param value
-     * @return replaceValue
+     * @param value old value
+     * @return replaceValue which needs to be updated
      */
     private String generateValue(NodeValue nodeValueToGenerate, String value) {
 
@@ -222,10 +214,10 @@ public class XMLDataGenerator {
         int endRanage = nodeValueToGenerate.getEndRange();
         int days = nodeValueToGenerate.getDays();
         int minutes = nodeValueToGenerate.getMinutes();
-
-        System.out.println("nodeValueToGenerate=======" + nodeValueToGenerate.toString());
-
         String replaceValue = "0";
+
+        LOGGER.log(Level.INFO,"Generate value for given value-type");
+
         switch (criteria) {
             case LoadTestConstants.RANDOM_NUMBER:
                 replaceValue = String.valueOf(DataGeneratorUtil.getRandomNumber(1000,
@@ -302,14 +294,15 @@ public class XMLDataGenerator {
                     replaceValue = nodeValueToGenerate.getStaticString() + nodeValueToGenerate.getStepValue();
                 }
         }
+        LOGGER.log(Level.INFO,"Generated value for given value-type");
         return replaceValue;
     }
 
     /**
      * Create number of OrderItems
      *
-     * @param rootDocument
-     * @param numberOfItems
+     * @param rootDocument to be updated
+     * @param numberOfItems to be updated
      * @return rootDocument
      */
     private Document updateXMLDocwithLineItemItems(Document rootDocument, int numberOfItems) {
@@ -339,6 +332,8 @@ public class XMLDataGenerator {
     private Document updateXMLDocwithGivenChildItems(Document rootDocument, String nameOftheChildItem,
         int numberOfItems, String nameOftheParentNode) {
 
+        LOGGER.log(Level.INFO,"Update document with given child nodes with given count");
+
         NodeList lineItemChildListElement = rootDocument.getElementsByTagName(nameOftheChildItem);
         NodeList lineItemParentListElement = rootDocument.getElementsByTagName(nameOftheParentNode);
         Element newOrderItem = null;
@@ -352,6 +347,7 @@ public class XMLDataGenerator {
                 lineItemParentListElement.item(i).appendChild(newOrderItem);
             }
         }
+        LOGGER.log(Level.INFO,"Updated document with given child nodes with given count");
         return rootDocument;
     }
 
@@ -363,6 +359,8 @@ public class XMLDataGenerator {
      */
     public Map<String, Integer> getNodeCountValue(String path) {
 
+        LOGGER.log(Level.INFO,"Get node-name and count to be updated");
+
         String subString = path.substring(path.indexOf("/[")+1, path.length());
 
         String nodeCount = subString.substring(1, subString.length() - 1);
@@ -373,6 +371,7 @@ public class XMLDataGenerator {
             String[] entry = pair.split("=");
             hashMap.put(entry[0].trim(), Integer.valueOf(entry[1].trim()));
         }
+        LOGGER.log(Level.INFO,"Get node-name and count to be updated");
         return hashMap;
     }
 
@@ -384,6 +383,8 @@ public class XMLDataGenerator {
      */
     private StringBuilder stringSeperate(String value) {
 
+        LOGGER.log(Level.INFO,"Seperate int value from string");
+
         StringBuilder numbersBuilder = new StringBuilder();
         for (int i = 0; i < value.length(); i++) {
             char ch = value.charAt(i);
@@ -391,6 +392,7 @@ public class XMLDataGenerator {
                 numbersBuilder.append(ch);
             }
         }
+        LOGGER.log(Level.INFO,"Seperated int value from string");
         return numbersBuilder;
     }
 

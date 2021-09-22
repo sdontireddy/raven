@@ -14,8 +14,11 @@ import org.yaml.snakeyaml.constructor.Constructor;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-
+/**
+ * YmlConfigReader class
+ */
 public class YmlConfigReader {
+
     private static List<YmlNode> xmlNodesToUpdate;
     private static BulkLoadConfig bulkLoadConfig;
 
@@ -24,6 +27,7 @@ public class YmlConfigReader {
     }
 
     public static List<YmlNode> readYamlConfigurationAssumingListinSameDocument(String mappingFile) throws Exception{
+
         System.out.println("Loading Mapping file configured " + mappingFile);
         Constructor constructor = new Constructor(YamlDocumentModel.class);
         TypeDescription configDesc = new TypeDescription(YamlDocumentModel.class);
@@ -46,10 +50,10 @@ public class YmlConfigReader {
         bulkLoadConfig = xmlNodeconfig.getBulkloadconfig();
 
         return xmlNodeconfig.getXmlnodes();
-
     }
 
     public static void readYamlConfigurationAssumingMultipleDocuments() throws Exception{
+
             Yaml yaml = new Yaml(new Constructor(YmlNode.class));
             InputStream inputStream = YmlConfigReader.class
                     .getClassLoader()
@@ -60,7 +64,6 @@ public class YmlConfigReader {
                 System.out.println(object);
                 assertTrue(object instanceof YmlNode);
             }
-
         }
 
     public static List<YmlNode> getXmlNodesToUpdate() {
@@ -79,6 +82,3 @@ public class YmlConfigReader {
         YmlConfigReader.bulkLoadConfig = bulkLoadConfig;
     }
 }
-
-
-

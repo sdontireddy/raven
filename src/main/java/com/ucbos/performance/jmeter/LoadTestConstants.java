@@ -6,6 +6,9 @@ import org.apache.jmeter.config.Arguments;
 import org.apache.jmeter.protocol.java.sampler.JavaSamplerContext;
 import org.apache.jmeter.samplers.SampleResult;
 
+/**
+ * Class to store all the constants value
+ */
 public interface LoadTestConstants {
 
     String NUMBER_OF_ORDERS = "NUMBER_OF_ORDERS";

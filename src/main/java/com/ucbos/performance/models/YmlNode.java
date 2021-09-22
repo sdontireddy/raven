@@ -10,26 +10,44 @@ public class YmlNode {
     private String path;
     private NodeValue value;
 
+    /**
+     * retrun name
+     */
     public String getName() {
         return name;
     }
 
-    public void setName(String value) {
-        this.name = value;
-    }
-
+    /**
+     * return path
+     */
     public String getPath() {
         return path;
     }
 
-    public void setPath(String value) {
-        this.path = value;
-    }
-
+    /**
+     * return value
+     */
     public NodeValue getValue() {
         return value;
     }
 
+    /**
+     * @param value to be set to name
+     */
+    public void setName(String value) {
+        this.name = value;
+    }
+
+    /**
+     * @param value to be set to path
+     */
+    public void setPath(String value) {
+        this.path = value;
+    }
+
+    /**
+     * @param value to be set
+     */
     public void setValue(NodeValue value) {
         this.value = value;
     }
@@ -38,5 +56,4 @@ public class YmlNode {
     public String toString() {
         return "\nName: " + name + "\npath: " + path;
     }
-
 }

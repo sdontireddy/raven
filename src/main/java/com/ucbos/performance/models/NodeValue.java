@@ -1,8 +1,7 @@
 package com.ucbos.performance.models;
 
 /**
- * Entity Class for Node Value Details
- *
+ * Entity Class for NodeValue
  */
 public class NodeValue {
 
@@ -21,130 +20,214 @@ public class NodeValue {
     private String staticString;
     private int minutes;
 
+    /**
+     * return prefix
+     */
     public String getPrefix() {
         if (prefix == null)
             return "";
         return prefix;
     }
 
-    public void setPrefix(String value) {
-        this.prefix = value;
-    }
-
+    /**
+     * return suffix
+     */
     public String getSuffix() {
         if (suffix == null)
             return "";
         return suffix;
     }
 
-    public void setSuffix(String value) {
-        this.suffix = value;
-    }
-
+    /**
+     * return valuetype
+     */
     public String getValueType() {
         if (valueType == null)
             return "";
         return valueType;
     }
 
-    public void setValueType(String valueType) {
-        this.valueType = valueType;
-    }
-
+    /**
+     * return format
+     */
     public String getFormat() {
         if (valueType == null)
             return "";
         return format;
     }
 
-    public void setFormat(String format) {
-        this.format = format;
-    }
-
+    /**
+     * return startrange
+     */
     public int getStartRange() {
         return startRange;
     }
 
-    public void setStartRange(int startRange) {
-        this.startRange = startRange;
-    }
-
+    /**
+     * return endrange
+     */
     public int getEndRange() {
         return endRange;
     }
 
-    public void setEndRange(int endRange) {
-        this.endRange = endRange;
-    }
-
+    /**
+     * return days
+     */
     public int getDays() {
         return days;
     }
 
-    public void setDays(int days) {
-        this.days = days;
-    }
-
+    /**
+     * return list
+     */
     public String getList() {
         if (list == null)
             return "";
         return list;
     }
 
-    public void setList(String list) {
-        this.list = list;
-    }
-
+    /**
+     * return boolean list
+     */
     public String getBooleanList() {
         if (booleanList == null)
             return "";
         return booleanList;
     }
 
-    public void setBooleanList(String booleanList) {
-        this.booleanList = booleanList;
-    }
-
+    /**
+     * return static value
+     */
     public String getStaticValue() {
         if (staticValue == null)
             return "";
         return staticValue;
     }
 
-    public void setStaticValue(String staticValue) {
-        this.staticValue = staticValue;
-    }
-
+    /**
+     * return steptype
+     */
     public String getStepType() {
         return stepType;
     }
 
-    public void setStepType(String stepType) {
-        this.stepType = stepType;
-    }
-
+    /**
+     * return stepvalue
+     */
     public String getStepValue() {
         return stepValue;
     }
 
-    public void setStepValue(String stepValue) {
-        this.stepValue = stepValue;
-    }
-
+    /**
+     * return static string
+     */
     public String getStaticString() {
         if (staticString == null)
             return "";
         return staticString;
     }
 
-    public void setStaticString(String staticString) {
-        this.staticString = staticString;
-    }
-
+    /**
+     * return minutes
+     */
     public int getMinutes() {
         return minutes;
     }
 
+    /**
+     * @param value to be set for prefix
+     */
+    public void setPrefix(String value) {
+        this.prefix = value;
+    }
+
+    /**
+     * @param value to be set for suffix
+     */
+    public void setSuffix(String value) {
+        this.suffix = value;
+    }
+
+    /**
+     * @param valueType to be set
+     */
+    public void setValueType(String valueType) {
+        this.valueType = valueType;
+    }
+
+    /**
+     * @param format to be set
+     */
+    public void setFormat(String format) {
+        this.format = format;
+    }
+
+    /**
+     * @param startRange to be set
+     */
+    public void setStartRange(int startRange) {
+        this.startRange = startRange;
+    }
+
+    /**
+     * @param endRange to be set
+     */
+    public void setEndRange(int endRange) {
+        this.endRange = endRange;
+    }
+
+    /**
+     * @param days to be set
+     */
+    public void setDays(int days) {
+        this.days = days;
+    }
+
+    /**
+     * @param list to be set
+     */
+    public void setList(String list) {
+        this.list = list;
+    }
+
+    /**
+     * @param booleanList to be set
+     */
+    public void setBooleanList(String booleanList) {
+        this.booleanList = booleanList;
+    }
+
+    /**
+     * @param staticValue to be set
+     */
+    public void setStaticValue(String staticValue) {
+        this.staticValue = staticValue;
+    }
+
+    /**
+     * @param stepType to be set
+     */
+    public void setStepType(String stepType) {
+        this.stepType = stepType;
+    }
+
+    /**
+     * @param stepValue to be set
+     */
+    public void setStepValue(String stepValue) {
+        this.stepValue = stepValue;
+    }
+
+    /**
+     * @param staticString to be set
+     */
+    public void setStaticString(String staticString) {
+        this.staticString = staticString;
+    }
+
+    /**
+     * @param minutes to be set
+     */
     public void setMinutes(int minutes) {
         this.minutes = minutes;
     }

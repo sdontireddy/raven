@@ -57,7 +57,6 @@ public class XMLUtil {
 	public static XMLUtil init(String filePath) throws ParserConfigurationException, SAXException, IOException {
 
 		return new XMLUtil(filePath);
-
 	}
 
 	public XMLUtil() throws ParserConfigurationException {
@@ -169,7 +168,6 @@ public class XMLUtil {
 		} catch (JAXBException e) {
 			throw e;
 		}
-
 	}
 
 	public static boolean marshall(Class className, Object obj, String fileName) throws JAXBException {

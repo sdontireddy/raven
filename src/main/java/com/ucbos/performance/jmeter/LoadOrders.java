@@ -18,30 +18,26 @@ import java.util.Date;
 
 import static org.junit.Assert.assertTrue;
 
-
+/**
+ * Class to start the bulk-file generation
+ */
 public class LoadOrders extends AbstractJavaSamplerClient implements Serializable, LoadTestConstants {
 
 	private static final long serialVersionUID = 1L;
-
 	private Logger LOG = Logger.getLogger(LoadOrders.class);
 
 	private static Integer numberOfOrders;
-	
-
 	private static boolean executeSetup = true;
 	private static boolean haveToWait = true;
 	private static int threadCount = 0;
 	private static int finishedThreadCount = 1;
-
 	private static DateFormat df = new SimpleDateFormat("dd:MM:yy:HH:mm:ss");
-
 
 	@Override
 	public void setupTest(JavaSamplerContext context) {
 
 		// Execute Only once per thread
 		if (executeSetup) {
-
 			try {
 
 				executeSetup = false;
@@ -74,11 +70,8 @@ public class LoadOrders extends AbstractJavaSamplerClient implements Serializabl
 						+ df.format(new Date()));
 				LOG.warn("Initializing  LoadThread  " + Thread.currentThread().getName() + " time : "
 						+ df.format(new Date()));
-
 			}
-
 		}
-
 	}
 
 	private void blockAllThreads() {
@@ -89,7 +82,6 @@ public class LoadOrders extends AbstractJavaSamplerClient implements Serializabl
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-
 		}
 	}
 
@@ -143,8 +135,6 @@ public class LoadOrders extends AbstractJavaSamplerClient implements Serializabl
 		return result;
 	}
 
-	
-
 	/**
 	 * Method helps to rotate previous report
 	 */
@@ -166,19 +156,13 @@ public class LoadOrders extends AbstractJavaSamplerClient implements Serializabl
 		}
 	}
 
-
-
-	
-
 	@Override
 	public Arguments getDefaultParameters() {
 
 		Arguments defaultParameters = new Arguments();
 
-
 		defaultParameters.addArgument(NUMBER_OF_ORDERS, "10");
 		defaultParameters.addArgument(NUMBER_OF_LINEITEMS, "2");
-
 
 		return defaultParameters;
 	}
@@ -210,6 +194,5 @@ public class LoadOrders extends AbstractJavaSamplerClient implements Serializabl
 		finishedThreadCount++;
 		System.out.println("Start Closing the connection..." + threadCount);
 	}
-
 	
 }
