@@ -85,6 +85,4 @@ xmlnodes:
     path: /tXML/Message/Student/StudentId
     value:
       valueType: sequenceCounter
-      stringLength: 5
-      staticString: POV1_
       startRange: 1

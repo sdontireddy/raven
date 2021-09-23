@@ -216,6 +216,7 @@ public class XMLDataGenerator {
         int days = nodeValueToGenerate.getDays();
         int minutes = nodeValueToGenerate.getMinutes();
         String stringLength = nodeValueToGenerate.getStringLength();
+        String staticString = nodeValueToGenerate.getStaticString();
         String replaceValue = "";
 
         LOGGER.log(Level.INFO,"Generate value for given value-type");
@@ -299,17 +300,27 @@ public class XMLDataGenerator {
                 }
                 break;
             case LoadTestConstants.SEQUENCE_COUNTER:
-                String stringFormat = "%0" + stringLength + "d";
-                if(!previousId.isEmpty()) {
-                    int counter = Integer.parseInt(previousId.substring(previousId.indexOf("_") + 1,
-                        previousId.length()));
-                    previousId = nodeValueToGenerate.getStaticString() +
-                        String.format(stringFormat, (++counter));
-                    replaceValue = previousId;
+                if (!staticString.isEmpty()) {
+                    String stringFormat = "%0" + stringLength + "d";
+                    if (!previousId.isEmpty()) {
+                        int counter = Integer.parseInt(previousId.substring(previousId.indexOf("_") + 1,
+                            previousId.length()));
+                        previousId = staticString +
+                            String.format(stringFormat, (++counter));
+                        replaceValue = previousId;
+                    } else {
+                        previousId = staticString +
+                            String.format(stringFormat, startRange);
+                        replaceValue = previousId;
+                    }
                 } else {
-                    previousId = nodeValueToGenerate.getStaticString() +
-                        String.format(stringFormat, startRange);
-                    replaceValue = previousId;
+                    if (!previousId.isEmpty()) {
+                        int counter = Integer.valueOf(previousId);
+                        replaceValue = String.valueOf((++counter));
+                    } else {
+                        previousId = String.valueOf(startRange);
+                        replaceValue = previousId;
+                    }
                 }
                 break;
         }
