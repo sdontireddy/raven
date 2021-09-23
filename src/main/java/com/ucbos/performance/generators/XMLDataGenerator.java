@@ -316,7 +316,8 @@ public class XMLDataGenerator {
                 } else {
                     if (!previousId.isEmpty()) {
                         int counter = Integer.valueOf(previousId);
-                        replaceValue = String.valueOf((++counter));
+                        previousId = String.valueOf((++counter));
+                        replaceValue = previousId;
                     } else {
                         previousId = String.valueOf(startRange);
                         replaceValue = previousId;

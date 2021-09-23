@@ -228,13 +228,20 @@ valueType : Various preconfigured ENUMS which generates different values
       stepValue: 1
 ```
 11. **sequenceCounter**
-
+i)
 	Generate sequenceCounter value by concatinating staticString and startRange
 ```
     value:
       valueType: sequenceCounter
       staticString: POV1_
+	  stringLength: 7                # length can be variable.
       startRange: 1                  # No need to mention the endRange because it will iterate for all the files.
 ```
-
+ii)
+    Generate sequenceCounter value by incrementing startRange
+```
+    value:
+      valueType: sequenceCounter
+      startRange: 1                  # No need to mention the endRange because it will iterate for all the files.
+```
 
