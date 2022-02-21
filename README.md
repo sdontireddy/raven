@@ -12,7 +12,7 @@ Inorder to stress test the system we need to generate bulk(50K-100k) of these XM
 
 There are multiple combination of the XML files that needs to be generated to test different flows.
 
-Manually generating these files is no tangible , so a solution where a simple configuration file with list of fields to be modified and a sample template file is all needed to generated however the number of files required.
+Manually generating these files is no tangible , so a solution where a simple configuration file with list of fields to be modified and a sample template file is all needed to generated any number of similar files in quick time.
 
 
 #### Solution
