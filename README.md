@@ -1,9 +1,19 @@
-### Performance Scipts for UCBOS
+### Raven
+
+A simiple JMeter + Java based utility to generate bulk(100k , 50 k etcc..) of XML files in any specified format.
 
 #### Problem Statement 
 
-UCBOS system takes different formats of XML's (Ex:Distribuition Orders , ASN's , PO's , Invoice etc.. ) as an input and performs the business logic.
+Any middleware systems(Ex: Mule ESB , Apache Camel etc..) that process and trasnforms different formats of XML's (Ex:Distribuition Orders , ASN's , PO's , Invoice etc.. ) needs a systematic way of performating load testing.
+
+Ex: There is often a requirement to **Stress test** a Mule appllication with different combinations of Distribution Orders etc..
+
 Inorder to stress test the system we need to generate bulk(50K-100k) of these XML's with different combinations of child nodes and different field values and feed to the system.
+
+There are multiple combination of the XML files that needs to be generated to test different flows.
+
+Manually generating these files is no tangible , so a solution where a simple configuration file with list of fields to be modified and a sample template file is all needed to generated however the number of files required.
+
 
 #### Solution
 
